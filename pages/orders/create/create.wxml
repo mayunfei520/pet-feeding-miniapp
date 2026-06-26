@@ -1,47 +1,115 @@
 <!-- 创建订单 -->
-<view class="container">
-  <view class="page-title">创建订单</view>
+<view class="page">
+  <view class="header-bar">
+    <text class="title">📝 预约喂养</text>
+  </view>
 
-  <view class="form">
-    <view class="form-item">
-      <view class="form-label">选择宠物 <text class="required">*</text></view>
-      <picker mode="selector" value="{{petIndex}}" range="{{petLabels}}" bindchange="onPetChange">
-        <view class="picker-wrap">{{petLabels[petIndex] || '请选择'}}</view>
+  <view class="form-card">
+    <!-- 选择宠物 -->
+    <view class="field">
+      <view class="field-label">
+        <text class="label-icon">🐱</text>
+        <text>选择宠物</text>
+        <text class="required">*</text>
+      </view>
+      <picker wx:if="{{pets.length > 0}}" mode="selector" value="{{petIndex}}" range="{{petLabels}}" bindchange="onPetChange">
+        <view class="picker-box">{{petLabels[petIndex] || '请选择你的宠物'}}</view>
       </picker>
-    </view>
-    <view class="form-item">
-      <view class="form-label">选择喂养员 <text class="required">*</text></view>
-      <picker mode="selector" value="{{feederIndex}}" range="{{feederLabels}}" bindchange="onFeederChange">
-        <view class="picker-wrap">{{feederLabels[feederIndex] || '请选择'}}</view>
-      </picker>
-    </view>
-    <view class="form-item">
-      <view class="form-label">服务日期 <text class="required">*</text></view>
-      <picker mode="date" value="{{form.serviceDate}}" bindchange="onDateChange">
-        <view class="picker-wrap">{{form.serviceDate || '请选择'}}</view>
-      </picker>
-    </view>
-    <view class="form-item">
-      <view class="form-label">时段</view>
-      <view class="period-group">
-        <view class="period {{form.servicePeriod === 'AM' ? 'active' : ''}}" bindtap="onPeriod" data-v="AM">上午</view>
-        <view class="period {{form.servicePeriod === 'PM' ? 'active' : ''}}" bindtap="onPeriod" data-v="PM">下午</view>
-        <view class="period {{form.servicePeriod === 'EVENING' ? 'active' : ''}}" bindtap="onPeriod" data-v="EVENING">晚上</view>
+      <view wx:else class="picker-box empty-pick" bindtap="goAddPet">
+        <text>还没有宠物？去添加一只吧 ›</text>
       </view>
     </view>
-    <view class="form-item">
-      <view class="form-label">地址 <text class="required">*</text></view>
-      <input class="input" placeholder="详细地址" value="{{form.address}}" bindinput="onInput" data-field="address" />
-    </view>
-    <view class="form-item">
-      <view class="form-label">金额</view>
-      <input class="input" type="digit" placeholder="0.00" value="{{form.price}}" bindinput="onInput" data-field="price" />
-    </view>
-    <view class="form-item">
-      <view class="form-label">备注</view>
-      <textarea class="input" placeholder="备注..." value="{{form.notes}}" bindinput="onInput" data-field="notes" style="min-height:120rpx" />
+
+    <!-- 选择喂养员 -->
+    <view class="field">
+      <view class="field-label">
+        <text class="label-icon">👤</text>
+        <text>选择喂养员</text>
+        <text class="required">*</text>
+      </view>
+      <view wx:if="{{feeders.length > 0}}" class="feeder-grid">
+        <view
+          wx:for="{{feeders}}"
+          wx:key="id"
+          class="feeder-opt {{feederIndex === index ? 'active' : ''}}"
+          bindtap="pickFeeder"
+          data-index="{{index}}"
+        >
+          <view class="feeder-opt-avatar">{{item.realName ? item.realName.charAt(0) : '👤'}}</view>
+          <text class="feeder-opt-name">{{item.realName}}</text>
+          <text class="feeder-opt-area">📍 {{item.serviceArea}}</text>
+          <text class="feeder-opt-rating">⭐ {{item.rating || '5.0'}}</text>
+          <view wx:if="{{feederIndex === index}}" class="feeder-check">✓</view>
+        </view>
+      </view>
+      <view wx:else class="empty-inline">暂无喂养员</view>
     </view>
 
-    <button class="btn btn-primary" bindtap="doSubmit">提交订单</button>
+    <!-- 服务日期 -->
+    <view class="field">
+      <view class="field-label">
+        <text class="label-icon">📅</text>
+        <text>服务日期</text>
+        <text class="required">*</text>
+      </view>
+      <picker mode="date" start="{{today}}" value="{{form.serviceDate}}" bindchange="onDateChange">
+        <view class="picker-box">{{form.serviceDate || '选择日期'}}</view>
+      </picker>
+    </view>
+
+    <!-- 时段 -->
+    <view class="field">
+      <view class="field-label">
+        <text class="label-icon">⏰</text>
+        <text>服务时段</text>
+      </view>
+      <view class="period-group">
+        <view class="period {{form.servicePeriod === 'AM' ? 'active' : ''}}" bindtap="onPeriod" data-v="AM">
+          <text class="period-icon">🌅</text>
+          <text>上午</text>
+        </view>
+        <view class="period {{form.servicePeriod === 'PM' ? 'active' : ''}}" bindtap="onPeriod" data-v="PM">
+          <text class="period-icon">☀️</text>
+          <text>下午</text>
+        </view>
+        <view class="period {{form.servicePeriod === 'EVENING' ? 'active' : ''}}" bindtap="onPeriod" data-v="EVENING">
+          <text class="period-icon">🌙</text>
+          <text>晚上</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 地址 -->
+    <view class="field">
+      <view class="field-label">
+        <text class="label-icon">📍</text>
+        <text>服务地址</text>
+        <text class="required">*</text>
+      </view>
+      <input class="field-input" placeholder="详细地址" value="{{form.address}}" bindinput="onInput" data-field="address" />
+    </view>
+
+    <!-- 金额 -->
+    <view class="field">
+      <view class="field-label">
+        <text class="label-icon">💰</text>
+        <text>金额（元）</text>
+      </view>
+      <input class="field-input" type="digit" placeholder="0.00" value="{{form.price}}" bindinput="onInput" data-field="price" />
+    </view>
+
+    <!-- 备注 -->
+    <view class="field">
+      <view class="field-label">
+        <text class="label-icon">📋</text>
+        <text>备注</text>
+      </view>
+      <textarea class="field-textarea" placeholder="特殊需求、注意事项…" value="{{form.notes}}" bindinput="onInput" data-field="notes" maxlength="300" />
+    </view>
+  </view>
+
+  <!-- 提交 -->
+  <view class="save-bar">
+    <button class="save-btn" bindtap="doSubmit">📋 确认预约</button>
   </view>
 </view>
