@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"D:\\\\Workspace\\\\pet-feeding-miniapp\\\\.claude\")",
+      "Bash(mkdir -p \"D:\\\\Workspace\\\\pet-feeding-miniapp\\\\.claude\\\\skills\")",
+      "Bash(export LANG=zh_CN.UTF-8)",
+      "Bash(chcp.com 65001)",
+      "Bash(mvn spring-boot:run -Dfile.encoding=UTF-8)",
+      "Bash(netstat -ano)",
+      "Bash(gh repo *)",
+      "Bash(gh api *)"
+    ]
+  }
+}
