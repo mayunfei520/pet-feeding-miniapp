@@ -1,27 +1,72 @@
 <!-- 我的宠物列表 -->
 <view class="container">
   <view class="header-bar">
-    <text>我的宠物</text>
-    <button class="add-btn" bindtap="goAdd">+ 添加</button>
+    <text class="title">🐾 我的宠物</text>
+    <view class="add-btn" bindtap="goAdd">
+      <text class="add-icon">+</text>
+      <text>添加</text>
+    </view>
   </view>
 
-  <view wx:for="{{pets}}" wx:key="id" class="card pet-card">
-    <view class="pet-info">
-      <view class="pet-name">{{item.name}}</view>
-      <view class="pet-detail">
-        <text wx:if="{{item.breed}}">{{item.breed}} · </text>
-        <text wx:if="{{item.age}}">{{item.age}}岁 · </text>
-        <text wx:if="{{item.weight}}">{{item.weight}}kg</text>
+  <view wx:for="{{pets}}" wx:key="id" class="pet-card">
+    <!-- 宠物头像区 -->
+    <view class="pet-avatar" style="background: {{item.species === '狗' || item.species === 'DOG' || item.species === 'dog' ? 'linear-gradient(135deg, #fbbf24, #f59e0b)' : item.species === '猫' || item.species === 'CAT' || item.species === 'cat' ? 'linear-gradient(135deg, #a78bfa, #7c3aed)' : 'linear-gradient(135deg, #34d399, #059669)'}}">
+      <text class="avatar-emoji">{{item.species === '狗' || item.species === 'DOG' || item.species === 'dog' ? '🐶' : item.species === '猫' || item.species === 'CAT' || item.species === 'cat' ? '🐱' : '🐾'}}</text>
+    </view>
+
+    <!-- 宠物信息 -->
+    <view class="pet-body">
+      <view class="pet-row">
+        <text class="pet-name">{{item.name}}</text>
+        <view class="species-tag" wx:if="{{item.species}}">{{item.species}}</view>
       </view>
-      <view wx:if="{{item.medicalNotes}}" class="pet-memo">{{item.medicalNotes}}</view>
+
+      <view class="pet-meta">
+        <view class="meta-item" wx:if="{{item.breed}}">
+          <text class="meta-icon">🏷️</text>
+          <text>{{item.breed}}</text>
+        </view>
+        <view class="meta-item" wx:if="{{item.age}}">
+          <text class="meta-icon">🎂</text>
+          <text>{{item.age}}岁</text>
+        </view>
+        <view class="meta-item" wx:if="{{item.weight}}">
+          <text class="meta-icon">⚖️</text>
+          <text>{{item.weight}}kg</text>
+        </view>
+      </view>
+
+      <view class="pet-memo" wx:if="{{item.medicalNotes}}">
+        <text class="memo-icon">💊</text>
+        <text>{{item.medicalNotes}}</text>
+      </view>
     </view>
+
+    <!-- 操作按钮 -->
     <view class="pet-actions">
-      <button class="btn-sm" bindtap="goEdit" data-id="{{item.id}}">编辑</button>
-      <button class="btn-sm danger" bindtap="doRemove" data-id="{{item.id}}">删除</button>
+      <view class="action-btn edit" bindtap="goEdit" data-id="{{item.id}}">
+        <text>✏️</text>
+      </view>
+      <view class="action-btn del" bindtap="doRemove" data-id="{{item.id}}">
+        <text>🗑️</text>
+      </view>
     </view>
   </view>
 
-  <view wx:if="{{loading}}" class="empty">加载中...</view>
-  <view wx:elif="{{error}}" class="empty">{{error}}</view>
-  <view wx:elif="{{pets.length === 0}}" class="empty">还没有添加宠物</view>
+  <!-- 空状态 -->
+  <view wx:if="{{loading}}" class="empty">
+    <text class="empty-icon">⏳</text>
+    <text>加载中...</text>
+  </view>
+  <view wx:elif="{{error}}" class="empty">
+    <text class="empty-icon">😿</text>
+    <text>{{error}}</text>
+    <view class="retry-btn" bindtap="onPullDownRefresh">点击重试</view>
+  </view>
+  <view wx:elif="{{pets.length === 0}}" class="empty">
+    <text class="empty-icon">🐾</text>
+    <text class="empty-title">还没有添加宠物</text>
+    <text class="empty-desc">添加您的第一只宠物吧</text>
+    <view class="empty-add-btn" bindtap="goAdd">➕ 添加宠物</view>
+  </view>
 </view>
