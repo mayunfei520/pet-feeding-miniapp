@@ -1,5 +1,24 @@
-# 微信小程序项目
-project.private.config.json
-*.log
+# IDE
+.settings/
+.project
+.classpath
+*.swp
+*.swo
+
+# OS
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+
+# Claude
+.claude/
+
+# Environment (local private config)
+project.private.config.json
+*.local.*
+
+# WeChat Dev Tools
+wechat_devtools/
+*.sublime-*
