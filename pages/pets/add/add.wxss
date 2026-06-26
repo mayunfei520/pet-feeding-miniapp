@@ -93,13 +93,12 @@
   color: #1f2937;
   box-sizing: border-box;
   transition: border-color 0.2s, background 0.2s;
+  line-height: 1.5;
+  height: 80rpx;
 }
 .field-input:focus {
   border-color: #3b82f6;
   background: #fff;
-}
-.field-input::placeholder {
-  color: #cbd5e1;
 }
 
 /* 单位 */
@@ -130,13 +129,11 @@
   color: #1f2937;
   box-sizing: border-box;
   transition: border-color 0.2s, background 0.2s;
+  line-height: 1.6;
 }
 .field-textarea:focus {
   border-color: #3b82f6;
   background: #fff;
-}
-.field-textarea::placeholder {
-  color: #cbd5e1;
 }
 
 .field-hint {
@@ -199,10 +196,12 @@
 .row-fields {
   display: flex;
   gap: 20rpx;
+  align-items: flex-start;
 }
 .row-fields .field.half {
   flex: 1;
   min-width: 0;
+  margin-bottom: 0;
 }
 
 /* ========== 保存按钮 ========== */
