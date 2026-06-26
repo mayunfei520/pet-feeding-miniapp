@@ -10,15 +10,15 @@
 
   <view wx:for="{{pets}}" wx:key="id" class="pet-card">
     <!-- 宠物头像区 -->
-    <view class="pet-avatar" style="background: {{item.species === '狗' || item.species === 'DOG' || item.species === 'dog' ? 'linear-gradient(135deg, #fbbf24, #f59e0b)' : item.species === '猫' || item.species === 'CAT' || item.species === 'cat' ? 'linear-gradient(135deg, #a78bfa, #7c3aed)' : 'linear-gradient(135deg, #34d399, #059669)'}}">
-      <text class="avatar-emoji">{{item.species === '狗' || item.species === 'DOG' || item.species === 'dog' ? '🐶' : item.species === '猫' || item.species === 'CAT' || item.species === 'cat' ? '🐱' : '🐾'}}</text>
+    <view class="pet-avatar" style="background: {{speciesColor[item.species] || 'linear-gradient(135deg, #34d399, #059669)'}}">
+      <text class="avatar-emoji">{{speciesEmoji[item.species] || '🐾'}}</text>
     </view>
 
     <!-- 宠物信息 -->
     <view class="pet-body">
       <view class="pet-row">
         <text class="pet-name">{{item.name}}</text>
-        <view class="species-tag" wx:if="{{item.species}}">{{item.species}}</view>
+        <view class="species-tag" wx:if="{{item.species}}">{{speciesLabel[item.species] || item.species}}</view>
       </view>
 
       <view class="pet-meta">

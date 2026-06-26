@@ -2,8 +2,8 @@
 <view class="page">
   <!-- 宠物预览卡片 -->
   <view class="preview-card">
-    <view class="preview-avatar" id="previewAvatar" style="background: {{form.species === 'DOG' || form.species === '狗' ? 'linear-gradient(135deg, #fbbf24, #f59e0b)' : form.species === 'CAT' || form.species === '猫' ? 'linear-gradient(135deg, #a78bfa, #7c3aed)' : 'linear-gradient(135deg, #34d399, #059669)'}}">
-      <text class="preview-emoji">{{form.species === 'DOG' || form.species === '狗' ? '🐶' : form.species === 'CAT' || form.species === '猫' ? '🐱' : form.species === 'OTHER' || form.species === '其他' ? '🐹' : '🐾'}}</text>
+    <view class="preview-avatar" style="background: {{form.species === 'DOG' ? 'linear-gradient(135deg, #fbbf24, #f59e0b)' : form.species === 'CAT' ? 'linear-gradient(135deg, #a78bfa, #7c3aed)' : 'linear-gradient(135deg, #34d399, #059669)'}}">
+      <text class="preview-emoji">{{form.species === 'DOG' ? '🐶' : form.species === 'CAT' ? '🐱' : form.species === 'OTHER' ? '🐹' : '🐾'}}</text>
     </view>
     <view class="preview-info">
       <text class="preview-name">{{form.name || '宠物名字'}}</text>

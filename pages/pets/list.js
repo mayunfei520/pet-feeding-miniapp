@@ -1,5 +1,10 @@
 Page({
-  data: { pets: [], loading: true, error: '' },
+  data: {
+    pets: [], loading: true, error: '',
+    speciesLabel: { CAT: '猫咪', DOG: '狗狗', OTHER: '其他', '猫': '猫咪', '狗': '狗狗', '其他': '其他' },
+    speciesEmoji: { CAT: '🐱', DOG: '🐶', OTHER: '🐹', '猫': '🐱', '狗': '🐶', '其他': '🐹' },
+    speciesColor: { CAT: 'linear-gradient(135deg, #a78bfa, #7c3aed)', DOG: 'linear-gradient(135deg, #fbbf24, #f59e0b)', OTHER: 'linear-gradient(135deg, #34d399, #059669)', '猫': 'linear-gradient(135deg, #a78bfa, #7c3aed)', '狗': 'linear-gradient(135deg, #fbbf24, #f59e0b)', '其他': 'linear-gradient(135deg, #34d399, #059669)' }
+  },
 
   onShow() {
     this.loadPets()
