@@ -17,7 +17,8 @@
       "Read(///d/Program Files \\(x86\\)//**)",
       "Read(///c/Program Files//**)",
       "Read(///c/Users//**)",
-      "Bash(sort -t: -k2 -n)"
+      "Bash(sort -t: -k2 -n)",
+      "Bash(grep *)"
     ]
   }
 }
