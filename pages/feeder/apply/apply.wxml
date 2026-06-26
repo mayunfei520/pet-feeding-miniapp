@@ -1,0 +1,29 @@
+<!-- 喂养员申请 -->
+<view class="container">
+  <view class="page-title">申请成为喂养员</view>
+
+  <view class="form">
+    <view class="form-item">
+      <view class="form-label">真实姓名 <text class="required">*</text></view>
+      <input class="input" placeholder="真实姓名" value="{{form.realName}}" bindinput="onInput" data-field="realName" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">身份证号 <text class="required">*</text></view>
+      <input class="input" placeholder="身份证号" value="{{form.idCard}}" bindinput="onInput" data-field="idCard" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">服务区域 <text class="required">*</text></view>
+      <input class="input" placeholder="如：朝阳区" value="{{form.serviceArea}}" bindinput="onInput" data-field="serviceArea" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">经验描述</view>
+      <textarea class="input" placeholder="描述你的喂养经验" value="{{form.experience}}" bindinput="onInput" data-field="experience" style="min-height:120rpx" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">自我介绍</view>
+      <textarea class="input" placeholder="让客户了解你" value="{{form.description}}" bindinput="onInput" data-field="description" style="min-height:120rpx" />
+    </view>
+
+    <button class="btn btn-primary" bindtap="doSubmit">提交申请</button>
+  </view>
+</view>

@@ -1,0 +1,47 @@
+<!-- 创建订单 -->
+<view class="container">
+  <view class="page-title">创建订单</view>
+
+  <view class="form">
+    <view class="form-item">
+      <view class="form-label">选择宠物 <text class="required">*</text></view>
+      <picker mode="selector" value="{{petIndex}}" range="{{petLabels}}" bindchange="onPetChange">
+        <view class="picker-wrap">{{petLabels[petIndex] || '请选择'}}</view>
+      </picker>
+    </view>
+    <view class="form-item">
+      <view class="form-label">选择喂养员 <text class="required">*</text></view>
+      <picker mode="selector" value="{{feederIndex}}" range="{{feederLabels}}" bindchange="onFeederChange">
+        <view class="picker-wrap">{{feederLabels[feederIndex] || '请选择'}}</view>
+      </picker>
+    </view>
+    <view class="form-item">
+      <view class="form-label">服务日期 <text class="required">*</text></view>
+      <picker mode="date" value="{{form.serviceDate}}" bindchange="onDateChange">
+        <view class="picker-wrap">{{form.serviceDate || '请选择'}}</view>
+      </picker>
+    </view>
+    <view class="form-item">
+      <view class="form-label">时段</view>
+      <view class="period-group">
+        <view class="period {{form.servicePeriod === 'AM' ? 'active' : ''}}" bindtap="onPeriod" data-v="AM">上午</view>
+        <view class="period {{form.servicePeriod === 'PM' ? 'active' : ''}}" bindtap="onPeriod" data-v="PM">下午</view>
+        <view class="period {{form.servicePeriod === 'EVENING' ? 'active' : ''}}" bindtap="onPeriod" data-v="EVENING">晚上</view>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="form-label">地址 <text class="required">*</text></view>
+      <input class="input" placeholder="详细地址" value="{{form.address}}" bindinput="onInput" data-field="address" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">金额</view>
+      <input class="input" type="digit" placeholder="0.00" value="{{form.price}}" bindinput="onInput" data-field="price" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">备注</view>
+      <textarea class="input" placeholder="备注..." value="{{form.notes}}" bindinput="onInput" data-field="notes" style="min-height:120rpx" />
+    </view>
+
+    <button class="btn btn-primary" bindtap="doSubmit">提交订单</button>
+  </view>
+</view>

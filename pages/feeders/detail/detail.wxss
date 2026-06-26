@@ -1,0 +1,14 @@
+.info-card { padding: 32rpx; }
+.info-name { font-size: 36rpx; font-weight: bold; margin-bottom: 8rpx; }
+.info-area { font-size: 28rpx; color: #6b7280; margin-bottom: 8rpx; }
+.info-rating { font-size: 28rpx; color: #f59e0b; margin-bottom: 16rpx; }
+.info-desc { margin-bottom: 16rpx; }
+.info-label { font-size: 26rpx; color: #9ca3af; margin-bottom: 4rpx; }
+.info-desc text { font-size: 28rpx; line-height: 1.6; }
+
+.section-title { font-size: 32rpx; font-weight: 600; margin: 24rpx 0 12rpx; }
+
+.review-top { display: flex; justify-content: space-between; margin-bottom: 8rpx; }
+.review-stars { color: #f59e0b; font-size: 24rpx; }
+.review-date { color: #9ca3af; font-size: 24rpx; }
+.review-content { font-size: 28rpx; line-height: 1.7; }

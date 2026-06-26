@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm:*)",
+      "Bash(git:*)",
+      "Bash(mkdir:*)",
+      "Bash(ls:*)",
+      "Bash(mvn:*)",
+      "Bash(java:*)",
+      "Bash(curl:*)",
+      "Bash(export LANG=zh_CN.UTF-8)",
+      "Bash(chcp.com 65001)",
+      "Bash(python3 -c *)",
+      "Read(D:/Workspace/pet-feeding-admin/**)",
+      "Glob(D:/Workspace/pet-feeding-admin/**)",
+      "Grep(D:/Workspace/pet-feeding-admin/**)"
+    ],
+    "deny": [
+      "Bash(rm -rf /*)",
+      "Bash(sudo:*)"
+    ]
+  },
+  "hooks": {}
+}

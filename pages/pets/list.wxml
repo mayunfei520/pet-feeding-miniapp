@@ -1,0 +1,27 @@
+<!-- 我的宠物列表 -->
+<view class="container">
+  <view class="header-bar">
+    <text>我的宠物</text>
+    <button class="add-btn" bindtap="goAdd">+ 添加</button>
+  </view>
+
+  <view wx:for="{{pets}}" wx:key="id" class="card pet-card">
+    <view class="pet-info">
+      <view class="pet-name">{{item.name}}</view>
+      <view class="pet-detail">
+        <text wx:if="{{item.breed}}">{{item.breed}} · </text>
+        <text wx:if="{{item.age}}">{{item.age}}岁 · </text>
+        <text wx:if="{{item.weight}}">{{item.weight}}kg</text>
+      </view>
+      <view wx:if="{{item.medicalNotes}}" class="pet-memo">{{item.medicalNotes}}</view>
+    </view>
+    <view class="pet-actions">
+      <button class="btn-sm" bindtap="goEdit" data-id="{{item.id}}">编辑</button>
+      <button class="btn-sm danger" bindtap="doRemove" data-id="{{item.id}}">删除</button>
+    </view>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+  <view wx:elif="{{error}}" class="empty">{{error}}</view>
+  <view wx:elif="{{pets.length === 0}}" class="empty">还没有添加宠物</view>
+</view>

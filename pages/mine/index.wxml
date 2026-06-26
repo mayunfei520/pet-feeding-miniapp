@@ -1,0 +1,35 @@
+<!-- 我的（TabBar 页面） -->
+<view class="container">
+  <view class="user-card card">
+    <view class="avatar">👤</view>
+    <view class="user-info">
+      <view class="nickname">{{userInfo.nickname || '微信用户'}}</view>
+      <view class="role">{{userInfo.role === 'FEEDER' ? '喂养员' : '宠物主人'}}</view>
+    </view>
+  </view>
+
+  <view class="menu-list">
+    <view class="menu-item" bindtap="goTo" data-path="/pages/pets/list">
+      <text>🐱 我的宠物</text>
+      <text class="arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goTo" data-path="/pages/orders/list">
+      <text>📋 我的订单</text>
+      <text class="arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goTo" data-path="/pages/feeder/apply/apply" wx:if="{{userInfo.role === 'FEEDER'}}">
+      <text>✏️ 喂养员认证</text>
+      <text class="arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="switchRole">
+      <text>🔄 切换角色</text>
+      <text class="arrow">›</text>
+    </view>
+    <view class="menu-item" wx:if="{{userInfo.role === 'FEEDER'}}" bindtap="goTo" data-path="/pages/orders/list">
+      <text>📦 接单列表</text>
+      <text class="arrow">›</text>
+    </view>
+  </view>
+
+  <button class="btn btn-default" bindtap="doLogout" style="margin-top:40rpx">退出登录</button>
+</view>

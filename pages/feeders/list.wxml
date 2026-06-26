@@ -1,0 +1,20 @@
+<!-- 喂养员列表 -->
+<view class="container">
+  <view class="page-title">喂养员列表</view>
+
+  <view wx:for="{{feeders}}" wx:key="id" class="card feeder-card" bindtap="goDetail" data-id="{{item.id}}">
+    <view class="fc-left">
+      <view class="fc-name">{{item.realName}}</view>
+      <view class="fc-area">📍 {{item.serviceArea}}</view>
+      <view class="fc-desc" wx:if="{{item.description}}">{{item.description}}</view>
+    </view>
+    <view class="fc-right">
+      <view class="fc-rating">⭐ {{item.rating || '5.0'}}</view>
+      <view class="fc-arrow">›</view>
+    </view>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+  <view wx:elif="{{error}}" class="empty">{{error}}</view>
+  <view wx:elif="{{feeders.length === 0}}" class="empty">暂无喂养员</view>
+</view>

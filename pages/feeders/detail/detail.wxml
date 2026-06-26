@@ -1,0 +1,27 @@
+<!-- 喂养员详情 -->
+<view class="container">
+  <view class="card info-card">
+    <view class="info-name">{{feeder.realName}}</view>
+    <view class="info-area">📍 {{feeder.serviceArea}}</view>
+    <view class="info-rating">⭐ {{feeder.rating || '5.0'}}</view>
+    <view class="info-desc" wx:if="{{feeder.experience}}">
+      <view class="info-label">经验</view>
+      <text>{{feeder.experience}}</text>
+    </view>
+    <view class="info-desc" wx:if="{{feeder.description}}">
+      <view class="info-label">简介</view>
+      <text>{{feeder.description}}</text>
+    </view>
+  </view>
+
+  <view class="section-title">评价 ({{reviews.length}})</view>
+  <view wx:for="{{reviews}}" wx:key="id" class="card review-card">
+    <view class="review-top">
+      <view class="review-stars">{{starStr(item.rating)}}</view>
+      <text class="review-date">{{item.createdAt ? item.createdAt.slice(0, 10) : ''}}</text>
+    </view>
+    <view class="review-content">{{item.content}}</view>
+  </view>
+
+  <view wx:if="{{reviews.length === 0}}" class="empty">暂无评价</view>
+</view>

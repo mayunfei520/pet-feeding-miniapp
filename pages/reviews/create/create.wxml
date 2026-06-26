@@ -1,0 +1,20 @@
+<!-- 写评价 -->
+<view class="container">
+  <view class="page-title">写评价</view>
+  <view class="sub">订单编号：{{orderId}}</view>
+
+  <view class="form">
+    <view class="form-item">
+      <view class="form-label">评分</view>
+      <view class="stars">
+        <text wx:for="{{5}}" wx:key="*this" class="star {{index < rating ? 'on' : ''}}" bindtap="setRating" data-v="{{index + 1}}">{{index < rating ? '★' : '☆'}}</text>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="form-label">评价内容</view>
+      <textarea class="input" placeholder="分享您的体验..." value="{{content}}" bindinput="onContent" style="min-height:160rpx" />
+    </view>
+
+    <button class="btn btn-primary" bindtap="doSubmit">提交</button>
+  </view>
+</view>

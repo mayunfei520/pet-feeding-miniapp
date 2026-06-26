@@ -1,0 +1,7 @@
+.picker-wrap {
+  padding: 20rpx 24rpx; background: #fff; border: 1px solid #d1d5db; border-radius: 10rpx;
+  font-size: 28rpx; color: #6b7280;
+}
+.mask { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 100; }
+.picker-popup { position: absolute; bottom: 0; left: 0; right: 0; background: #fff; border-radius: 24rpx 24rpx 0 0; padding: 20rpx; }
+.picker-item { padding: 28rpx; text-align: center; font-size: 32rpx; border-bottom: 1px solid #f3f4f6; }

@@ -1,0 +1,5 @@
+# 微信小程序项目
+project.private.config.json
+*.log
+.DS_Store
+Thumbs.db

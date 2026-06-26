@@ -1,0 +1,8 @@
+.page-title { font-size: 34rpx; font-weight: 600; margin-bottom: 20rpx; }
+.feeder-card { display: flex; justify-content: space-between; align-items: center; }
+.fc-name { font-size: 30rpx; font-weight: 600; margin-bottom: 6rpx; }
+.fc-area { font-size: 26rpx; color: #6b7280; }
+.fc-desc { font-size: 24rpx; color: #9ca3af; margin-top: 6rpx; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 400rpx; }
+.fc-right { text-align: right; }
+.fc-rating { font-size: 28rpx; color: #f59e0b; }
+.fc-arrow { font-size: 40rpx; color: #d1d5db; margin-top: 4rpx; }

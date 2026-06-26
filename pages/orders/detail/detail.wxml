@@ -1,0 +1,19 @@
+<!-- 订单详情 -->
+<view class="container">
+  <view class="card">
+    <view class="detail-row"><text class="dl">订单编号</text><text>{{order.orderNo}}</text></view>
+    <view class="detail-row"><text class="dl">服务日期</text><text>{{order.serviceDate}}</text></view>
+    <view class="detail-row"><text class="dl">时段</text><text>{{periodMap[order.servicePeriod]}}</text></view>
+    <view class="detail-row"><text class="dl">地址</text><text>{{order.address}}</text></view>
+    <view class="detail-row"><text class="dl">金额</text><text>¥{{order.price}}</text></view>
+    <view class="detail-row"><text class="dl">状态</text><text>{{statusMap[order.status]}}</text></view>
+    <view class="detail-row" wx:if="{{order.notes}}"><text class="dl">备注</text><text>{{order.notes}}</text></view>
+  </view>
+
+  <view class="actions" wx:if="{{order.status === 'PENDING'}}">
+    <button class="btn btn-danger" bindtap="doCancel">取消订单</button>
+  </view>
+  <view class="actions" wx:if="{{order.status === 'COMPLETED' && role === 'OWNER'}}">
+    <button class="btn btn-primary" bindtap="goReview">去评价</button>
+  </view>
+</view>

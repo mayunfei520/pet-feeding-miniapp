@@ -1,0 +1,13 @@
+.tabs { display: flex; margin-bottom: 20rpx; background: #fff; border-radius: 12rpx; overflow: hidden; }
+.tab { flex: 1; text-align: center; padding: 24rpx 0; font-size: 28rpx; color: #6b7280; }
+.tab.active { color: #3b82f6; font-weight: 600; border-bottom: 4rpx solid #3b82f6; }
+
+.order-card { padding: 24rpx; }
+.oc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12rpx; }
+.oc-no { font-size: 24rpx; color: #9ca3af; }
+.oc-info { font-size: 26rpx; color: #6b7280; line-height: 1.8; }
+.oc-info text { display: block; }
+.oc-actions { margin-top: 16rpx; text-align: right; }
+.btn-sm { padding: 12rpx 24rpx; border-radius: 8rpx; font-size: 24rpx; border: 1px solid #d1d5db; background: #fff; }
+.btn-sm.danger { color: #ef4444; border-color: #fca5a5; }
+.btn-sm.primary { color: #3b82f6; border-color: #93c5fd; }

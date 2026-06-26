@@ -1,0 +1,44 @@
+<!-- 首页 -->
+<view class="container">
+  <!-- Banner -->
+  <swiper class="banner" autoplay indicator-dots circular>
+    <swiper-item wx:for="{{banners}}" wx:key="id">
+      <view class="banner-item" style="background:{{item.bg}}">
+        <text class="banner-text">{{item.text}}</text>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 快捷入口 -->
+  <view class="quick-nav">
+    <view class="nav-item" bindtap="goTo" data-path="/pages/pets/list">
+      <view class="nav-icon">🐱</view>
+      <text class="nav-text">我的宠物</text>
+    </view>
+    <view class="nav-item" bindtap="goTo" data-path="/pages/feeders/list">
+      <view class="nav-icon">👤</view>
+      <text class="nav-text">找喂养员</text>
+    </view>
+    <view class="nav-item" bindtap="goTo" data-path="/pages/orders/create/create">
+      <view class="nav-icon">📝</view>
+      <text class="nav-text">预约喂养</text>
+    </view>
+    <view class="nav-item" bindtap="goTo" data-path="/pages/orders/list">
+      <view class="nav-icon">📋</view>
+      <text class="nav-text">我的订单</text>
+    </view>
+  </view>
+
+  <!-- 推荐喂养员 -->
+  <view class="section">
+    <view class="section-title">🌟 推荐喂养员</view>
+    <scroll-view scroll-x class="feeder-scroll">
+      <view class="feeder-card" wx:for="{{feeders}}" wx:key="id" bindtap="goFeeder" data-id="{{item.id}}">
+        <view class="feeder-name">{{item.realName}}</view>
+        <view class="feeder-area">{{item.serviceArea}}</view>
+        <view class="feeder-rating">⭐ {{item.rating || '5.0'}}</view>
+      </view>
+      <view wx:if="{{feeders.length === 0}}" class="empty">暂无喂养员</view>
+    </scroll-view>
+  </view>
+</view>

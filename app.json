@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/orders/list",
+    "pages/mine/index",
+    "pages/pets/list",
+    "pages/pets/add/add",
+    "pages/feeders/list",
+    "pages/feeders/detail/detail",
+    "pages/orders/create/create",
+    "pages/orders/detail/detail",
+    "pages/reviews/create/create",
+    "pages/feeder/apply/apply"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#1f2937",
+    "navigationBarTitleText": "宠物喂养平台",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f3f4f6"
+  },
+  "tabBar": {
+    "color": "#9ca3af",
+    "selectedColor": "#3b82f6",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "🏠 首页"
+      },
+      {
+        "pagePath": "pages/orders/list",
+        "text": "📋 订单"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "👤 我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

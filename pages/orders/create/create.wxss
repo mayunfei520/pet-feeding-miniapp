@@ -1,0 +1,4 @@
+.page-title { font-size: 34rpx; font-weight: 600; margin-bottom: 24rpx; }
+.period-group { display: flex; gap: 16rpx; }
+.period { flex: 1; text-align: center; padding: 18rpx 0; border-radius: 10rpx; font-size: 28rpx; border: 1px solid #d1d5db; background: #fff; }
+.period.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }

@@ -1,0 +1,42 @@
+<!-- 添加/编辑宠物 -->
+<view class="container">
+  <view class="form">
+    <view class="form-item">
+      <view class="form-label">名字 <text class="required">*</text></view>
+      <input class="input" placeholder="宠物名字" value="{{form.name}}" bindinput="onInput" data-field="name" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">种类 <text class="required">*</text></view>
+      <view class="picker-wrap" bindtap="showSpecies">
+        <text>{{speciesMap[form.species] || '请选择'}}</text>
+      </view>
+    </view>
+    <view class="form-item" wx:if="{{form.species}}">
+      <view class="form-label">品种</view>
+      <input class="input" placeholder="如：英短、金毛" value="{{form.breed}}" bindinput="onInput" data-field="breed" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">年龄（岁）</view>
+      <input class="input" type="digit" placeholder="0" value="{{form.age}}" bindinput="onInput" data-field="age" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">体重（kg）</view>
+      <input class="input" type="digit" placeholder="0.0" value="{{form.weight}}" bindinput="onInput" data-field="weight" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">医疗备注</view>
+      <textarea class="input" placeholder="过敏史、慢性病等" value="{{form.medicalNotes}}" bindinput="onInput" data-field="medicalNotes" style="min-height:120rpx" />
+    </view>
+
+    <button class="btn btn-primary" bindtap="doSave">保存</button>
+  </view>
+
+  <!-- 种类选择器 -->
+  <view class="mask" wx:if="{{showPicker}}" bindtap="hidePicker">
+    <view class="picker-popup">
+      <view class="picker-item" wx:for="{{speciesOptions}}" wx:key="value" bindtap="selectSpecies" data-value="{{item.value}}">
+        {{item.label}}
+      </view>
+    </view>
+  </view>
+</view>

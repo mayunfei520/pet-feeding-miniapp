@@ -1,0 +1,4 @@
+.detail-row { display: flex; padding: 16rpx 0; border-bottom: 1px solid #f3f4f6; font-size: 28rpx; }
+.dl { color: #9ca3af; width: 160rpx; flex-shrink: 0; }
+.actions { margin-top: 40rpx; }
+.actions .btn { margin-bottom: 16rpx; }
