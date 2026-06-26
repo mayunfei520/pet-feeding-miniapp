@@ -8,7 +8,15 @@
       "Bash(mvn spring-boot:run -Dfile.encoding=UTF-8)",
       "Bash(netstat -ano)",
       "Bash(gh repo *)",
-      "Bash(gh api *)"
+      "Bash(gh api *)",
+      "Bash(where wechatdevtools *)",
+      "Bash(where cli.bat)",
+      "Read(//d/Program Files \\(x86\\)/Tencent/**)",
+      "Read(//c/Program Files \\(x86\\)/Tencent/**)",
+      "Read(///c/Program Files \\(x86\\)//**)",
+      "Read(///d/Program Files \\(x86\\)//**)",
+      "Read(///c/Program Files//**)",
+      "Read(///c/Users//**)"
     ]
   }
 }
