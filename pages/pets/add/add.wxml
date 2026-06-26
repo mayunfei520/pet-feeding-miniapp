@@ -1,42 +1,133 @@
 <!-- 添加/编辑宠物 -->
-<view class="container">
-  <view class="form">
-    <view class="form-item">
-      <view class="form-label">名字 <text class="required">*</text></view>
-      <input class="input" placeholder="宠物名字" value="{{form.name}}" bindinput="onInput" data-field="name" />
+<view class="page">
+  <!-- 宠物预览卡片 -->
+  <view class="preview-card">
+    <view class="preview-avatar" id="previewAvatar" style="background: {{form.species === 'DOG' || form.species === '狗' ? 'linear-gradient(135deg, #fbbf24, #f59e0b)' : form.species === 'CAT' || form.species === '猫' ? 'linear-gradient(135deg, #a78bfa, #7c3aed)' : 'linear-gradient(135deg, #34d399, #059669)'}}">
+      <text class="preview-emoji">{{form.species === 'DOG' || form.species === '狗' ? '🐶' : form.species === 'CAT' || form.species === '猫' ? '🐱' : form.species === 'OTHER' || form.species === '其他' ? '🐹' : '🐾'}}</text>
     </view>
-    <view class="form-item">
-      <view class="form-label">种类 <text class="required">*</text></view>
-      <view class="picker-wrap" bindtap="showSpecies">
-        <text>{{speciesMap[form.species] || '请选择'}}</text>
-      </view>
+    <view class="preview-info">
+      <text class="preview-name">{{form.name || '宠物名字'}}</text>
+      <text class="preview-meta">{{form.breed || '品种'}} · {{form.age || '?'}}岁 · {{form.weight || '?'}}kg</text>
     </view>
-    <view class="form-item" wx:if="{{form.species}}">
-      <view class="form-label">品种</view>
-      <input class="input" placeholder="如：英短、金毛" value="{{form.breed}}" bindinput="onInput" data-field="breed" />
-    </view>
-    <view class="form-item">
-      <view class="form-label">年龄（岁）</view>
-      <input class="input" type="digit" placeholder="0" value="{{form.age}}" bindinput="onInput" data-field="age" />
-    </view>
-    <view class="form-item">
-      <view class="form-label">体重（kg）</view>
-      <input class="input" type="digit" placeholder="0.0" value="{{form.weight}}" bindinput="onInput" data-field="weight" />
-    </view>
-    <view class="form-item">
-      <view class="form-label">医疗备注</view>
-      <textarea class="input" placeholder="过敏史、慢性病等" value="{{form.medicalNotes}}" bindinput="onInput" data-field="medicalNotes" style="min-height:120rpx" />
-    </view>
-
-    <button class="btn btn-primary" bindtap="doSave">保存</button>
   </view>
 
-  <!-- 种类选择器 -->
-  <view class="mask" wx:if="{{showPicker}}" bindtap="hidePicker">
-    <view class="picker-popup">
-      <view class="picker-item" wx:for="{{speciesOptions}}" wx:key="value" bindtap="selectSpecies" data-value="{{item.value}}">
-        {{item.label}}
+  <!-- 表单 -->
+  <view class="form-card">
+    <!-- 名字 -->
+    <view class="field">
+      <view class="field-label">
+        <text class="label-icon">📝</text>
+        <text>名字</text>
+        <text class="required">*</text>
+      </view>
+      <input
+        class="field-input"
+        placeholder="给宠物取个名字吧"
+        value="{{form.name}}"
+        bindinput="onInput"
+        data-field="name"
+        maxlength="20"
+      />
+    </view>
+
+    <!-- 种类 -->
+    <view class="field">
+      <view class="field-label">
+        <text class="label-icon">🏷️</text>
+        <text>种类</text>
+        <text class="required">*</text>
+      </view>
+      <view class="species-grid">
+        <view
+          wx:for="{{speciesOptions}}"
+          wx:key="value"
+          class="species-card {{form.species === item.value ? 'active' : ''}}"
+          bindtap="selectSpecies"
+          data-value="{{item.value}}"
+        >
+          <text class="species-emoji">{{item.emoji}}</text>
+          <text class="species-label">{{item.label}}</text>
+          <view wx:if="{{form.species === item.value}}" class="species-check">✓</view>
+        </view>
       </view>
     </view>
+
+    <!-- 品种 -->
+    <view class="field">
+      <view class="field-label">
+        <text class="label-icon">🧬</text>
+        <text>品种</text>
+      </view>
+      <input
+        class="field-input"
+        placeholder="如：英短、金毛、布偶…"
+        value="{{form.breed}}"
+        bindinput="onInput"
+        data-field="breed"
+      />
+    </view>
+
+    <!-- 年龄 + 体重 并排 -->
+    <view class="row-fields">
+      <view class="field half">
+        <view class="field-label">
+          <text class="label-icon">🎂</text>
+          <text>年龄</text>
+        </view>
+        <view class="input-with-unit">
+          <input
+            class="field-input"
+            type="digit"
+            placeholder="0"
+            value="{{form.age}}"
+            bindinput="onInput"
+            data-field="age"
+          />
+          <text class="unit">岁</text>
+        </view>
+      </view>
+      <view class="field half">
+        <view class="field-label">
+          <text class="label-icon">⚖️</text>
+          <text>体重</text>
+        </view>
+        <view class="input-with-unit">
+          <input
+            class="field-input"
+            type="digit"
+            placeholder="0.0"
+            value="{{form.weight}}"
+            bindinput="onInput"
+            data-field="weight"
+          />
+          <text class="unit">kg</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 医疗备注 -->
+    <view class="field">
+      <view class="field-label">
+        <text class="label-icon">💊</text>
+        <text>医疗备注</text>
+      </view>
+      <textarea
+        class="field-textarea"
+        placeholder="过敏史、慢性病、饮食禁忌…"
+        value="{{form.medicalNotes}}"
+        bindinput="onInput"
+        data-field="medicalNotes"
+        maxlength="200"
+      />
+      <text class="field-hint">选填，帮助喂养员更好地照顾宠物</text>
+    </view>
+  </view>
+
+  <!-- 保存 -->
+  <view class="save-bar">
+    <button class="save-btn" bindtap="doSave">
+      <text wx:if="{{editId}}">✏️ 更新宠物信息</text>
+      <text wx:else>✨ 添加宠物</text>
+    </button>
   </view>
 </view>

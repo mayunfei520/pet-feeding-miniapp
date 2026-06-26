@@ -4,13 +4,11 @@ Page({
   data: {
     editId: null,
     form: { name: '', species: 'CAT', breed: '', age: '', weight: '', medicalNotes: '' },
-    speciesMap: { CAT: '猫', DOG: '狗', OTHER: '其他' },
     speciesOptions: [
-      { value: 'CAT', label: '🐱 猫' },
-      { value: 'DOG', label: '🐶 狗' },
-      { value: 'OTHER', label: '🐹 其他' }
-    ],
-    showPicker: false
+      { value: 'CAT', label: '猫咪', emoji: '🐱' },
+      { value: 'DOG', label: '狗狗', emoji: '🐶' },
+      { value: 'OTHER', label: '其他', emoji: '🐹' }
+    ]
   },
 
   onLoad(options) {
@@ -45,20 +43,17 @@ Page({
     this.setData({ ['form.' + field]: e.detail.value })
   },
 
-  showSpecies() { this.setData({ showPicker: true }) },
-  hidePicker() { this.setData({ showPicker: false }) },
-
   selectSpecies(e) {
-    this.setData({ 'form.species': e.currentTarget.dataset.value, showPicker: false })
+    this.setData({ 'form.species': e.currentTarget.dataset.value })
   },
 
   doSave() {
-    if (!this.data.form.name) {
-      wx.showToast({ title: '请输入名字', icon: 'none' })
+    if (!this.data.form.name || !this.data.form.name.trim()) {
+      wx.showToast({ title: '请输入宠物名字', icon: 'none' })
       return
     }
     const data = { ...this.data.form }
-    // 用 isNaN 判断避免 0 值被误判为 null
+    data.name = data.name.trim()
     const ageVal = parseInt(data.age)
     data.age = isNaN(ageVal) ? null : ageVal
     const weightVal = parseFloat(data.weight)
@@ -69,8 +64,10 @@ Page({
       : petApi.add(data)
 
     promise.then(() => {
-      wx.showToast({ title: '保存成功' })
-      setTimeout(() => wx.navigateBack(), 1500)
-    }).catch(() => {})
+      wx.showToast({ title: '保存成功', icon: 'success' })
+      setTimeout(() => wx.navigateBack(), 1200)
+    }).catch(() => {
+      wx.showToast({ title: '保存失败，请重试', icon: 'none' })
+    })
   }
 })
