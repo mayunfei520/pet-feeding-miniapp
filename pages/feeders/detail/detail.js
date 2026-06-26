@@ -8,7 +8,6 @@ Page({
       feederApi.reviews(id).then(res => {
         this.setData({ reviews: res.data || [] })
       }).catch(() => {})
-      // 获取喂养员列表中的详情
       feederApi.list().then(res => {
         const found = (res.data || []).find(f => f.id == id)
         if (found) this.setData({ feeder: found })
@@ -19,5 +18,9 @@ Page({
   starStr(n) {
     const stars = ['','★','★★','★★★','★★★★','★★★★★']
     return stars[n] || '★★★★★'
+  },
+
+  goOrder() {
+    wx.navigateTo({ url: '/pages/orders/create/create' })
   }
 })
