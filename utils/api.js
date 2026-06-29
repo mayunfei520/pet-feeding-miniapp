@@ -2,7 +2,9 @@ const http = require('./request')
 
 // 认证
 const authApi = {
-  login: (data) => http.post('/api/miniapp/auth/login', data)
+  login: (data) => http.post('/api/miniapp/auth/login', data),
+  register: (data) => http.post('/api/miniapp/auth/register', data),
+  passwordLogin: (data) => http.post('/api/miniapp/auth/password-login', data)
 }
 
 // 宠物
@@ -26,6 +28,7 @@ const orderApi = {
   pending: () => http.get('/api/miniapp/orders/pending'),
   create: (data) => http.post('/api/miniapp/orders', data),
   accept: (id) => http.put('/api/miniapp/orders/' + id + '/accept'),
+  start: (id) => http.put('/api/miniapp/orders/' + id + '/start'),
   complete: (id) => http.put('/api/miniapp/orders/' + id + '/complete'),
   cancel: (id) => http.put('/api/miniapp/orders/' + id + '/cancel')
 }

@@ -5,6 +5,23 @@
   background: #f3f4f6;
 }
 
+.theme-owner {
+  background:
+    radial-gradient(circle at top left, rgba(255, 214, 153, 0.45), transparent 30%),
+    linear-gradient(180deg, #fff8ef 0%, #f7f8fb 100%);
+}
+
+.theme-feeder {
+  background:
+    radial-gradient(circle at top right, rgba(125, 211, 252, 0.35), transparent 28%),
+    linear-gradient(180deg, #eef7ff 0%, #f4f7fb 100%);
+}
+
+.theme-admin {
+  background:
+    linear-gradient(180deg, #eff1f5 0%, #f8fafc 100%);
+}
+
 /* ========== Banner ========== */
 .banner {
   height: 300rpx;
@@ -45,6 +62,43 @@
   padding: 28rpx 16rpx;
   margin-bottom: 28rpx;
   box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+}
+
+.hero-card {
+  border-radius: 28rpx;
+  padding: 28rpx 24rpx 32rpx;
+  margin-bottom: 28rpx;
+  box-shadow: 0 18rpx 40rpx rgba(15, 23, 42, 0.08);
+}
+
+.hero-owner {
+  background: linear-gradient(135deg, #fff3e2 0%, #ffe1bf 100%);
+}
+
+.hero-feeder {
+  background: linear-gradient(135deg, #e0f2fe 0%, #c7e7ff 100%);
+}
+
+.hero-admin {
+  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 8rpx 18rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #334155;
+  background: rgba(255,255,255,0.6);
+  margin-bottom: 18rpx;
+}
+
+.hero-desc {
+  margin-bottom: 22rpx;
+  font-size: 26rpx;
+  line-height: 1.6;
+  color: #475569;
 }
 .stat-item {
   flex: 1;
@@ -95,6 +149,9 @@
   flex-direction: column;
   align-items: center;
   gap: 10rpx;
+  padding: 18rpx 8rpx;
+  border-radius: 20rpx;
+  background: rgba(255,255,255,0.55);
 }
 .quick-icon {
   width: 96rpx;
@@ -107,8 +164,9 @@
 }
 .quick-text {
   font-size: 24rpx;
-  color: #6b7280;
-  font-weight: 500;
+  color: #374151;
+  font-weight: 600;
+  text-align: center;
 }
 
 /* ========== 推荐喂养员 ========== */
@@ -176,6 +234,14 @@
   padding: 40rpx 0;
   color: #9ca3af;
   font-size: 26rpx;
+}
+
+.theme-admin .section-more {
+  color: #475569;
+}
+
+.theme-admin .feeder-avatar {
+  background: linear-gradient(135deg, #64748b, #334155);
 }
 
 /* ========== 空状态 ========== */

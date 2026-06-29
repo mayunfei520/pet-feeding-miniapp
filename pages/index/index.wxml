@@ -1,6 +1,5 @@
-<!-- 首页 -->
-<view class="page">
-  <!-- Banner 轮播 -->
+﻿<!-- 首页 -->
+<view class="page {{roleTheme}}">
   <swiper class="banner" autoplay interval="3000" indicator-dots circular>
     <swiper-item wx:for="{{banners}}" wx:key="id">
       <view class="banner-item" style="background:{{item.bg}}">
@@ -13,8 +12,7 @@
     </swiper-item>
   </swiper>
 
-  <!-- 数据统计条 -->
-  <view class="stats-bar" wx:if="{{stats.totalOrders > 0}}">
+  <view class="stats-bar" wx:if="{{showStats && stats.totalOrders > 0}}">
     <view class="stat-item">
       <text class="stat-num">{{stats.totalOrders}}</text>
       <text class="stat-label">总订单</text>
@@ -29,31 +27,19 @@
     </view>
   </view>
 
-  <!-- 快捷入口 -->
-  <view class="section">
-    <view class="section-title">快捷服务</view>
+  <view class="{{heroCardClass}}">
+    <view class="hero-badge">{{roleBadgeText}}</view>
+    <view class="section-title">{{roleHomeTitle}}</view>
+    <view class="hero-desc">{{roleHomeDesc}}</view>
     <view class="quick-grid">
-      <view class="quick-item" bindtap="goTo" data-path="/pages/pets/list">
-        <view class="quick-icon" style="background:#eff6ff">🐱</view>
-        <text class="quick-text">我的宠物</text>
-      </view>
-      <view class="quick-item" bindtap="goTo" data-path="/pages/feeders/list">
-        <view class="quick-icon" style="background:#fef3c7">👤</view>
-        <text class="quick-text">找喂养员</text>
-      </view>
-      <view class="quick-item" bindtap="goTo" data-path="/pages/orders/create/create">
-        <view class="quick-icon" style="background:#d1fae5">📝</view>
-        <text class="quick-text">预约喂养</text>
-      </view>
-      <view class="quick-item" bindtap="goTo" data-path="/pages/orders/list">
-        <view class="quick-icon" style="background:#fce7f3">📋</view>
-        <text class="quick-text">我的订单</text>
+      <view class="quick-item" wx:for="{{quickActions}}" wx:key="id" bindtap="goTo" data-path="{{item.path}}">
+        <view class="quick-icon" style="background:{{item.bg}}">{{item.icon}}</view>
+        <text class="quick-text">{{item.text}}</text>
       </view>
     </view>
   </view>
 
-  <!-- 推荐喂养员 -->
-  <view class="section">
+  <view class="section" wx:if="{{role !== 'ADMIN'}}">
     <view class="section-title-row">
       <text class="section-title">🌟 推荐喂养员</text>
       <text class="section-more" bindtap="goTo" data-path="/pages/feeders/list">查看全部 ›</text>
@@ -61,7 +47,7 @@
 
     <scroll-view wx:if="{{feeders.length > 0}}" scroll-x class="feeder-scroll" enhanced show-scrollbar="{{false}}">
       <view class="feeder-card" wx:for="{{feeders}}" wx:key="id" bindtap="goFeeder" data-id="{{item.id}}">
-        <view class="feeder-avatar">{{item.realName ? item.realName.charAt(0) : '👤'}}</view>
+        <view class="feeder-avatar">{{item.avatarText}}</view>
         <view class="feeder-info">
           <view class="feeder-name">{{item.realName}}</view>
           <view class="feeder-area">📍 {{item.serviceArea}}</view>
@@ -73,7 +59,6 @@
     <view wx:elif="{{!loading}}" class="empty-inline">暂无喂养员，快去申请吧</view>
   </view>
 
-  <!-- 加载/错误 -->
   <view wx:if="{{loading}}" class="empty">
     <text class="empty-icon">⏳</text>
     <text>加载中...</text>

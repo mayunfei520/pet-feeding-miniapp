@@ -6,14 +6,94 @@ Page({
     loading: true,
     error: '',
     role: 'OWNER',
+    pageTheme: 'orders-owner',
+    headerCardClass: 'header-card header-owner',
+    roleBadgeText: '宠物主人订单',
+    pageTitle: '我的订单',
+    pageDesc: '查看预约进度，跟进宠物喂养服务',
     periodMap: { AM: '上午', PM: '下午', EVENING: '晚上' },
-    statusMap: { PENDING: '待接单', ACCEPTED: '进行中', COMPLETED: '已完成', CANCELLED: '已取消' }
+    statusMap: { PENDING: '待接单', ACCEPTED: '已接单', IN_PROGRESS: '进行中', COMPLETED: '已完成', CANCELLED: '已取消' },
+    tabAllClass: 'tab active',
+    tabPendingClass: 'tab',
+    tabDoneClass: 'tab'
   },
 
   onShow() {
     const user = wx.getStorageSync('userInfo') || {}
-    this.setData({ role: user.role || 'OWNER' })
+    const role = user.role || 'OWNER'
+    this.setData({ role })
+    this.syncRoleTheme(role)
+    if (role === 'ADMIN') {
+      this.setData({
+        orders: [],
+        filteredOrders: [],
+        loading: false,
+        error: '管理员请在后台系统查看全部订单'
+      })
+      this.syncTabClass()
+      return
+    }
     this.loadOrders()
+  },
+
+  syncRoleTheme(role) {
+    if (role === 'FEEDER') {
+      this.setData({
+        pageTheme: 'orders-feeder',
+        headerCardClass: 'header-card header-feeder',
+        roleBadgeText: '喂养员工作台',
+        pageTitle: '接单列表',
+        pageDesc: '处理待接单与进行中的服务订单'
+      })
+      return
+    }
+
+    if (role === 'ADMIN') {
+      this.setData({
+        pageTheme: 'orders-admin',
+        headerCardClass: 'header-card header-admin',
+        roleBadgeText: '管理员入口',
+        pageTitle: '订单管理说明',
+        pageDesc: '管理员请前往后台系统处理全量订单和运营数据'
+      })
+      return
+    }
+
+    this.setData({
+      pageTheme: 'orders-owner',
+      headerCardClass: 'header-card header-owner',
+      roleBadgeText: '宠物主人订单',
+      pageTitle: '我的订单',
+      pageDesc: '查看预约进度，跟进宠物喂养服务'
+    })
+  },
+
+  decorateOrders(list) {
+    return (list || []).map(item => ({
+      ...item,
+      tagClass: item.status === 'PENDING'
+        ? 'tag tag-pending'
+        : item.status === 'IN_PROGRESS'
+          ? 'tag tag-progress'
+        : item.status === 'COMPLETED'
+          ? 'tag tag-completed'
+          : item.status === 'CANCELLED'
+            ? 'tag tag-cancelled'
+            : 'tag tag-accepted',
+      canOwnerComplete: item.status === 'ACCEPTED' && this.data.role === 'OWNER',
+      canFeederAccept: item.status === 'PENDING' && this.data.role === 'FEEDER',
+      canFeederStart: item.status === 'ACCEPTED' && this.data.role === 'FEEDER',
+      canCancel: item.status === 'PENDING' && this.data.role === 'OWNER',
+      canOwnerReview: item.status === 'COMPLETED' && this.data.role === 'OWNER'
+    }))
+  },
+
+  syncTabClass() {
+    this.setData({
+      tabAllClass: this.data.activeTab === 'all' ? 'tab active' : 'tab',
+      tabPendingClass: this.data.activeTab === 'pending' ? 'tab active' : 'tab',
+      tabDoneClass: this.data.activeTab === 'done' ? 'tab active' : 'tab'
+    })
   },
 
   loadOrders() {
@@ -21,7 +101,7 @@ Page({
     try {
       const { orderApi } = require('../../utils/api')
       orderApi.list().then(res => {
-        const orders = res.data || []
+        const orders = this.decorateOrders(res.data || [])
         this.setData({ orders, loading: false })
         this.applyFilter()
       }).catch(() => {
@@ -36,7 +116,7 @@ Page({
     const { orders, activeTab } = this.data
     let filtered
     if (activeTab === 'pending') {
-      filtered = orders.filter(o => ['PENDING', 'ACCEPTED'].includes(o.status))
+      filtered = orders.filter(o => ['PENDING', 'ACCEPTED', 'IN_PROGRESS'].includes(o.status))
     } else if (activeTab === 'done') {
       filtered = orders.filter(o => ['COMPLETED', 'CANCELLED'].includes(o.status))
     } else {
@@ -47,6 +127,7 @@ Page({
 
   switchTab(e) {
     this.setData({ activeTab: e.currentTarget.dataset.tab })
+    this.syncTabClass()
     this.applyFilter()
   },
 
@@ -58,10 +139,31 @@ Page({
     wx.navigateTo({ url: '/pages/reviews/create/create?orderId=' + e.currentTarget.dataset.id })
   },
 
+  doAccept(e) {
+    const id = e.currentTarget.dataset.id
+    const { orderApi } = require('../../utils/api')
+    orderApi.accept(id).then(() => {
+      wx.showToast({ title: '接单成功', icon: 'success' })
+      this.loadOrders()
+    }).catch(() => {})
+  },
+
   doComplete(e) {
     const id = e.currentTarget.dataset.id
     const { orderApi } = require('../../utils/api')
-    orderApi.complete(id).then(() => this.loadOrders()).catch(() => {})
+    orderApi.complete(id).then(() => {
+      wx.showToast({ title: '订单已完成', icon: 'success' })
+      this.loadOrders()
+    }).catch(() => {})
+  },
+
+  doStart(e) {
+    const id = e.currentTarget.dataset.id
+    const { orderApi } = require('../../utils/api')
+    orderApi.start(id).then(() => {
+      wx.showToast({ title: '服务已开始', icon: 'success' })
+      this.loadOrders()
+    }).catch(() => {})
   },
 
   doCancel(e) {

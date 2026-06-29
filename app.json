@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/login/login",
     "pages/index/index",
     "pages/orders/list",
     "pages/mine/index",
@@ -26,15 +27,15 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "🏠 首页"
+        "text": "首页"
       },
       {
         "pagePath": "pages/orders/list",
-        "text": "📋 订单"
+        "text": "订单"
       },
       {
         "pagePath": "pages/mine/index",
-        "text": "👤 我的"
+        "text": "我的"
       }
     ]
   },

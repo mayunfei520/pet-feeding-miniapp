@@ -1,18 +1,19 @@
-<!-- 喂养员列表 -->
-<view class="page">
-  <view class="header-bar">
-    <text class="title">👤 找喂养员</text>
-    <text class="sub">选择一个靠谱的喂养员为你的宠物服务</text>
+﻿<!-- 喂养员列表 -->
+<view class="page {{pageTheme}}">
+  <view class="{{headerCardClass}}">
+    <view class="role-badge">{{roleBadgeText}}</view>
+    <text class="title">{{pageTitle}}</text>
+    <text class="sub">{{pageDesc}}</text>
   </view>
 
   <view wx:for="{{feeders}}" wx:key="id" class="card" bindtap="goDetail" data-id="{{item.id}}">
     <view class="card-left">
-      <view class="avatar">{{item.realName ? item.realName.charAt(0) : '👤'}}</view>
+      <view class="avatar">{{item.avatarText}}</view>
     </view>
     <view class="card-body">
       <view class="row">
         <text class="name">{{item.realName}}</text>
-        <view class="rating-badge">⭐ {{item.rating || '5.0'}}</view>
+        <view class="rating-badge">⭐ {{item.ratingText}}</view>
       </view>
       <view class="area">📍 {{item.serviceArea}}</view>
       <view class="desc" wx:if="{{item.description}}">{{item.description}}</view>
@@ -22,7 +23,6 @@
     </view>
   </view>
 
-  <!-- 空状态 -->
   <view wx:if="{{loading}}" class="empty">
     <text class="empty-icon">⏳</text>
     <text>加载中...</text>

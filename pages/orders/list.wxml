@@ -1,15 +1,23 @@
-<!-- 订单列表（TabBar 页面） -->
-<view class="container">
-  <view class="tabs">
-    <view class="tab {{activeTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">全部</view>
-    <view class="tab {{activeTab === 'pending' ? 'active' : ''}}" bindtap="switchTab" data-tab="pending">进行中</view>
-    <view class="tab {{activeTab === 'done' ? 'active' : ''}}" bindtap="switchTab" data-tab="done">已完成</view>
+﻿<!-- 订单列表（TabBar 页面） -->
+<view class="container {{pageTheme}}">
+  <view class="{{headerCardClass}}">
+    <view class="role-badge">{{roleBadgeText}}</view>
+    <view class="page-title">{{pageTitle}}</view>
+    <view class="page-desc">{{pageDesc}}</view>
   </view>
+
+  <view class="tabs">
+    <view class="{{tabAllClass}}" bindtap="switchTab" data-tab="all">全部</view>
+    <view class="{{tabPendingClass}}" bindtap="switchTab" data-tab="pending">待处理</view>
+    <view class="{{tabDoneClass}}" bindtap="switchTab" data-tab="done">已完成</view>
+  </view>
+
+  <view wx:if="{{error}}" class="empty">{{error}}</view>
 
   <view wx:for="{{filteredOrders}}" wx:key="id" class="card order-card" bindtap="goDetail" data-id="{{item.id}}">
     <view class="oc-top">
       <text class="oc-no">{{item.orderNo}}</text>
-      <view class="tag tag-{{item.status === 'PENDING' ? 'pending' : item.status === 'COMPLETED' ? 'completed' : 'accepted'}}">
+      <view class="{{item.tagClass}}">
         {{statusMap[item.status]}}
       </view>
     </view>
@@ -18,18 +26,23 @@
       <text>📍 {{item.address}}</text>
       <text>💰 ¥{{item.price}}</text>
     </view>
-    <view class="oc-actions" wx:if="{{item.status === 'ACCEPTED' && role === 'OWNER'}}">
-      <button class="btn-sm" bindtap="doComplete" data-id="{{item.id}}">确认完成</button>
+    <view class="oc-actions" wx:if="{{item.canFeederAccept}}">
+      <button class="btn-sm primary" catchtap="doAccept" data-id="{{item.id}}">接单</button>
     </view>
-    <view class="oc-actions" wx:if="{{item.status === 'PENDING'}}">
-      <button class="btn-sm danger" bindtap="doCancel" data-id="{{item.id}}">取消</button>
+    <view class="oc-actions" wx:if="{{item.canFeederStart}}">
+      <button class="btn-sm primary" catchtap="doStart" data-id="{{item.id}}">开始服务</button>
     </view>
-    <view class="oc-actions" wx:if="{{item.status === 'COMPLETED' && role === 'OWNER'}}">
-      <button class="btn-sm primary" bindtap="goReview" data-id="{{item.id}}">评价</button>
+    <view class="oc-actions" wx:if="{{item.canOwnerComplete}}">
+      <button class="btn-sm" catchtap="doComplete" data-id="{{item.id}}">确认完成</button>
+    </view>
+    <view class="oc-actions" wx:if="{{item.canCancel}}">
+      <button class="btn-sm danger" catchtap="doCancel" data-id="{{item.id}}">取消</button>
+    </view>
+    <view class="oc-actions" wx:if="{{item.canOwnerReview}}">
+      <button class="btn-sm primary" catchtap="goReview" data-id="{{item.id}}">评价</button>
     </view>
   </view>
 
   <view wx:if="{{loading}}" class="empty">加载中...</view>
-  <view wx:elif="{{error}}" class="empty">{{error}}</view>
   <view wx:elif="{{filteredOrders.length === 0}}" class="empty">暂无订单</view>
 </view>

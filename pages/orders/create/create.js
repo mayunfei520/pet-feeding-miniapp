@@ -1,9 +1,35 @@
+function normalizeFeeder(item, active) {
+  const safeText = (value, fallback) => {
+    const text = value == null ? '' : String(value).trim()
+    if (!text || /^\?+$/.test(text) || text.indexOf('???') >= 0) {
+      return fallback
+    }
+    return text
+  }
+
+  const realName = safeText(item.realName, '待完善喂养员')
+  return {
+    ...item,
+    realName,
+    serviceArea: safeText(item.serviceArea, '服务区域待完善'),
+    experience: safeText(item.experience, ''),
+    description: safeText(item.description, ''),
+    avatarText: realName.slice(0, 1) || '👤',
+    cardClass: active ? 'feeder-opt active' : 'feeder-opt'
+  }
+}
+
 Page({
   data: {
     pets: [], feeders: [],
     petIndex: -1, feederIndex: -1,
     petLabels: [], today: '',
-    form: { serviceDate: '', servicePeriod: 'AM', address: '', price: '', notes: '' }
+    form: { serviceDate: '', servicePeriod: 'AM', address: '', price: '', notes: '' },
+    periodOptions: [
+      { value: 'AM', label: '上午', icon: '🌅', className: 'period active' },
+      { value: 'PM', label: '下午', icon: '☀️', className: 'period' },
+      { value: 'EVENING', label: '晚上', icon: '🌙', className: 'period' }
+    ]
   },
 
   onShow() {
@@ -13,8 +39,7 @@ Page({
       String(today.getDate()).padStart(2, '0')
     this.setData({ today: ds })
 
-    const { petApi, feederApi } = require('../../utils/api')
-    // 只加载我的宠物
+    const { petApi, feederApi } = require('../../../utils/api')
     petApi.list().then(res => {
       const pets = res.data || []
       this.setData({
@@ -24,19 +49,34 @@ Page({
     }).catch(() => {})
 
     feederApi.list().then(res => {
-      this.setData({ feeders: res.data || [] })
+      const feeders = (res.data || []).map((item, index) => normalizeFeeder(item, this.data.feederIndex === index))
+      this.setData({ feeders })
     }).catch(() => {})
   },
 
-  // 宠物选择
-  onPetChange(e) {
-    this.setData({ petIndex: parseInt(e.detail.value) })
+  syncFeederCards() {
+    this.setData({
+      feeders: this.data.feeders.map((item, index) => normalizeFeeder(item, this.data.feederIndex === index))
+    })
   },
 
-  // 喂养员选择（卡片点击）
+  syncPeriods() {
+    this.setData({
+      periodOptions: this.data.periodOptions.map(item => ({
+        ...item,
+        className: this.data.form.servicePeriod === item.value ? 'period active' : 'period'
+      }))
+    })
+  },
+
+  onPetChange(e) {
+    this.setData({ petIndex: parseInt(e.detail.value, 10) })
+  },
+
   pickFeeder(e) {
-    const idx = parseInt(e.currentTarget.dataset.index)
+    const idx = parseInt(e.currentTarget.dataset.index, 10)
     this.setData({ feederIndex: idx === this.data.feederIndex ? -1 : idx })
+    this.syncFeederCards()
   },
 
   onDateChange(e) {
@@ -45,6 +85,7 @@ Page({
 
   onPeriod(e) {
     this.setData({ 'form.servicePeriod': e.currentTarget.dataset.v })
+    this.syncPeriods()
   },
 
   onInput(e) {
@@ -61,7 +102,7 @@ Page({
     if (!this.data.form.serviceDate) { wx.showToast({ title: '请选择日期', icon: 'none' }); return }
     if (!this.data.form.address.trim()) { wx.showToast({ title: '请输入地址', icon: 'none' }); return }
 
-    const { orderApi } = require('../../utils/api')
+    const { orderApi } = require('../../../utils/api')
     const data = {
       petId: this.data.pets[this.data.petIndex].id,
       feederId: this.data.feeders[this.data.feederIndex].id,

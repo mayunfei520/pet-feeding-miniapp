@@ -1,4 +1,4 @@
-<!-- 写评价 -->
+﻿<!-- 写评价 -->
 <view class="container">
   <view class="page-title">写评价</view>
   <view class="sub">订单编号：{{orderId}}</view>
@@ -7,7 +7,7 @@
     <view class="form-item">
       <view class="form-label">评分</view>
       <view class="stars">
-        <text wx:for="{{5}}" wx:key="*this" class="star {{index < rating ? 'on' : ''}}" bindtap="setRating" data-v="{{index + 1}}">{{index < rating ? '★' : '☆'}}</text>
+        <text wx:for="{{stars}}" wx:key="value" class="{{item.className}}" bindtap="setRating" data-v="{{item.value}}">{{item.text}}</text>
       </view>
     </view>
     <view class="form-item">

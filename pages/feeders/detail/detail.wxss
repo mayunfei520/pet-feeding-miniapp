@@ -5,22 +5,45 @@
   background: #f3f4f6;
 }
 
+.feeder-detail-owner {
+  background: linear-gradient(180deg, #fff8ef 0%, #f7f8fb 100%);
+}
+
+.feeder-detail-feeder {
+  background: linear-gradient(180deg, #eef7ff 0%, #f4f7fb 100%);
+}
+
+.feeder-detail-admin {
+  background: linear-gradient(180deg, #eff1f5 0%, #f8fafc 100%);
+}
+
 /* ========== 喂养员名片 ========== */
 .hero-card {
   display: flex;
   align-items: center;
   gap: 24rpx;
-  background: #fff;
   border-radius: 24rpx;
   padding: 36rpx 28rpx;
   margin-bottom: 20rpx;
-  box-shadow: 0 2rpx 16rpx rgba(0,0,0,0.04);
+  box-shadow: 0 14rpx 34rpx rgba(15, 23, 42, 0.05);
+}
+
+.hero-owner {
+  background: linear-gradient(135deg, #fff3e2 0%, #ffe1bf 100%);
+}
+
+.hero-feeder {
+  background: linear-gradient(135deg, #e0f2fe 0%, #c7e7ff 100%);
+}
+
+.hero-admin {
+  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
 }
 .hero-avatar {
   width: 120rpx;
   height: 120rpx;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 32rpx;
+  background: linear-gradient(135deg, #fb923c, #f59e0b);
   color: #fff;
   font-size: 48rpx;
   font-weight: 700;
@@ -28,11 +51,31 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 4rpx 16rpx rgba(99, 102, 241, 0.3);
+  box-shadow: 0 8rpx 20rpx rgba(251, 146, 60, 0.25);
+}
+
+.feeder-detail-feeder .hero-avatar {
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  box-shadow: 0 8rpx 20rpx rgba(14, 165, 233, 0.25);
+}
+
+.feeder-detail-admin .hero-avatar {
+  background: linear-gradient(135deg, #64748b, #334155);
+  box-shadow: 0 8rpx 20rpx rgba(71, 85, 105, 0.2);
 }
 .hero-body {
   flex: 1;
   min-width: 0;
+}
+.role-badge {
+  display: inline-block;
+  padding: 8rpx 16rpx;
+  margin-bottom: 10rpx;
+  border-radius: 999rpx;
+  background: rgba(255,255,255,0.65);
+  color: #475569;
+  font-size: 22rpx;
+  font-weight: 600;
 }
 .hero-name {
   font-size: 38rpx;
@@ -53,11 +96,11 @@
 
 /* ========== 信息块 ========== */
 .info-block {
-  background: #fff;
+  background: rgba(255,255,255,0.94);
   border-radius: 20rpx;
   padding: 28rpx;
   margin-bottom: 20rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+  box-shadow: 0 14rpx 34rpx rgba(15, 23, 42, 0.05);
 }
 .info-row {
   margin-bottom: 18rpx;
@@ -81,10 +124,16 @@
 .action-bar {
   margin-bottom: 24rpx;
 }
+.action-hint {
+  font-size: 24rpx;
+  color: #64748b;
+  margin-bottom: 12rpx;
+  text-align: center;
+}
 .action-btn.primary {
   width: 100%;
   padding: 24rpx;
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: #fff;
   border-radius: 16rpx;
   font-size: 30rpx;
@@ -101,11 +150,11 @@
   margin-bottom: 16rpx;
 }
 .review-card {
-  background: #fff;
+  background: rgba(255,255,255,0.94);
   border-radius: 16rpx;
   padding: 24rpx;
   margin-bottom: 12rpx;
-  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.03);
+  box-shadow: 0 12rpx 24rpx rgba(15, 23, 42, 0.04);
 }
 .review-top {
   display: flex;
@@ -142,6 +191,10 @@
   border: none;
   box-shadow: 0 6rpx 20rpx rgba(16, 185, 129, 0.35);
   transition: all 0.2s;
+}
+
+.feeder-detail-admin .save-btn {
+  background: linear-gradient(135deg, #64748b, #334155);
 }
 .save-btn:active {
   transform: scale(0.97);

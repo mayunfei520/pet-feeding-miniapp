@@ -4,30 +4,70 @@
   min-height: 100vh;
   background: #f3f4f6;
 }
-.header-bar {
+
+.feeders-owner {
+  background: linear-gradient(180deg, #fff8ef 0%, #f7f8fb 100%);
+}
+
+.feeders-feeder {
+  background: linear-gradient(180deg, #eef7ff 0%, #f4f7fb 100%);
+}
+
+.feeders-admin {
+  background: linear-gradient(180deg, #eff1f5 0%, #f8fafc 100%);
+}
+
+.header-card {
+  border-radius: 24rpx;
+  padding: 28rpx 24rpx;
   margin-bottom: 24rpx;
+  box-shadow: 0 18rpx 40rpx rgba(15, 23, 42, 0.06);
+}
+
+.header-owner {
+  background: linear-gradient(135deg, #fff3e2 0%, #ffe1bf 100%);
+}
+
+.header-feeder {
+  background: linear-gradient(135deg, #e0f2fe 0%, #c7e7ff 100%);
+}
+
+.header-admin {
+  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 8rpx 16rpx;
+  margin-bottom: 14rpx;
+  border-radius: 999rpx;
+  background: rgba(255,255,255,0.65);
+  color: #475569;
+  font-size: 22rpx;
+  font-weight: 600;
 }
 .title {
   display: block;
   font-size: 36rpx;
   font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 8rpx;
+  color: #0f172a;
+  margin-bottom: 10rpx;
 }
 .sub {
   font-size: 26rpx;
-  color: #9ca3af;
+  color: #475569;
+  line-height: 1.6;
 }
 
 /* ========== 喂养员卡片 ========== */
 .card {
   display: flex;
   align-items: center;
-  background: #fff;
+  background: rgba(255,255,255,0.94);
   border-radius: 20rpx;
   padding: 24rpx;
   margin-bottom: 16rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+  box-shadow: 0 14rpx 34rpx rgba(15, 23, 42, 0.05);
   transition: transform 0.15s;
 }
 .card:active {
@@ -42,14 +82,22 @@
 .avatar {
   width: 88rpx;
   height: 88rpx;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 28rpx;
+  background: linear-gradient(135deg, #fb923c, #f59e0b);
   color: #fff;
   font-size: 32rpx;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.feeders-feeder .avatar {
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+}
+
+.feeders-admin .avatar {
+  background: linear-gradient(135deg, #64748b, #334155);
 }
 
 /* 信息 */

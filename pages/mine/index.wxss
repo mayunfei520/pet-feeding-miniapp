@@ -1,8 +1,22 @@
-.user-card { display: flex; align-items: center; padding: 40rpx 30rpx; }
-.avatar { width: 100rpx; height: 100rpx; border-radius: 50%; background: #e5e7eb; display: flex; align-items: center; justify-content: center; font-size: 50rpx; margin-right: 24rpx; }
-.nickname { font-size: 34rpx; font-weight: 600; margin-bottom: 6rpx; }
-.role { font-size: 26rpx; color: #6b7280; }
+.container { min-height: 100vh; padding: 24rpx; box-sizing: border-box; }
+.mine-owner { background: linear-gradient(180deg, #fff8ef 0%, #f7f8fb 100%); }
+.mine-feeder { background: linear-gradient(180deg, #eef7ff 0%, #f4f7fb 100%); }
+.mine-admin { background: linear-gradient(180deg, #eff1f5 0%, #f8fafc 100%); }
 
-.menu-list { margin-top: 20rpx; }
-.menu-item { display: flex; justify-content: space-between; align-items: center; padding: 28rpx 30rpx; background: #fff; font-size: 30rpx; border-bottom: 1px solid #f3f4f6; }
+.user-card { display: flex; align-items: center; padding: 40rpx 30rpx; border-radius: 24rpx; background: rgba(255,255,255,0.92); box-shadow: 0 18rpx 40rpx rgba(15, 23, 42, 0.06); }
+.avatar { width: 100rpx; height: 100rpx; border-radius: 28rpx; display: flex; align-items: center; justify-content: center; font-size: 50rpx; margin-right: 24rpx; color: #fff; }
+.accent-owner { background: linear-gradient(135deg, #fb923c, #f59e0b); }
+.accent-feeder { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
+.accent-admin { background: linear-gradient(135deg, #64748b, #334155); }
+.nickname { font-size: 34rpx; font-weight: 700; margin-bottom: 8rpx; color: #0f172a; }
+.role-badge { display: inline-block; padding: 6rpx 16rpx; border-radius: 999rpx; font-size: 22rpx; font-weight: 600; color: #475569; background: #f1f5f9; margin-bottom: 8rpx; }
+.role { font-size: 26rpx; color: #475569; font-weight: 600; }
+.role-desc { font-size: 24rpx; color: #64748b; margin-top: 8rpx; line-height: 1.6; }
+
+.menu-group { margin-top: 20rpx; }
+.group-title { font-size: 24rpx; color: #64748b; padding: 0 10rpx 12rpx; font-weight: 600; }
+.menu-list { background: rgba(255,255,255,0.94); border-radius: 18rpx; overflow: hidden; box-shadow: 0 12rpx 30rpx rgba(15, 23, 42, 0.05); }
+.menu-item { display: flex; justify-content: space-between; align-items: center; padding: 28rpx 30rpx; background: transparent; font-size: 30rpx; border-bottom: 1px solid #f1f5f9; color: #1f2937; }
+.menu-item:last-child { border-bottom: none; }
 .arrow { color: #d1d5db; font-size: 36rpx; }
+.logout-btn { margin-top: 40rpx; border-radius: 18rpx; }

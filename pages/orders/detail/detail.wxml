@@ -1,6 +1,12 @@
-<!-- 订单详情 -->
-<view class="container">
-  <view class="card">
+﻿<!-- 订单详情 -->
+<view class="container {{pageTheme}}">
+  <view class="{{headerCardClass}}">
+    <view class="role-badge">{{roleBadgeText}}</view>
+    <view class="page-title">{{pageTitle}}</view>
+    <view class="page-desc">{{pageDesc}}</view>
+  </view>
+
+  <view class="card detail-card">
     <view class="detail-row"><text class="dl">订单编号</text><text>{{order.orderNo}}</text></view>
     <view class="detail-row"><text class="dl">服务日期</text><text>{{order.serviceDate}}</text></view>
     <view class="detail-row"><text class="dl">时段</text><text>{{periodMap[order.servicePeriod]}}</text></view>
@@ -10,10 +16,19 @@
     <view class="detail-row" wx:if="{{order.notes}}"><text class="dl">备注</text><text>{{order.notes}}</text></view>
   </view>
 
-  <view class="actions" wx:if="{{order.status === 'PENDING'}}">
+  <view class="actions" wx:if="{{canAccept}}">
+    <button class="btn btn-primary" bindtap="doAccept">接单</button>
+  </view>
+  <view class="actions" wx:if="{{canStart}}">
+    <button class="btn btn-primary" bindtap="doStart">开始服务</button>
+  </view>
+  <view class="actions" wx:if="{{canCancel}}">
     <button class="btn btn-danger" bindtap="doCancel">取消订单</button>
   </view>
-  <view class="actions" wx:if="{{order.status === 'COMPLETED' && role === 'OWNER'}}">
+  <view class="actions" wx:if="{{canComplete}}">
+    <button class="btn btn-primary" bindtap="doComplete">确认完成</button>
+  </view>
+  <view class="actions" wx:if="{{canReview}}">
     <button class="btn btn-primary" bindtap="goReview">去评价</button>
   </view>
 </view>

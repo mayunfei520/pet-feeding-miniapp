@@ -1,3 +1,23 @@
+function normalizeFeeder(item) {
+  const safeText = (value, fallback) => {
+    const text = value == null ? '' : String(value).trim()
+    if (!text || /^\?+$/.test(text) || text.indexOf('???') >= 0) {
+      return fallback
+    }
+    return text
+  }
+
+  const realName = safeText(item.realName, '待完善喂养员')
+  return {
+    ...item,
+    realName,
+    serviceArea: safeText(item.serviceArea, '服务区域待完善'),
+    experience: safeText(item.experience, ''),
+    description: safeText(item.description, ''),
+    avatarText: realName.slice(0, 1) || '👤'
+  }
+}
+
 Page({
   data: {
     banners: [
@@ -8,80 +28,121 @@ Page({
     feeders: [],
     stats: { totalOrders: 0, pendingOrders: 0, myPets: 0 },
     loading: true,
-    token: ''
+    token: '',
+    role: 'OWNER',
+    roleTheme: 'theme-owner',
+    heroCardClass: 'hero-card hero-owner',
+    roleBadgeText: '宠物主人模式',
+    roleHomeTitle: '快捷服务',
+    roleHomeDesc: '为你的宠物安排一次安心喂养',
+    quickActions: [],
+    showStats: true
   },
 
   onShow() {
     const token = wx.getStorageSync('token') || ''
-    this.setData({ token })
-    if (token) {
+    const userInfo = wx.getStorageSync('userInfo') || {}
+    const role = userInfo.role || 'OWNER'
+    this.setData({ token, role })
+    this.syncRoleView()
+    if (token && role !== 'ADMIN') {
       this.loadAll()
     } else {
-      this.doLogin()
+      this.setData({ loading: false, feeders: [], stats: { totalOrders: 0, pendingOrders: 0, myPets: 0 } })
     }
   },
 
-  doLogin() {
-    wx.login({
-      success: (res) => {
-        const { authApi } = require('../../utils/api')
-        authApi.login({ code: res.code, role: 'OWNER' }).then(result => {
-          const token = result.data.token
-          wx.setStorageSync('token', token)
-          wx.setStorageSync('userInfo', result.data)
-          this.setData({ token })
-          this.loadAll()
-        }).catch(() => {
-          // 演示模式
-          wx.setStorageSync('token', 'demo-token')
-          wx.setStorageSync('userInfo', { nickname: '演示用户', role: 'OWNER' })
-          this.setData({ token: 'demo-token' })
-          wx.showToast({ title: '演示模式', icon: 'none' })
-          this.loadAll()
-        })
-      },
-      fail: () => {
-        wx.setStorageSync('token', 'demo-token')
-        wx.setStorageSync('userInfo', { nickname: '演示用户', role: 'OWNER' })
-        this.setData({ token: 'demo-token' })
-        this.loadAll()
-      }
+  syncRoleView() {
+    const role = this.data.role || 'OWNER'
+    if (role === 'FEEDER') {
+      this.setData({
+        roleTheme: 'theme-feeder',
+        heroCardClass: 'hero-card hero-feeder',
+        roleBadgeText: '喂养员模式',
+        roleHomeTitle: '喂养员工作台',
+        roleHomeDesc: '查看待接单、管理服务流程',
+        showStats: false,
+        quickActions: [
+          { id: 'orders', text: '接单列表', icon: '📦', bg: '#eff6ff', path: '/pages/orders/list' },
+          { id: 'apply', text: '认证申请', icon: '✅', bg: '#fef3c7', path: '/pages/feeder/apply/apply' },
+          { id: 'feeders', text: '喂养员广场', icon: '👥', bg: '#d1fae5', path: '/pages/feeders/list' },
+          { id: 'mine', text: '个人中心', icon: '👤', bg: '#fce7f3', path: '/pages/mine/index' }
+        ]
+      })
+      return
+    }
+
+    if (role === 'ADMIN') {
+      this.setData({
+        roleTheme: 'theme-admin',
+        heroCardClass: 'hero-card hero-admin',
+        roleBadgeText: '管理员模式',
+        roleHomeTitle: '管理员入口',
+        roleHomeDesc: '管理员请使用管理后台处理审核、订单和运营',
+        showStats: false,
+        quickActions: [
+          { id: 'mine', text: '个人中心', icon: '🛠', bg: '#d1fae5', path: '/pages/mine/index' }
+        ]
+      })
+      return
+    }
+
+    this.setData({
+      roleTheme: 'theme-owner',
+      heroCardClass: 'hero-card hero-owner',
+      roleBadgeText: '宠物主人模式',
+      roleHomeTitle: '快捷服务',
+      roleHomeDesc: '为你的宠物安排一次安心喂养',
+      showStats: true,
+      quickActions: [
+        { id: 'pets', text: '我的宠物', icon: '🐱', bg: '#eff6ff', path: '/pages/pets/list' },
+        { id: 'feeders', text: '找喂养员', icon: '👤', bg: '#fef3c7', path: '/pages/feeders/list' },
+        { id: 'create', text: '预约喂养', icon: '📝', bg: '#d1fae5', path: '/pages/orders/create/create' },
+        { id: 'orders', text: '我的订单', icon: '📋', bg: '#fce7f3', path: '/pages/orders/list' }
+      ]
     })
   },
 
-  loadAll() {
+  async loadAll() {
     this.setData({ loading: true })
-    this.loadFeeders()
-    this.loadStats()
+    await Promise.allSettled([this.loadFeeders(), this.loadStats()])
     this.setData({ loading: false })
   },
 
   loadFeeders() {
     try {
       const { feederApi } = require('../../utils/api')
-      feederApi.list().then(res => {
-        this.setData({ feeders: (res.data || []).slice(0, 6) })
-      }).catch(() => {})
-    } catch (e) {}
+      return feederApi.list().then(res => {
+        const feeders = (res.data || []).slice(0, 6).map(normalizeFeeder)
+        this.setData({ feeders })
+      }).catch(() => {
+        this.setData({ feeders: [] })
+      })
+    } catch (e) {
+      this.setData({ feeders: [] })
+      return Promise.resolve()
+    }
   },
 
   loadStats() {
     try {
       const { orderApi, petApi } = require('../../utils/api')
-      // 获取订单统计
-      orderApi.list().then(res => {
-        const orders = res.data || []
-        this.setData({
-          'stats.totalOrders': orders.length,
-          'stats.pendingOrders': orders.filter(o => o.status === 'PENDING').length
+      return Promise.allSettled([
+        orderApi.list().then(res => {
+          const orders = res.data || []
+          this.setData({
+            'stats.totalOrders': orders.length,
+            'stats.pendingOrders': orders.filter(o => o.status === 'PENDING').length
+          })
+        }),
+        petApi.list().then(res => {
+          const pets = res.data || []
+          this.setData({ 'stats.myPets': pets.length })
         })
-      }).catch(() => {})
-      // 获取我的宠物数
-      petApi.list().then(res => {
-        const pets = res.data || []
-        this.setData({ 'stats.myPets': pets.length })
-      }).catch(() => {})
-    } catch (e) {}
+      ])
+    } catch (e) {
+      return Promise.resolve()
+    }
   },
 
   goTo(e) {

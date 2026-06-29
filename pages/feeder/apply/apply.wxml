@@ -1,6 +1,7 @@
 <!-- 喂养员申请 -->
 <view class="container">
   <view class="page-title">申请成为喂养员</view>
+  <view class="card" style="margin-bottom: 20rpx; color: #6b7280; line-height: 1.7;">{{applyNotice}}</view>
 
   <view class="form">
     <view class="form-item">

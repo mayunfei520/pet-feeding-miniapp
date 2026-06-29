@@ -3,14 +3,14 @@ App({
   globalData: {
     userInfo: null,
     token: null,
-    baseUrl: 'http://localhost:8080'  // 管理后台地址
+    baseUrl: 'http://101.42.24.114'
   },
 
   onLaunch() {
-    // 检查登录状态
     const token = wx.getStorageSync('token')
     if (token) {
       this.globalData.token = token
+      this.globalData.userInfo = wx.getStorageSync('userInfo')
     }
   }
 })

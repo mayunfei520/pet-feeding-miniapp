@@ -1,16 +1,15 @@
-<!-- 喂养员详情 -->
-<view class="page">
-  <!-- 喂养员信息卡片 -->
-  <view class="card hero-card">
-    <view class="hero-avatar">{{feeder.realName ? feeder.realName.charAt(0) : '👤'}}</view>
+﻿<!-- 喂养员详情 -->
+<view class="page {{pageTheme}}">
+  <view class="{{heroClass}}">
+    <view class="hero-avatar">{{feeder.avatarText}}</view>
     <view class="hero-body">
+      <view class="role-badge">{{roleBadgeText}}</view>
       <view class="hero-name">{{feeder.realName}}</view>
       <view class="hero-area">📍 {{feeder.serviceArea}}</view>
-      <view class="hero-rating">⭐ {{feeder.rating || '5.0'}}</view>
+      <view class="hero-rating">⭐ {{feeder.ratingText}}</view>
     </view>
   </view>
 
-  <!-- 经验和简介 -->
   <view class="card info-block" wx:if="{{feeder.experience || feeder.description}}">
     <view class="info-row" wx:if="{{feeder.experience}}">
       <text class="info-label">💼 经验</text>
@@ -22,17 +21,16 @@
     </view>
   </view>
 
-  <!-- 快捷操作 -->
-  <view class="action-bar">
-    <button class="action-btn primary" bindtap="goOrder">📋 选择该喂养员去预约</button>
+  <view class="action-bar" wx:if="{{showPrimaryAction}}">
+    <view class="action-hint">{{actionHint}}</view>
+    <button class="action-btn primary" bindtap="goOrder">{{actionText}}</button>
   </view>
 
-  <!-- 评价列表 -->
   <view class="section-title">🌟 用户评价 ({{reviews.length}})</view>
   <view wx:for="{{reviews}}" wx:key="id" class="card review-card">
     <view class="review-top">
-      <view class="review-stars">{{starStr(item.rating)}}</view>
-      <text class="review-date">{{item.createdAt ? item.createdAt.slice(0, 10) : ''}}</text>
+      <view class="review-stars">{{item.starText}}</view>
+      <text class="review-date">{{item.dateText}}</text>
     </view>
     <view class="review-content">{{item.content}}</view>
   </view>
@@ -41,8 +39,7 @@
     <text>暂无评价</text>
   </view>
 
-  <!-- 底部再次提醒 -->
-  <view class="save-bar">
-    <button class="save-btn" bindtap="goOrder">📋 选择 {{feeder.realName || '该喂养员'}} 去预约</button>
+  <view class="save-bar" wx:if="{{showBottomAction}}">
+    <button class="save-btn" bindtap="goOrder">{{bottomActionText}}</button>
   </view>
 </view>

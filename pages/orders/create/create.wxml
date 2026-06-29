@@ -1,11 +1,10 @@
-<!-- 创建订单 -->
+﻿<!-- 创建订单 -->
 <view class="page">
   <view class="header-bar">
     <text class="title">📝 预约喂养</text>
   </view>
 
   <view class="form-card">
-    <!-- 选择宠物 -->
     <view class="field">
       <view class="field-label">
         <text class="label-icon">🐱</text>
@@ -20,7 +19,6 @@
       </view>
     </view>
 
-    <!-- 选择喂养员 -->
     <view class="field">
       <view class="field-label">
         <text class="label-icon">👤</text>
@@ -28,14 +26,8 @@
         <text class="required">*</text>
       </view>
       <view wx:if="{{feeders.length > 0}}" class="feeder-grid">
-        <view
-          wx:for="{{feeders}}"
-          wx:key="id"
-          class="feeder-opt {{feederIndex === index ? 'active' : ''}}"
-          bindtap="pickFeeder"
-          data-index="{{index}}"
-        >
-          <view class="feeder-opt-avatar">{{item.realName ? item.realName.charAt(0) : '👤'}}</view>
+        <view wx:for="{{feeders}}" wx:key="id" class="{{item.cardClass}}" bindtap="pickFeeder" data-index="{{index}}">
+          <view class="feeder-opt-avatar">{{item.avatarText}}</view>
           <text class="feeder-opt-name">{{item.realName}}</text>
           <text class="feeder-opt-area">📍 {{item.serviceArea}}</text>
           <text class="feeder-opt-rating">⭐ {{item.rating || '5.0'}}</text>
@@ -45,7 +37,6 @@
       <view wx:else class="empty-inline">暂无喂养员</view>
     </view>
 
-    <!-- 服务日期 -->
     <view class="field">
       <view class="field-label">
         <text class="label-icon">📅</text>
@@ -57,29 +48,19 @@
       </picker>
     </view>
 
-    <!-- 时段 -->
     <view class="field">
       <view class="field-label">
         <text class="label-icon">⏰</text>
         <text>服务时段</text>
       </view>
       <view class="period-group">
-        <view class="period {{form.servicePeriod === 'AM' ? 'active' : ''}}" bindtap="onPeriod" data-v="AM">
-          <text class="period-icon">🌅</text>
-          <text>上午</text>
-        </view>
-        <view class="period {{form.servicePeriod === 'PM' ? 'active' : ''}}" bindtap="onPeriod" data-v="PM">
-          <text class="period-icon">☀️</text>
-          <text>下午</text>
-        </view>
-        <view class="period {{form.servicePeriod === 'EVENING' ? 'active' : ''}}" bindtap="onPeriod" data-v="EVENING">
-          <text class="period-icon">🌙</text>
-          <text>晚上</text>
+        <view wx:for="{{periodOptions}}" wx:key="value" class="{{item.className}}" bindtap="onPeriod" data-v="{{item.value}}">
+          <text class="period-icon">{{item.icon}}</text>
+          <text>{{item.label}}</text>
         </view>
       </view>
     </view>
 
-    <!-- 地址 -->
     <view class="field">
       <view class="field-label">
         <text class="label-icon">📍</text>
@@ -89,7 +70,6 @@
       <input class="field-input" placeholder="详细地址" value="{{form.address}}" bindinput="onInput" data-field="address" />
     </view>
 
-    <!-- 金额 -->
     <view class="field">
       <view class="field-label">
         <text class="label-icon">💰</text>
@@ -98,7 +78,6 @@
       <input class="field-input" type="digit" placeholder="0.00" value="{{form.price}}" bindinput="onInput" data-field="price" />
     </view>
 
-    <!-- 备注 -->
     <view class="field">
       <view class="field-label">
         <text class="label-icon">📋</text>
@@ -108,7 +87,6 @@
     </view>
   </view>
 
-  <!-- 提交 -->
   <view class="save-bar">
     <button class="save-btn" bindtap="doSubmit">📋 确认预约</button>
   </view>

@@ -1,5 +1,5 @@
 // 封装 wx.request，自动带 token
-const BASE_URL = 'http://localhost:8080'
+const BASE_URL = 'http://101.42.24.114'
 
 function request(options) {
   const token = wx.getStorageSync('token')
@@ -13,15 +13,24 @@ function request(options) {
         'Authorization': token ? 'Bearer ' + token : ''
       },
       success(res) {
-        if (res.statusCode === 200 && res.data.code === 200) {
-          resolve(res.data)
-        } else {
-          wx.showToast({
-            title: res.data.message || '请求失败',
-            icon: 'none'
-          })
-          reject(res.data)
+        const ok = res.statusCode >= 200 && res.statusCode < 300
+        const body = res.data || {}
+        const businessOk = body.code === undefined || body.code === 200
+
+        if (ok && businessOk) {
+          resolve(body)
+          return
         }
+
+        const message = body.message || '请求失败'
+        wx.showToast({ title: message, icon: 'none' })
+
+        if (res.statusCode === 401) {
+          wx.removeStorageSync('token')
+          wx.removeStorageSync('userInfo')
+        }
+
+        reject(body)
       },
       fail(err) {
         wx.showToast({ title: '网络异常', icon: 'none' })
