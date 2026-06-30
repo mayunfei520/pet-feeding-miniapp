@@ -1,1 +1,9 @@
-{}
+{
+  "desc": "pet feeding miniapp sitemap",
+  "rules": [
+    {
+      "action": "allow",
+      "page": "*"
+    }
+  ]
+}

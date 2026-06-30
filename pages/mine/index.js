@@ -105,6 +105,6 @@ Page({
   doLogout() {
     wx.clearStorageSync()
     wx.showToast({ title: '已退出' })
-    setTimeout(() => wx.reLaunch({ url: '/pages/index/index' }), 1000)
+    setTimeout(() => wx.reLaunch({ url: '/pages/login/login' }), 1000)
   }
 })
