@@ -1,31 +1,14 @@
-/* ========== 页面容器 ========== */
+/* ========== 首页 ========== */
 .page {
   padding: 0 24rpx 40rpx;
   min-height: 100vh;
-  background: #f3f4f6;
+  background: #F5F5F5;
 }
 
-.theme-owner {
-  background:
-    radial-gradient(circle at top left, rgba(255, 214, 153, 0.45), transparent 30%),
-    linear-gradient(180deg, #fff8ef 0%, #f7f8fb 100%);
-}
-
-.theme-feeder {
-  background:
-    radial-gradient(circle at top right, rgba(125, 211, 252, 0.35), transparent 28%),
-    linear-gradient(180deg, #eef7ff 0%, #f4f7fb 100%);
-}
-
-.theme-admin {
-  background:
-    linear-gradient(180deg, #eff1f5 0%, #f8fafc 100%);
-}
-
-/* ========== Banner ========== */
+/* ===== Banner ===== */
 .banner {
   height: 300rpx;
-  border-radius: 20rpx;
+  border-radius: 16rpx;
   overflow: hidden;
   margin: 20rpx 0 24rpx;
 }
@@ -45,7 +28,7 @@
 }
 .banner-title {
   font-size: 36rpx;
-  font-weight: 700;
+  font-weight: 600;
   color: #fff;
   margin-bottom: 6rpx;
 }
@@ -54,51 +37,14 @@
   color: rgba(255,255,255,0.85);
 }
 
-/* ========== 数据统计条 ========== */
+/* ===== 数据统计 ===== */
 .stats-bar {
   display: flex;
-  background: #fff;
-  border-radius: 20rpx;
+  background: #FFFFFF;
+  border-radius: 12rpx;
   padding: 28rpx 16rpx;
-  margin-bottom: 28rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
-}
-
-.hero-card {
-  border-radius: 28rpx;
-  padding: 28rpx 24rpx 32rpx;
-  margin-bottom: 28rpx;
-  box-shadow: 0 18rpx 40rpx rgba(15, 23, 42, 0.08);
-}
-
-.hero-owner {
-  background: linear-gradient(135deg, #fff3e2 0%, #ffe1bf 100%);
-}
-
-.hero-feeder {
-  background: linear-gradient(135deg, #e0f2fe 0%, #c7e7ff 100%);
-}
-
-.hero-admin {
-  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
-}
-
-.hero-badge {
-  display: inline-block;
-  padding: 8rpx 18rpx;
-  border-radius: 999rpx;
-  font-size: 22rpx;
-  font-weight: 600;
-  color: #334155;
-  background: rgba(255,255,255,0.6);
-  margin-bottom: 18rpx;
-}
-
-.hero-desc {
-  margin-bottom: 22rpx;
-  font-size: 26rpx;
-  line-height: 1.6;
-  color: #475569;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.04);
 }
 .stat-item {
   flex: 1;
@@ -107,36 +53,48 @@
 .stat-num {
   display: block;
   font-size: 40rpx;
-  font-weight: 700;
-  color: #1f2937;
+  font-weight: 600;
+  color: #F97316;
   margin-bottom: 4rpx;
 }
 .stat-label {
   font-size: 24rpx;
-  color: #9ca3af;
+  color: #999999;
 }
 
-/* ========== 快捷服务 ========== */
-.section {
-  margin-bottom: 28rpx;
+/* ===== 快捷入口 Hero Card ===== */
+.hero-card {
+  border-radius: 16rpx;
+  padding: 28rpx 24rpx 32rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.06);
 }
-.section-title {
-  font-size: 32rpx;
-  font-weight: 700;
-  color: #1f2937;
+.hero-owner {
+  background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
+}
+.hero-feeder {
+  background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+}
+.hero-admin {
+  background: linear-gradient(135deg, #F5F5F5 0%, #E5E7EB 100%);
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 8rpx 18rpx;
+  border-radius: 9999rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+  color: #666666;
+  background: rgba(255,255,255,0.7);
   margin-bottom: 18rpx;
 }
-.section-title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-.section-title-row .section-title {
-  margin-bottom: 18rpx;
-}
-.section-more {
+
+.hero-desc {
+  margin-bottom: 22rpx;
   font-size: 26rpx;
-  color: #3b82f6;
+  line-height: 1.6;
+  color: #666666;
 }
 
 .quick-grid {
@@ -150,8 +108,8 @@
   align-items: center;
   gap: 10rpx;
   padding: 18rpx 8rpx;
-  border-radius: 20rpx;
-  background: rgba(255,255,255,0.55);
+  border-radius: 12rpx;
+  background: rgba(255,255,255,0.6);
 }
 .quick-icon {
   width: 96rpx;
@@ -164,12 +122,35 @@
 }
 .quick-text {
   font-size: 24rpx;
-  color: #374151;
-  font-weight: 600;
+  color: #1A1A1A;
+  font-weight: 500;
   text-align: center;
 }
 
-/* ========== 推荐喂养员 ========== */
+/* ===== 分区 ===== */
+.section {
+  margin-bottom: 24rpx;
+}
+.section-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #1A1A1A;
+  margin-bottom: 18rpx;
+}
+.section-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.section-title-row .section-title {
+  margin-bottom: 18rpx;
+}
+.section-more {
+  font-size: 26rpx;
+  color: #F97316;
+}
+
+/* ===== 推荐喂养员 ===== */
 .feeder-scroll {
   white-space: nowrap;
   margin-left: -24rpx;
@@ -183,19 +164,22 @@
   align-items: center;
   width: 200rpx;
   padding: 28rpx 16rpx;
-  background: #fff;
-  border-radius: 18rpx;
+  background: #FFFFFF;
+  border-radius: 12rpx;
   margin-right: 16rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.04);
+}
+.feeder-card:active {
+  background: #f9f9f9;
 }
 .feeder-avatar {
   width: 72rpx;
   height: 72rpx;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background: #F97316;
   color: #fff;
   font-size: 30rpx;
-  font-weight: 600;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -205,25 +189,24 @@
   text-align: center;
   white-space: normal;
 }
-.feeder-card .feeder-name {
+.feeder-name {
   font-size: 28rpx;
-  font-weight: 600;
-  color: #1f2937;
+  font-weight: 500;
+  color: #1A1A1A;
   margin-bottom: 4rpx;
 }
-.feeder-card .feeder-area {
+.feeder-area {
   font-size: 22rpx;
-  color: #9ca3af;
+  color: #999999;
   margin-bottom: 6rpx;
 }
-.feeder-card .feeder-rating {
+.feeder-rating {
   font-size: 24rpx;
-  color: #f59e0b;
-  margin-bottom: 6rpx;
+  color: #F59E0B;
 }
-.feeder-card .feeder-exp {
+.feeder-exp {
   font-size: 22rpx;
-  color: #6b7280;
+  color: #666666;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -232,27 +215,6 @@
 .empty-inline {
   text-align: center;
   padding: 40rpx 0;
-  color: #9ca3af;
+  color: #999999;
   font-size: 26rpx;
-}
-
-.theme-admin .section-more {
-  color: #475569;
-}
-
-.theme-admin .feeder-avatar {
-  background: linear-gradient(135deg, #64748b, #334155);
-}
-
-/* ========== 空状态 ========== */
-.empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 80rpx 0;
-}
-.empty-icon {
-  font-size: 64rpx;
-  margin-bottom: 16rpx;
-  opacity: 0.5;
 }

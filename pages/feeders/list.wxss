@@ -1,170 +1,99 @@
-/* ========== 页面容器 ========== */
-.page {
-  padding: 24rpx;
+/* ========== 喂养员列表 ========== */
+.feeders-page {
   min-height: 100vh;
-  background: #f3f4f6;
-}
-
-.feeders-owner {
-  background: linear-gradient(180deg, #fff8ef 0%, #f7f8fb 100%);
-}
-
-.feeders-feeder {
-  background: linear-gradient(180deg, #eef7ff 0%, #f4f7fb 100%);
-}
-
-.feeders-admin {
-  background: linear-gradient(180deg, #eff1f5 0%, #f8fafc 100%);
+  background: #F5F5F5;
+  padding: 24rpx;
+  box-sizing: border-box;
 }
 
 .header-card {
-  border-radius: 24rpx;
+  border-radius: 16rpx;
   padding: 28rpx 24rpx;
   margin-bottom: 24rpx;
-  box-shadow: 0 18rpx 40rpx rgba(15, 23, 42, 0.06);
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.05);
 }
-
 .header-owner {
-  background: linear-gradient(135deg, #fff3e2 0%, #ffe1bf 100%);
+  background: linear-gradient(135deg, #FFF7ED, #FFEDD5);
 }
-
 .header-feeder {
-  background: linear-gradient(135deg, #e0f2fe 0%, #c7e7ff 100%);
+  background: linear-gradient(135deg, #F0F9FF, #E0F2FE);
 }
-
 .header-admin {
-  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+  background: linear-gradient(135deg, #F5F5F5, #E5E7EB);
 }
 
 .role-badge {
   display: inline-block;
   padding: 8rpx 16rpx;
   margin-bottom: 14rpx;
-  border-radius: 999rpx;
-  background: rgba(255,255,255,0.65);
-  color: #475569;
+  border-radius: 9999rpx;
+  background: rgba(255,255,255,0.7);
+  color: #666666;
   font-size: 22rpx;
-  font-weight: 600;
+  font-weight: 500;
 }
 .title {
   display: block;
   font-size: 36rpx;
-  font-weight: 700;
-  color: #0f172a;
+  font-weight: 500;
+  color: #1A1A1A;
   margin-bottom: 10rpx;
 }
 .sub {
   font-size: 26rpx;
-  color: #475569;
+  color: #666666;
   line-height: 1.6;
 }
 
-/* ========== 喂养员卡片 ========== */
-.card {
+.feeder-card {
   display: flex;
   align-items: center;
-  background: rgba(255,255,255,0.94);
-  border-radius: 20rpx;
+  background: #FFFFFF;
+  border-radius: 12rpx;
   padding: 24rpx;
   margin-bottom: 16rpx;
-  box-shadow: 0 14rpx 34rpx rgba(15, 23, 42, 0.05);
-  transition: transform 0.15s;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.03);
 }
-.card:active {
+.feeder-card:active {
   transform: scale(0.985);
 }
 
-/* 头像 */
-.card-left {
-  margin-right: 20rpx;
-  flex-shrink: 0;
-}
+.card-left { margin-right: 20rpx; flex-shrink: 0; }
 .avatar {
   width: 88rpx;
   height: 88rpx;
   border-radius: 28rpx;
-  background: linear-gradient(135deg, #fb923c, #f59e0b);
+  background: #F97316;
   color: #fff;
   font-size: 32rpx;
-  font-weight: 600;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.feeders-feeder .avatar {
-  background: linear-gradient(135deg, #0ea5e9, #2563eb);
-}
-
-.feeders-admin .avatar {
-  background: linear-gradient(135deg, #64748b, #334155);
-}
-
-/* 信息 */
-.card-body {
-  flex: 1;
-  min-width: 0;
-}
-.row {
-  display: flex;
-  align-items: center;
-  gap: 12rpx;
-  margin-bottom: 6rpx;
-}
-.name {
-  font-size: 30rpx;
-  font-weight: 700;
-  color: #1f2937;
-}
+.card-body { flex: 1; min-width: 0; }
+.row { display: flex; align-items: center; gap: 12rpx; margin-bottom: 6rpx; }
+.name { font-size: 30rpx; font-weight: 500; color: #1A1A1A; }
 .rating-badge {
   font-size: 24rpx;
-  color: #f59e0b;
-  background: #fef3c7;
+  color: #F59E0B;
+  background: #FFFBEB;
   padding: 4rpx 12rpx;
-  border-radius: 20rpx;
+  border-radius: 9999rpx;
 }
-.area {
-  font-size: 24rpx;
-  color: #6b7280;
-  margin-bottom: 6rpx;
-}
-.desc {
-  font-size: 24rpx;
-  color: #9ca3af;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.area { font-size: 24rpx; color: #666666; margin-bottom: 6rpx; }
+.desc { font-size: 24rpx; color: #999999; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* 箭头 */
-.card-right {
-  flex-shrink: 0;
-  margin-left: 12rpx;
-}
-.arrow {
-  font-size: 44rpx;
-  color: #d1d5db;
-}
+.card-right { flex-shrink: 0; margin-left: 12rpx; }
+.arrow { font-size: 44rpx; color: #D1D5DB; }
 
-/* ========== 空状态 ========== */
 .empty {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 120rpx 40rpx;
 }
-.empty-icon {
-  font-size: 80rpx;
-  margin-bottom: 20rpx;
-  opacity: 0.6;
-}
-.empty-title {
-  font-size: 30rpx;
-  color: #6b7280;
-  font-weight: 500;
-  margin-bottom: 8rpx;
-}
-.empty-desc {
-  font-size: 26rpx;
-  color: #9ca3af;
-}
+.empty-icon { font-size: 80rpx; margin-bottom: 20rpx; opacity: 0.6; }
+.empty-title { font-size: 30rpx; color: #666666; font-weight: 500; margin-bottom: 8rpx; }
+.empty-desc { font-size: 26rpx; color: #999999; }

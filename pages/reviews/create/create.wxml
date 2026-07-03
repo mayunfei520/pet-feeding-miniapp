@@ -1,20 +1,22 @@
-﻿<!-- 写评价 -->
-<view class="container">
-  <view class="page-title">写评价</view>
-  <view class="sub">订单编号：{{orderId}}</view>
+<!-- 写评价 -->
+<view class="page">
+  <view class="order-ref">订单编号：{{orderId}}</view>
 
-  <view class="form">
-    <view class="form-item">
-      <view class="form-label">评分</view>
-      <view class="stars">
-        <text wx:for="{{stars}}" wx:key="value" class="{{item.className}}" bindtap="setRating" data-v="{{item.value}}">{{item.text}}</text>
-      </view>
+  <view class="rating-card">
+    <view class="rating-label">服务评分</view>
+    <view class="rating-stars">
+      <text wx:for="{{stars}}" wx:key="value" class="{{item.className}}" bindtap="setRating" data-v="{{item.value}}">{{item.text}}</text>
     </view>
-    <view class="form-item">
-      <view class="form-label">评价内容</view>
-      <textarea class="input" placeholder="分享您的体验..." value="{{content}}" bindinput="onContent" style="min-height:160rpx" />
-    </view>
+    <view class="rating-hint">点击星星评分</view>
+  </view>
 
-    <button class="btn btn-primary" bindtap="doSubmit">提交</button>
+  <view class="content-card">
+    <view class="form-label">评价内容</view>
+    <textarea class="content-textarea" placeholder="分享您的服务体验，帮助其他铲屎官更好地选择..." value="{{content}}" bindinput="onContent" maxlength="500" />
+    <view class="char-count">{{content.length || 0}}/500</view>
+  </view>
+
+  <view class="submit-area">
+    <button class="save-btn" bindtap="doSubmit" disabled="{{!rating}}">提交评价</button>
   </view>
 </view>

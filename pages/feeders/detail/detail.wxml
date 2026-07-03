@@ -1,5 +1,5 @@
 ﻿<!-- 喂养员详情 -->
-<view class="page {{pageTheme}}">
+<view class="feeder-page">
   <view class="{{heroClass}}">
     <view class="hero-avatar">{{feeder.avatarText}}</view>
     <view class="hero-body">

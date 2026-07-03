@@ -9,11 +9,13 @@ Page({
     pageDesc: '查看当前订单状态与服务信息',
     periodMap: { AM: '上午', PM: '下午', EVENING: '晚上' },
     statusMap: { PENDING: '待接单', ACCEPTED: '已接单', IN_PROGRESS: '进行中', COMPLETED: '已完成', CANCELLED: '已取消' },
+    statusDescMap: { PENDING: '等待喂养员响应', ACCEPTED: '喂养员已接单，等待服务', IN_PROGRESS: '服务进行中', COMPLETED: '服务已完成', CANCELLED: '订单已取消' },
     canCancel: false,
     canAccept: false,
     canStart: false,
     canReview: false,
-    canComplete: false
+    canComplete: false,
+    statusLower: ''
   },
 
   onLoad(options) {
@@ -66,7 +68,7 @@ Page({
       orderApi.list().then(res => {
         const found = (res.data || []).find(o => o.id == id)
         if (found) {
-          this.setData({ order: found })
+          this.setData({ order: found, statusLower: (found.status || '').toLowerCase() })
           this.syncActions(found)
         }
       }).catch(() => {})

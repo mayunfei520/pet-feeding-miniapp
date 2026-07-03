@@ -1,57 +1,52 @@
-/* ========== 页头 ========== */
+/* ========== 宠物列表 ========== */
+.page {
+  min-height: 100vh;
+  background: #F5F5F5;
+}
+
 .header-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24rpx;
-  padding: 0 4rpx;
+  padding: 24rpx 24rpx 0;
 }
 .title {
   font-size: 36rpx;
-  font-weight: 700;
-  color: #1f2937;
+  font-weight: 500;
+  color: #1A1A1A;
 }
 
-/* 添加按钮 */
 .add-btn {
   display: flex;
   align-items: center;
   gap: 6rpx;
   padding: 14rpx 28rpx;
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  background: #F97316;
   color: #fff;
-  border-radius: 40rpx;
+  border-radius: 9999rpx;
   font-size: 26rpx;
   font-weight: 500;
-  box-shadow: 0 4rpx 12rpx rgba(59, 130, 246, 0.3);
-  transition: all 0.2s;
-}
-.add-btn:active {
-  transform: scale(0.96);
-  opacity: 0.9;
-}
-.add-icon {
-  font-size: 32rpx;
-  font-weight: 300;
-  line-height: 1;
+  box-shadow: 0 4rpx 12rpx rgba(249,115,22,0.25);
 }
 
-/* ========== 宠物卡片 ========== */
+.pet-list {
+  padding: 0 24rpx;
+}
+
 .pet-card {
   display: flex;
   align-items: center;
-  background: #fff;
-  border-radius: 20rpx;
+  background: #FFFFFF;
+  border-radius: 12rpx;
   padding: 24rpx;
-  margin-bottom: 20rpx;
-  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.04);
-  transition: transform 0.15s;
+  margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.03);
 }
 .pet-card:active {
   transform: scale(0.985);
 }
 
-/* 头像 */
 .pet-avatar {
   width: 100rpx;
   height: 100rpx;
@@ -61,17 +56,13 @@
   justify-content: center;
   flex-shrink: 0;
   margin-right: 20rpx;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.06);
 }
-.avatar-emoji {
-  font-size: 50rpx;
-}
+.avatar-emoji { font-size: 50rpx; }
 
-/* 宠物信息 */
 .pet-body {
   flex: 1;
   min-width: 0;
-  padding-right: 12rpx;
 }
 .pet-row {
   display: flex;
@@ -81,21 +72,19 @@
 }
 .pet-name {
   font-size: 32rpx;
-  font-weight: 700;
-  color: #111827;
+  font-weight: 500;
+  color: #1A1A1A;
 }
 
-/* 物种标签 */
 .species-tag {
   font-size: 22rpx;
   padding: 4rpx 14rpx;
-  border-radius: 20rpx;
-  background: #eff6ff;
-  color: #3b82f6;
+  border-radius: 9999rpx;
+  background: #FFF7ED;
+  color: #EA580C;
   font-weight: 500;
 }
 
-/* 属性行 */
 .pet-meta {
   display: flex;
   flex-wrap: wrap;
@@ -107,31 +96,23 @@
   align-items: center;
   gap: 4rpx;
   font-size: 24rpx;
-  color: #6b7280;
+  color: #666666;
 }
-.meta-icon {
-  font-size: 22rpx;
-}
+.meta-icon { font-size: 22rpx; }
 
-/* 医疗备注 */
 .pet-memo {
   display: flex;
   align-items: flex-start;
   gap: 6rpx;
   font-size: 24rpx;
-  color: #9ca3af;
-  background: #fefce8;
+  color: #999999;
+  background: #FEFCE8;
   padding: 8rpx 14rpx;
   border-radius: 10rpx;
   margin-top: 6rpx;
   line-height: 1.5;
 }
-.memo-icon {
-  flex-shrink: 0;
-  font-size: 22rpx;
-}
 
-/* ========== 操作按钮 ========== */
 .pet-actions {
   display: flex;
   flex-direction: column;
@@ -147,64 +128,32 @@
   align-items: center;
   justify-content: center;
   font-size: 28rpx;
-  transition: all 0.15s;
 }
-.action-btn:active {
-  transform: scale(0.9);
-}
-.action-btn.edit {
-  background: #eff6ff;
-}
-.action-btn.edit:active {
-  background: #dbeafe;
-}
-.action-btn.del {
-  background: #fef2f2;
-}
-.action-btn.del:active {
-  background: #fee2e2;
-}
+.action-btn.edit { background: #FFF7ED; }
+.action-btn.del { background: #FEF2F2; }
 
-/* ========== 空状态 ========== */
 .empty {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 120rpx 40rpx;
 }
-.empty-icon {
-  font-size: 80rpx;
-  margin-bottom: 20rpx;
-  opacity: 0.6;
-}
-.empty-title {
-  font-size: 30rpx;
-  color: #6b7280;
-  font-weight: 500;
-  margin-bottom: 8rpx;
-}
-.empty-desc {
-  font-size: 26rpx;
-  color: #9ca3af;
-  margin-bottom: 32rpx;
-}
+.empty-icon { font-size: 80rpx; margin-bottom: 20rpx; opacity: 0.6; }
+.empty-title { font-size: 30rpx; color: #666666; font-weight: 500; margin-bottom: 8rpx; }
+.empty-desc { font-size: 26rpx; color: #999999; margin-bottom: 32rpx; }
 .empty-add-btn {
   padding: 16rpx 48rpx;
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  background: #F97316;
   color: #fff;
-  border-radius: 40rpx;
+  border-radius: 9999rpx;
   font-size: 28rpx;
-  box-shadow: 0 4rpx 12rpx rgba(59, 130, 246, 0.3);
-}
-.empty-add-btn:active {
-  opacity: 0.85;
 }
 .retry-btn {
   margin-top: 20rpx;
   padding: 16rpx 48rpx;
-  background: #fff;
-  color: #3b82f6;
-  border: 1px solid #93c5fd;
-  border-radius: 40rpx;
+  background: #FFFFFF;
+  color: #F97316;
+  border: 1px solid #F97316;
+  border-radius: 9999rpx;
   font-size: 28rpx;
 }

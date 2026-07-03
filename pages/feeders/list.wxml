@@ -1,5 +1,5 @@
 ﻿<!-- 喂养员列表 -->
-<view class="page {{pageTheme}}">
+<view class="feeders-page">
   <view class="{{headerCardClass}}">
     <view class="role-badge">{{roleBadgeText}}</view>
     <text class="title">{{pageTitle}}</text>

@@ -14,28 +14,34 @@
     "pages/feeder/apply/apply"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#1f2937",
-    "navigationBarTitleText": "宠物喂养平台",
-    "navigationBarTextStyle": "white",
-    "backgroundColor": "#f3f4f6"
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "宠物喂养",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F5F5F5"
   },
   "tabBar": {
-    "color": "#9ca3af",
-    "selectedColor": "#3b82f6",
-    "backgroundColor": "#ffffff",
-    "borderStyle": "black",
+    "color": "#999999",
+    "selectedColor": "#F97316",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页"
+        "text": "首页",
+        "iconPath": "images/icons/tab-home.png",
+        "selectedIconPath": "images/icons/tab-home-active.png"
       },
       {
         "pagePath": "pages/orders/list",
-        "text": "订单"
+        "text": "订单",
+        "iconPath": "images/icons/tab-order.png",
+        "selectedIconPath": "images/icons/tab-order-active.png"
       },
       {
         "pagePath": "pages/mine/index",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "images/icons/tab-mine.png",
+        "selectedIconPath": "images/icons/tab-mine-active.png"
       }
     ]
   },

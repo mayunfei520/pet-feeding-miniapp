@@ -1,30 +1,48 @@
 <!-- 喂养员申请 -->
-<view class="container">
-  <view class="page-title">申请成为喂养员</view>
-  <view class="card" style="margin-bottom: 20rpx; color: #6b7280; line-height: 1.7;">{{applyNotice}}</view>
+<view class="apply-page">
+  <view class="apply-hero">
+    <view class="apply-kicker">身份升级</view>
+    <view class="page-title">申请成为喂养员</view>
+    <view class="apply-subtitle">{{applyNotice}}</view>
+  </view>
+
+  <view class="steps-card">
+    <view class="steps-title">开通流程</view>
+    <view class="steps-list">
+      <view class="step-item" wx:for="{{steps}}" wx:key="id">
+        <view class="step-dot">{{index + 1}}</view>
+        <view class="step-content">
+          <view class="step-name">{{item.title}}</view>
+          <view class="step-desc">{{item.desc}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
 
   <view class="form">
+    <view class="section-title">基础资料</view>
     <view class="form-item">
       <view class="form-label">真实姓名 <text class="required">*</text></view>
-      <input class="input" placeholder="真实姓名" value="{{form.realName}}" bindinput="onInput" data-field="realName" />
+      <input class="input" placeholder="请填写与你证件一致的姓名" value="{{form.realName}}" bindinput="onInput" data-field="realName" />
     </view>
     <view class="form-item">
       <view class="form-label">身份证号 <text class="required">*</text></view>
-      <input class="input" placeholder="身份证号" value="{{form.idCard}}" bindinput="onInput" data-field="idCard" />
+      <input class="input" placeholder="用于审核身份，不对外展示" value="{{form.idCard}}" bindinput="onInput" data-field="idCard" />
     </view>
     <view class="form-item">
       <view class="form-label">服务区域 <text class="required">*</text></view>
-      <input class="input" placeholder="如：朝阳区" value="{{form.serviceArea}}" bindinput="onInput" data-field="serviceArea" />
+      <input class="input" placeholder="如：朝阳区 / 海淀区" value="{{form.serviceArea}}" bindinput="onInput" data-field="serviceArea" />
     </view>
+    <view class="section-title">服务说明</view>
     <view class="form-item">
       <view class="form-label">经验描述</view>
-      <textarea class="input" placeholder="描述你的喂养经验" value="{{form.experience}}" bindinput="onInput" data-field="experience" style="min-height:120rpx" />
+      <textarea class="input textarea" placeholder="例如：2 年猫狗上门喂养经验，熟悉喂药与清洁" value="{{form.experience}}" bindinput="onInput" data-field="experience" />
     </view>
     <view class="form-item">
       <view class="form-label">自我介绍</view>
-      <textarea class="input" placeholder="让客户了解你" value="{{form.description}}" bindinput="onInput" data-field="description" style="min-height:120rpx" />
+      <textarea class="input textarea" placeholder="介绍你的服务风格、可服务宠物类型、可沟通时间等" value="{{form.description}}" bindinput="onInput" data-field="description" />
     </view>
 
-    <button class="btn btn-primary" bindtap="doSubmit">提交申请</button>
+    <button class="btn btn-primary submit-btn" loading="{{submitting}}" bindtap="doSubmit">提交申请</button>
   </view>
 </view>

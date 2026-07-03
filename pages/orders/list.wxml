@@ -1,5 +1,5 @@
 ﻿<!-- 订单列表（TabBar 页面） -->
-<view class="container {{pageTheme}}">
+<view class="orders-page">
   <view class="{{headerCardClass}}">
     <view class="role-badge">{{roleBadgeText}}</view>
     <view class="page-title">{{pageTitle}}</view>
@@ -26,20 +26,12 @@
       <text>📍 {{item.address}}</text>
       <text>💰 ¥{{item.price}}</text>
     </view>
-    <view class="oc-actions" wx:if="{{item.canFeederAccept}}">
-      <button class="btn-sm primary" catchtap="doAccept" data-id="{{item.id}}">接单</button>
-    </view>
-    <view class="oc-actions" wx:if="{{item.canFeederStart}}">
-      <button class="btn-sm primary" catchtap="doStart" data-id="{{item.id}}">开始服务</button>
-    </view>
-    <view class="oc-actions" wx:if="{{item.canOwnerComplete}}">
-      <button class="btn-sm" catchtap="doComplete" data-id="{{item.id}}">确认完成</button>
-    </view>
-    <view class="oc-actions" wx:if="{{item.canCancel}}">
-      <button class="btn-sm danger" catchtap="doCancel" data-id="{{item.id}}">取消</button>
-    </view>
-    <view class="oc-actions" wx:if="{{item.canOwnerReview}}">
-      <button class="btn-sm primary" catchtap="goReview" data-id="{{item.id}}">评价</button>
+    <view class="oc-actions">
+      <button class="btn-sm primary" wx:if="{{item.canFeederAccept}}" catchtap="doAccept" data-id="{{item.id}}">接单</button>
+      <button class="btn-sm primary" wx:if="{{item.canFeederStart}}" catchtap="doStart" data-id="{{item.id}}">开始服务</button>
+      <button class="btn-sm primary" wx:if="{{item.canOwnerComplete}}" catchtap="doComplete" data-id="{{item.id}}">确认完成</button>
+      <button class="btn-sm danger" wx:if="{{item.canCancel}}" catchtap="doCancel" data-id="{{item.id}}">取消</button>
+      <button class="btn-sm primary" wx:if="{{item.canOwnerReview}}" catchtap="goReview" data-id="{{item.id}}">评价</button>
     </view>
   </view>
 

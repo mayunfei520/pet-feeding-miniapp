@@ -1,5 +1,5 @@
 ﻿<!-- 我的（TabBar 页面） -->
-<view class="container {{pageTheme}}">
+<view class="mine-page">
   <view class="user-card card">
     <view class="avatar {{profileAccent}}">👤</view>
     <view class="user-info">
@@ -8,6 +8,12 @@
       <view class="role">{{roleText}}</view>
       <view class="role-desc">{{roleDesc}}</view>
     </view>
+  </view>
+
+  <view class="upgrade-banner" wx:if="{{userInfo.role === 'OWNER'}}" bindtap="goTo" data-path="/pages/feeder/apply/apply">
+    <view class="upgrade-kicker">身份升级</view>
+    <view class="upgrade-title">申请成为喂养员</view>
+    <view class="upgrade-desc">提交实名和服务资料，通过审核后即可进入接单模式。</view>
   </view>
 
   <view class="menu-group" wx:for="{{menuGroups}}" wx:key="id">

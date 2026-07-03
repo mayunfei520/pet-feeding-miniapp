@@ -1,5 +1,5 @@
 <!-- 我的宠物列表 -->
-<view class="container">
+<view class="page">
   <view class="header-bar">
     <text class="title">🐾 我的宠物</text>
     <view class="add-btn" bindtap="goAdd">

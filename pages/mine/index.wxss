@@ -1,22 +1,143 @@
-.container { min-height: 100vh; padding: 24rpx; box-sizing: border-box; }
-.mine-owner { background: linear-gradient(180deg, #fff8ef 0%, #f7f8fb 100%); }
-.mine-feeder { background: linear-gradient(180deg, #eef7ff 0%, #f4f7fb 100%); }
-.mine-admin { background: linear-gradient(180deg, #eff1f5 0%, #f8fafc 100%); }
+/* ========== 我的 ========== */
+.mine-page {
+  min-height: 100vh;
+  background: #F5F5F5;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
 
-.user-card { display: flex; align-items: center; padding: 40rpx 30rpx; border-radius: 24rpx; background: rgba(255,255,255,0.92); box-shadow: 0 18rpx 40rpx rgba(15, 23, 42, 0.06); }
-.avatar { width: 100rpx; height: 100rpx; border-radius: 28rpx; display: flex; align-items: center; justify-content: center; font-size: 50rpx; margin-right: 24rpx; color: #fff; }
-.accent-owner { background: linear-gradient(135deg, #fb923c, #f59e0b); }
-.accent-feeder { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
-.accent-admin { background: linear-gradient(135deg, #64748b, #334155); }
-.nickname { font-size: 34rpx; font-weight: 700; margin-bottom: 8rpx; color: #0f172a; }
-.role-badge { display: inline-block; padding: 6rpx 16rpx; border-radius: 999rpx; font-size: 22rpx; font-weight: 600; color: #475569; background: #f1f5f9; margin-bottom: 8rpx; }
-.role { font-size: 26rpx; color: #475569; font-weight: 600; }
-.role-desc { font-size: 24rpx; color: #64748b; margin-top: 8rpx; line-height: 1.6; }
+.user-card {
+  display: flex;
+  align-items: center;
+  padding: 40rpx 30rpx;
+  border-radius: 12rpx;
+  background: #FFFFFF;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.04);
+}
 
-.menu-group { margin-top: 20rpx; }
-.group-title { font-size: 24rpx; color: #64748b; padding: 0 10rpx 12rpx; font-weight: 600; }
-.menu-list { background: rgba(255,255,255,0.94); border-radius: 18rpx; overflow: hidden; box-shadow: 0 12rpx 30rpx rgba(15, 23, 42, 0.05); }
-.menu-item { display: flex; justify-content: space-between; align-items: center; padding: 28rpx 30rpx; background: transparent; font-size: 30rpx; border-bottom: 1px solid #f1f5f9; color: #1f2937; }
-.menu-item:last-child { border-bottom: none; }
-.arrow { color: #d1d5db; font-size: 36rpx; }
-.logout-btn { margin-top: 40rpx; border-radius: 18rpx; }
+.avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50rpx;
+  margin-right: 24rpx;
+  color: #fff;
+}
+.accent-owner {
+  background: #F97316;
+}
+.accent-feeder {
+  background: #0EA5E9;
+}
+.accent-admin {
+  background: #6B7280;
+}
+
+.nickname {
+  font-size: 34rpx;
+  font-weight: 500;
+  margin-bottom: 8rpx;
+  color: #1A1A1A;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 6rpx 16rpx;
+  border-radius: 9999rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+  color: #666666;
+  background: #f1f5f9;
+  margin-bottom: 8rpx;
+}
+
+.role {
+  font-size: 26rpx;
+  color: #666666;
+  font-weight: 500;
+}
+
+.role-desc {
+  font-size: 24rpx;
+  color: #999999;
+  margin-top: 8rpx;
+  line-height: 1.6;
+}
+
+.upgrade-banner {
+  margin-top: 22rpx;
+  padding: 30rpx 28rpx;
+  border-radius: 12rpx;
+  background: linear-gradient(135deg, #FFF7ED, #FFEDD5);
+  box-shadow: 0 4rpx 16rpx rgba(249,115,22,0.1);
+}
+
+.upgrade-kicker {
+  display: inline-block;
+  padding: 6rpx 14rpx;
+  border-radius: 9999rpx;
+  background: rgba(255,255,255,0.6);
+  color: #9A3412;
+  font-size: 20rpx;
+  font-weight: 500;
+  margin-bottom: 14rpx;
+}
+
+.upgrade-title {
+  font-size: 34rpx;
+  font-weight: 500;
+  color: #7C2D12;
+  margin-bottom: 10rpx;
+}
+
+.upgrade-desc {
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: #9A3412;
+}
+
+.menu-group {
+  margin-top: 24rpx;
+}
+
+.group-title {
+  font-size: 24rpx;
+  color: #999999;
+  padding: 0 10rpx 12rpx;
+  font-weight: 500;
+}
+
+.menu-list {
+  background: #FFFFFF;
+  border-radius: 12rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.03);
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 30rpx;
+  font-size: 30rpx;
+  border-bottom: 1px solid #EEEEEE;
+  color: #1A1A1A;
+}
+.menu-item:last-child {
+  border-bottom: none;
+}
+.menu-item:active {
+  background: #f9f9f9;
+}
+
+.arrow {
+  color: #D1D5DB;
+  font-size: 36rpx;
+}
+
+.logout-btn {
+  margin-top: 40rpx;
+}

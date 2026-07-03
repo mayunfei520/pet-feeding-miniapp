@@ -1,29 +1,25 @@
-// 封装 wx.request，自动带 token
 const PROD_BASE_URL = 'https://mayunfei.asia'
 const DEV_BASE_URL = 'http://101.42.24.114'
 
-function resolveBaseUrl() {
+function isDevtoolsRuntime() {
   try {
-    const accountInfo = wx.getAccountInfoSync ? wx.getAccountInfoSync() : null
-    const envVersion = accountInfo && accountInfo.miniProgram ? accountInfo.miniProgram.envVersion : ''
-    if (envVersion === 'develop') {
-      return DEV_BASE_URL
-    }
-  } catch (err) {
-    console.log('[miniapp request] resolveBaseUrl fallback', err)
+    const systemInfo = wx.getSystemInfoSync()
+    return systemInfo.platform === 'devtools'
+  } catch (e) {
+    return false
   }
-  return PROD_BASE_URL
 }
 
+function resolveBaseUrl() {
+  return isDevtoolsRuntime() ? DEV_BASE_URL : PROD_BASE_URL
+}
 function getBaseUrl() {
   return resolveBaseUrl()
 }
-
 function clearAuth() {
   wx.removeStorageSync('token')
   wx.removeStorageSync('userInfo')
 }
-
 function redirectToLogin() {
   const pages = getCurrentPages()
   const current = pages.length ? pages[pages.length - 1].route : ''
@@ -31,7 +27,6 @@ function redirectToLogin() {
     wx.reLaunch({ url: '/pages/login/login' })
   }
 }
-
 function request(options) {
   const baseUrl = resolveBaseUrl()
   const token = wx.getStorageSync('token')
@@ -41,7 +36,6 @@ function request(options) {
     'Content-Type': 'application/json; charset=UTF-8',
     'Authorization': token ? 'Bearer ' + token : ''
   }
-
   console.log('[miniapp request] sending', {
     url: baseUrl + options.url,
     method,
@@ -49,7 +43,6 @@ function request(options) {
     payload,
     header: headers
   })
-
   return new Promise((resolve, reject) => {
     wx.request({
       url: baseUrl + options.url,
@@ -67,20 +60,16 @@ function request(options) {
         const ok = res.statusCode >= 200 && res.statusCode < 300
         const body = res.data || {}
         const businessOk = body.code === undefined || body.code === 200
-
         if (ok && businessOk) {
           resolve(body)
           return
         }
-
-        const message = body.message || '请求失败'
+        const message = body.message || '\u8bf7\u6c42\u5931\u8d25'
         wx.showToast({ title: message, icon: 'none' })
-
         if (res.statusCode === 401 || res.statusCode === 403) {
           clearAuth()
           setTimeout(() => redirectToLogin(), 300)
         }
-
         reject(body)
       },
       fail(err) {
@@ -90,13 +79,12 @@ function request(options) {
           payload,
           error: err
         })
-        wx.showToast({ title: '网络异常', icon: 'none' })
+        wx.showToast({ title: '\u7f51\u7edc\u5f02\u5e38', icon: 'none' })
         reject(err)
       }
     })
   })
 }
-
 module.exports = {
   getBaseUrl,
   get: (url, data) => request({ url, method: 'GET', data }),

@@ -3,8 +3,7 @@ App({
   globalData: {
     userInfo: null,
     token: null,
-    baseUrl: 'https://mayunfei.asia',
-    devBaseUrl: 'http://101.42.24.114'
+    baseUrl: 'https://mayunfei.asia'
   },
 
   onLaunch() {
