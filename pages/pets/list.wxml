@@ -37,7 +37,7 @@
       </view>
 
       <view class="pet-memo" wx:if="{{item.medicalNotes}}">
-        <text class="memo-icon">💊</text>
+        <text class="memo-icon">医</text>
         <text>{{item.medicalNotes}}</text>
       </view>
     </view>

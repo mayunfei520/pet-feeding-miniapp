@@ -63,10 +63,10 @@ Page({
         roleHomeDesc: '查看待接单、管理服务流程',
         showStats: false,
         quickActions: [
-          { id: 'orders', text: '接单列表', icon: '📦', bg: '#eff6ff', path: '/pages/orders/list' },
-          { id: 'apply', text: '认证申请', icon: '✅', bg: '#fef3c7', path: '/pages/feeder/apply/apply' },
-          { id: 'feeders', text: '喂养员广场', icon: '👥', bg: '#d1fae5', path: '/pages/feeders/list' },
-          { id: 'mine', text: '个人中心', icon: '👤', bg: '#fce7f3', path: '/pages/mine/index' }
+          { id: 'orders', text: '接单列表', icon: '单', bg: '#3b82f6', path: '/pages/orders/list' },
+          { id: 'apply', text: '认证申请', icon: '认', bg: '#f59e0b', path: '/pages/feeder/apply/apply' },
+          { id: 'feeders', text: '喂养员广场', icon: '员', bg: '#22c55e', path: '/pages/feeders/list' },
+          { id: 'mine', text: '个人中心', icon: '我', bg: '#ec4899', path: '/pages/mine/index' }
         ]
       })
       return
@@ -81,7 +81,7 @@ Page({
         roleHomeDesc: '管理员请使用管理后台处理审核、订单和运营',
         showStats: false,
         quickActions: [
-          { id: 'mine', text: '个人中心', icon: '🛠', bg: '#d1fae5', path: '/pages/mine/index' }
+          { id: 'mine', text: '个人中心', icon: '管', bg: '#22c55e', path: '/pages/mine/index' }
         ]
       })
       return
@@ -95,10 +95,10 @@ Page({
       roleHomeDesc: '为你的宠物安排一次安心喂养',
       showStats: true,
       quickActions: [
-        { id: 'pets', text: '我的宠物', icon: '🐱', bg: '#eff6ff', path: '/pages/pets/list' },
-        { id: 'feeders', text: '找喂养员', icon: '👤', bg: '#fef3c7', path: '/pages/feeders/list' },
-        { id: 'create', text: '预约喂养', icon: '📝', bg: '#d1fae5', path: '/pages/orders/create/create' },
-        { id: 'orders', text: '我的订单', icon: '📋', bg: '#fce7f3', path: '/pages/orders/list' }
+        { id: 'pets', text: '我的宠物', icon: '宠', bg: '#3b82f6', path: '/pages/pets/list' },
+        { id: 'feeders', text: '找喂养员', icon: '找', bg: '#f59e0b', path: '/pages/feeders/list' },
+        { id: 'create', text: '预约喂养', icon: '约', bg: '#22c55e', path: '/pages/orders/create/create' },
+        { id: 'orders', text: '我的订单', icon: '单', bg: '#ec4899', path: '/pages/orders/list' }
       ]
     })
   },

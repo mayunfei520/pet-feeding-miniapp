@@ -93,5 +93,39 @@ Page({
         console.log('[login] register failed', e)
         wx.showToast({ title: message, icon: 'none' })
       })
+  },
+
+  // 微信手机号一键授权登录/注册
+  onGetPhoneNumber(e) {
+    const { code, errMsg } = e.detail
+    if (!code) {
+      // 用户拒绝授权或授权失败
+      console.log('[login] getPhoneNumber failed:', errMsg)
+      return
+    }
+    console.log('[login] getPhoneNumber success, code:', code)
+    wx.showLoading({ title: '\u6388\u6743\u767b\u5f55\u4e2d...', mask: true })
+    const { authApi } = require('../../utils/api')
+    authApi.phoneLogin({ code })
+      .then(r => {
+        wx.hideLoading()
+        const data = r.data || {}
+        if (data.token) {
+          wx.setStorageSync('token', data.token)
+          wx.setStorageSync('userInfo', data)
+          wx.showToast({ title: '\u767b\u5f55\u6210\u529f', icon: 'success', duration: 800 })
+          setTimeout(() => {
+            wx.switchTab({ url: '/pages/index/index' })
+          }, 300)
+        } else {
+          wx.showToast({ title: data.message || '\u767b\u5f55\u5931\u8d25', icon: 'none' })
+        }
+      })
+      .catch(e => {
+        wx.hideLoading()
+        const msg = e.message || e.data?.message || '\u6388\u6743\u5931\u8d25\uff0c\u8bf7\u624b\u52a8\u767b\u5f55'
+        console.log('[login] phoneLogin failed:', e)
+        wx.showToast({ title: msg, icon: 'none' })
+      })
   }
 })

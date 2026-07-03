@@ -36,6 +36,10 @@ Page({
     const role = user.role || 'OWNER'
     this.setData({ role })
     this.syncRoleTheme(role)
+    this.loadFeeders()
+  },
+
+  loadFeeders() {
     this.setData({ loading: true, error: '' })
     try {
       const { feederApi } = require('../../utils/api')
@@ -48,6 +52,11 @@ Page({
     } catch (e) {
       this.setData({ loading: false, error: '加载失败' })
     }
+  },
+
+  onPullDownRefresh() {
+    this.loadFeeders()
+    setTimeout(() => wx.stopPullDownRefresh(), 1000)
   },
   syncRoleTheme(role) {
     if (role === 'FEEDER') {

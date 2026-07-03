@@ -115,3 +115,43 @@
   margin-top: 32rpx;
   margin-bottom: 24rpx;
 }
+
+.divider-row {
+  display: flex;
+  align-items: center;
+  margin: 32rpx 0 24rpx;
+  gap: 16rpx;
+}
+.divider-line {
+  flex: 1;
+  height: 1rpx;
+  background: #E5E7EB;
+}
+.divider-text {
+  font-size: 24rpx;
+  color: #999999;
+  flex-shrink: 0;
+}
+
+.phone-btn {
+  width: 100%;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: #fff;
+  color: #07C160;
+  font-size: 28rpx;
+  font-weight: 500;
+  border-radius: 12rpx;
+  line-height: 1;
+  border: 1px solid #07C160;
+  margin-top: 0;
+}
+.phone-btn::after { border: none; }
+.phone-btn:active { background: #F0FFF4; }
+.phone-btn-icon {
+  font-size: 32rpx;
+  margin-right: 8rpx;
+}

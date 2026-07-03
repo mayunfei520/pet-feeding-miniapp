@@ -68,7 +68,7 @@
 
     <view class="field">
       <view class="field-label">
-        <text class="label-icon">💊</text>
+        <text class="label-icon">医</text>
         <text>医疗备注</text>
       </view>
       <textarea class="field-textarea" placeholder="过敏史、慢性病、饮食禁忌…" value="{{form.medicalNotes}}" bindinput="onInput" data-field="medicalNotes" maxlength="200" />
@@ -76,7 +76,7 @@
     </view>
     <view class="field">
       <view class="field-label">
-        <text class="label-icon">💉</text>
+        <text class="label-icon">疫</text>
         <text>是否打疫苗</text>
       </view>
       <view class="switch-row">

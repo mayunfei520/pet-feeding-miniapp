@@ -112,6 +112,11 @@ Page({
     }
   },
 
+  onPullDownRefresh() {
+    this.loadOrders()
+    setTimeout(() => wx.stopPullDownRefresh(), 1000)
+  },
+
   applyFilter() {
     const { orders, activeTab } = this.data
     let filtered

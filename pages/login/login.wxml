@@ -2,7 +2,7 @@
 <view class="login-page">
   <view class="login-box">
     <view class="logo-area">
-      <text class="logo-text"></text>
+      <text class="logo-text">🐾</text>
       <view class="app-name">宠物喂养</view>
       <view class="app-slogan">让每一次出行都安心</view>
     </view>
@@ -16,6 +16,14 @@
       <input class="login-input" placeholder="手机号" type="number" maxlength="11" bindinput="onPhoneInput" />
       <input class="login-input" placeholder="密码" type="password" bindinput="onPasswordInput" />
       <button class="login-btn" bindtap="doLogin">登录</button>
+      <view class="divider-row">
+        <view class="divider-line"></view>
+        <text class="divider-text">快捷登录</text>
+        <view class="divider-line"></view>
+      </view>
+      <button class="phone-btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">
+        <text class="phone-btn-icon">📱</text> 微信手机号一键登录
+      </button>
       <view class="switch-link" bindtap="switchTab">没有账号？去注册</view>
     </view>
 
@@ -24,6 +32,14 @@
       <input class="login-input" placeholder="手机号" type="number" maxlength="11" bindinput="onPhoneInput" />
       <input class="login-input" placeholder="密码（6位以上）" type="password" bindinput="onPasswordInput" />
       <button class="login-btn" bindtap="doRegister">注册平台账号</button>
+      <view class="divider-row">
+        <view class="divider-line"></view>
+        <text class="divider-text">快捷注册</text>
+        <view class="divider-line"></view>
+      </view>
+      <button class="phone-btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">
+        <text class="phone-btn-icon">📱</text> 微信手机号一键注册
+      </button>
       <view class="switch-link" bindtap="switchTab">已有账号？去登录</view>
     </view>
   </view>

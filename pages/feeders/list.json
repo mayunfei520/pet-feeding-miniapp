@@ -1,4 +1,5 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "喂养员"
+  "navigationBarTitleText": "喂养员",
+  "enablePullDownRefresh": true
 }
