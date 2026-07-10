@@ -23,6 +23,13 @@
       <view class="register-notice">{{registerNotice}}</view>
       <input class="login-input" placeholder="手机号" type="number" maxlength="11" bindinput="onPhoneInput" />
       <input class="login-input" placeholder="密码（6位以上）" type="password" bindinput="onPasswordInput" />
+      <view class="gender-block">
+        <view class="gender-label">性别<text class="gender-optional">（选填）</text></view>
+        <view class="gender-seg">
+          <view class="gender-opt {{gender === '女' ? 'gender-opt--on' : ''}}" bindtap="onGenderTap" data-g="女">女</view>
+          <view class="gender-opt {{gender === '男' ? 'gender-opt--on' : ''}}" bindtap="onGenderTap" data-g="男">男</view>
+        </view>
+      </view>
       <view class="code-row">
         <input class="login-input code-input" placeholder="验证码" type="number" maxlength="6" value="{{code}}" bindinput="onCodeInput" />
         <button class="code-btn" bindtap="sendCode" disabled="{{codeCountown > 0}}">{{codeBtnText}}</button>

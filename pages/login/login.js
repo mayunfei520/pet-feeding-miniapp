@@ -4,6 +4,7 @@ Page({
     phone: '',
     password: '',
     code: '',
+    gender: '',
     codeCountown: 0,
     codeBtnText: '获取验证码',
     registerNotice: '\u6ce8\u518c\u7684\u662f\u5e73\u53f0\u7edf\u4e00\u8d26\u53f7\uff0c\u9ed8\u8ba4\u8eab\u4efd\u4e3a\u5ba0\u7269\u4e3b\u4eba\u3002\u82e5\u4f60\u60f3\u63a5\u5355\uff0c\u8bf7\u767b\u5f55\u540e\u63d0\u4ea4\u5582\u517b\u5458\u8ba4\u8bc1\u7533\u8bf7\u3002',
@@ -32,6 +33,7 @@ Page({
   onPhoneInput(e) { this.setData({ phone: e.detail.value }) },
   onPasswordInput(e) { this.setData({ password: e.detail.value }) },
   onCodeInput(e) { this.setData({ code: e.detail.value }) },
+  onGenderTap(e) { this.setData({ gender: e.currentTarget.dataset.g }) },
   sendCode() {
     const phone = this.data.phone
     if (!this.isValidPhone(phone)) {
@@ -109,7 +111,8 @@ Page({
     const registerPayload = {
       phone: p.phone,
       password: p.password,
-      code: p.code
+      code: p.code,
+      gender: p.gender || null
     }
     console.log('[login] doRegister input', {
       phone: p.phone,
