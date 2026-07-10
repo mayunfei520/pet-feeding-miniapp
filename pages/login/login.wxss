@@ -1,7 +1,7 @@
 /* ========== 登录页 — 暖橙主题 ========== */
 .login-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FFF7ED 0%, #FFEDD5 50%, #F5F5F5 100%);
+  background: linear-gradient(180deg, #FFF7ED 0%, #FFEDD5 50%, #FFF8F1 100%);
 }
 
 .login-box {

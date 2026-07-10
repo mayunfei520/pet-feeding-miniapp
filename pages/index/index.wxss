@@ -2,7 +2,7 @@
 .page {
   padding: 0 24rpx 40rpx;
   min-height: 100vh;
-  background: #F5F5F5;
+  background: #FFF8F1;
 }
 
 /* ===== Banner ===== */
@@ -41,10 +41,11 @@
 .stats-bar {
   display: flex;
   background: #FFFFFF;
-  border-radius: 12rpx;
+  border-radius: 20rpx;
   padding: 28rpx 16rpx;
   margin-bottom: 24rpx;
-  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.04);
+  border: 1rpx solid #FFF3E8;
+  box-shadow: 0 8rpx 24rpx rgba(249,115,22,0.08);
 }
 .stat-item {
   flex: 1;
@@ -64,10 +65,11 @@
 
 /* ===== 快捷入口 Hero Card ===== */
 .hero-card {
-  border-radius: 16rpx;
+  border-radius: 28rpx;
   padding: 28rpx 24rpx 32rpx;
   margin-bottom: 24rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.06);
+  border: 1rpx solid #FFF3E8;
+  box-shadow: 0 8rpx 24rpx rgba(249,115,22,0.10);
 }
 
 .hero-badge {
@@ -158,9 +160,10 @@
   width: 200rpx;
   padding: 28rpx 16rpx;
   background: #FFFFFF;
-  border-radius: 12rpx;
+  border-radius: 20rpx;
   margin-right: 16rpx;
-  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.04);
+  border: 1rpx solid #FFF3E8;
+  box-shadow: 0 8rpx 24rpx rgba(249,115,22,0.08);
 }
 .feeder-card:active {
   background: #f9f9f9;

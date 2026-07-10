@@ -1,7 +1,7 @@
 /* ========== 宠物列表 ========== */
 .page {
   min-height: 100vh;
-  background: #F5F5F5;
+  background: #FFF8F1;
 }
 
 .header-bar {
@@ -38,10 +38,11 @@
   display: flex;
   align-items: center;
   background: #FFFFFF;
-  border-radius: 12rpx;
+  border-radius: 28rpx;
   padding: 24rpx;
   margin-bottom: 16rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.03);
+  border: 1rpx solid #FFF3E8;
+  box-shadow: 0 8rpx 24rpx rgba(249,115,22,0.08);
 }
 .pet-card:active {
   transform: scale(0.985);

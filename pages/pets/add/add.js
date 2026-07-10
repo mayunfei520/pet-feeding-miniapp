@@ -108,23 +108,69 @@ Page({
 
   doSave() {
     const form = this.data.form
-    if (!form.name || !form.name.trim()) {
+
+    // 名字：必填，1-20 字
+    const name = (form.name || '').trim()
+    if (!name) {
       wx.showToast({ title: '请输入宠物名字', icon: 'none' })
+      return
+    }
+    if (name.length > 20) {
+      wx.showToast({ title: '名字不能超过20个字', icon: 'none' })
+      return
+    }
+
+    // 种类：必须是合法枚举
+    const validSpecies = ['CAT', 'DOG', 'OTHER']
+    if (!validSpecies.includes(form.species)) {
+      wx.showToast({ title: '请选择宠物种类', icon: 'none' })
+      return
+    }
+
+    // 品种：选填，限长 20
+    const breed = (form.breed || '').trim()
+    if (breed.length > 20) {
+      wx.showToast({ title: '品种名称不能超过20个字', icon: 'none' })
+      return
+    }
+
+    // 年龄：选填，0-50 岁
+    let age = null
+    if (form.age !== '' && form.age != null) {
+      const ageVal = Number(form.age)
+      if (Number.isNaN(ageVal) || ageVal < 0 || ageVal > 50) {
+        wx.showToast({ title: '年龄需在 0-50 岁之间', icon: 'none' })
+        return
+      }
+      age = Math.floor(ageVal)
+    }
+
+    // 体重：选填，0-200 kg
+    let weight = null
+    if (form.weight !== '' && form.weight != null) {
+      const weightVal = Number(form.weight)
+      if (Number.isNaN(weightVal) || weightVal < 0 || weightVal > 200) {
+        wx.showToast({ title: '体重需在 0-200 kg 之间', icon: 'none' })
+        return
+      }
+      weight = weightVal
+    }
+
+    // 医疗备注：选填，限长 200
+    const medicalNotes = (form.medicalNotes || '').trim()
+    if (medicalNotes.length > 200) {
+      wx.showToast({ title: '医疗备注不能超过200个字', icon: 'none' })
       return
     }
 
     const data = {
       ...form,
-      name: form.name.trim(),
-      breed: (form.breed || '').trim(),
-      medicalNotes: (form.medicalNotes || '').trim()
+      name,
+      breed,
+      medicalNotes,
+      age,
+      weight
     }
-
-    const ageVal = parseInt(data.age, 10)
-    data.age = Number.isNaN(ageVal) ? null : ageVal
-
-    const weightVal = parseFloat(data.weight)
-    data.weight = Number.isNaN(weightVal) ? null : weightVal
 
     const request = this.data.editId
       ? petApi.update(this.data.editId, data)
