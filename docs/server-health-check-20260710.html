@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>服务器健康检查报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f0f4f8; padding: 32px; color: #1f2937; }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; border-radius: 16px; padding: 24px 28px; margin-bottom: 20px; }
+  .header h1 { font-size: 22px; font-weight: 700; }
+  .header .sub { opacity: 0.9; font-size: 13px; margin-top: 6px; }
+  .card { background: #fff; border-radius: 14px; padding: 8px 22px; margin-bottom: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
+  .row { display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid #f1f5f9; }
+  .row:last-child { border-bottom: none; }
+  .icon { width: 26px; height: 26px; border-radius: 50%; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-right: 14px; flex-shrink: 0; }
+  .row .body { flex: 1; }
+  .row .title { font-size: 15px; font-weight: 600; }
+  .row .desc { font-size: 12.5px; color: #64748b; margin-top: 3px; line-height: 1.5; }
+  .tag { font-size: 11px; padding: 2px 9px; border-radius: 20px; background: #ecfdf5; color: #059669; font-weight: 600; }
+  .note { background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 8px; padding: 14px 18px; margin-top: 6px; }
+  .note h3 { font-size: 14px; color: #b45309; margin-bottom: 8px; }
+  .note li { font-size: 13px; color: #78350f; margin: 6px 0 6px 18px; line-height: 1.6; }
+  .foot { text-align: center; font-size: 12px; color: #94a3b8; margin-top: 18px; }
+  code { background: #f1f5f9; padding: 1px 6px; border-radius: 5px; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>🐾 服务器健康检查报告</h1>
+    <div class="sub">宠物喂养小程序 · 后端 pet-feeding-backend · 检查时间 2026-07-10 15:19 (GMT+8)</div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div class="icon">✓</div>
+      <div class="body">
+        <div class="title">容器运行状态 <span class="tag">正常</span></div>
+        <div class="desc">pet-feeding-backend 运行中，8 分钟前全新启动（北京时间 15:12），镜像 pet-feeding-admin-docker-backend 为最新构建，非旧镜像。</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icon">✓</div>
+      <div class="body">
+        <div class="title">验证码接口 send-code <span class="tag">正常</span></div>
+        <div class="desc">POST <code>/api/miniapp/auth/send-code</code> 返回 HTTP 200 + 6 位验证码，证明新 jar 已包含该接口并生效。</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icon">✓</div>
+      <div class="body">
+        <div class="title">微信 AppID 配置 <span class="tag">已修正</span></div>
+        <div class="desc">application-prod.yml 中 app-id = <code>wx1ad1b47d97fb0e04</code>（修正值），非旧的错误值 wxf385de0f1540fcc6。</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icon">✓</div>
+      <div class="body">
+        <div class="title">AppSecret 配置 <span class="tag">已配置</span></div>
+        <div class="desc">app-secret 前缀 c3b8... 为真实密钥（非占位符 your-app-secret-here），与微信后台一致。密钥未提交 GitHub。</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icon">✓</div>
+      <div class="body">
+        <div class="title">错误日志 <span class="tag">无异常</span></div>
+        <div class="desc">后端日志无 invalid appsecret / invalid appid 等报错，微信接口未报 40125 / 40013。</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icon">✓</div>
+      <div class="body">
+        <div class="title">后端源码版本 <span class="tag">最新</span></div>
+        <div class="desc">含 send-code 接口、register 强制校验 code、移除微信手机号一键登录按钮等最新改动均已构建部署。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <h3>⚠️ 上线前需关注的事项</h3>
+    <ul>
+      <li><b>login 接口现为 Mock 模式</b>：源码标注「微信登录（Mock）」，任意 code 均可登录，属测试期预期行为。正式上线前需切换为真实 wx.login code 校验。</li>
+      <li><b>前端需重新上传体验版</b>：自动填验证码、倒计时等前端逻辑仅本地改完，需在微信开发者工具重新「上传 → 体验版」才对真实用户生效。</li>
+      <li><b>短信为模拟发送</b>：当前 <code>send-code</code> 走内存 mock（日志「模拟短信发送」），符合「先测试、后续接真实短信」约定，日后接入腾讯云/阿里云短信即可替换。</li>
+    </ul>
+  </div>
+
+  <div class="foot">本报告由 Health Check 自动生成 · 服务器 101.42.24.114</div>
+</div>
+</body>
+</html>

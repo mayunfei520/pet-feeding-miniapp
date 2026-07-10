@@ -24,7 +24,7 @@
       <input class="login-input" placeholder="手机号" type="number" maxlength="11" bindinput="onPhoneInput" />
       <input class="login-input" placeholder="密码（6位以上）" type="password" bindinput="onPasswordInput" />
       <view class="code-row">
-        <input class="login-input code-input" placeholder="验证码" type="number" maxlength="6" bindinput="onCodeInput" />
+        <input class="login-input code-input" placeholder="验证码" type="number" maxlength="6" value="{{code}}" bindinput="onCodeInput" />
         <button class="code-btn" bindtap="sendCode" disabled="{{codeCountown > 0}}">{{codeBtnText}}</button>
       </view>
       <button class="login-btn" bindtap="doRegister">注册平台账号</button>
