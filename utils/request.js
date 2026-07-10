@@ -1,5 +1,5 @@
 const PROD_BASE_URL = 'https://mayunfei.asia'
-const DEV_BASE_URL = 'http://101.42.24.114'
+const DEV_BASE_URL = 'https://mayunfei.asia'  // 开发者工具也走已备案的 https 域名，避免 http+IP 被小程序拦截
 
 function isDevtoolsRuntime() {
   try {

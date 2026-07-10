@@ -5,6 +5,7 @@ const authApi = {
   login: (data) => http.post('/api/miniapp/auth/login', data),
   register: (data) => http.post('/api/miniapp/auth/register', data),
   passwordLogin: (data) => http.post('/api/miniapp/auth/password-login', data),
+  sendCode: (data) => http.post('/api/miniapp/auth/send-code', data),
   phoneLogin: (data) => http.post('/api/miniapp/auth/phone-login', data)
 }
 
