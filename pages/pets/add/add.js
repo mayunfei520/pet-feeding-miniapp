@@ -1,4 +1,5 @@
 ﻿const petApi = require('../../../utils/api').petApi
+const { containsSensitive } = require('../../../utils/sensitive')
 
 Page({
   data: {
@@ -157,6 +158,19 @@ Page({
     if (medicalNotes.length > 200) {
       wx.showToast({ title: '医疗备注不能超过200个字', icon: 'none' })
       return
+    }
+
+    // 内容安全：名字 / 品种 / 备注 命中敏感词则拦截（第一道防线，后端仍需统一校验）
+    const sensitiveFields = [
+      { label: '名字', value: name },
+      { label: '品种', value: breed },
+      { label: '医疗备注', value: medicalNotes }
+    ]
+    for (const f of sensitiveFields) {
+      if (containsSensitive(f.value)) {
+        wx.showToast({ title: f.label + '包含不适当内容', icon: 'none' })
+        return
+      }
     }
 
     const data = {
