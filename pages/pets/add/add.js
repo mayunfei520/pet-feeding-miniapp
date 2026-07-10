@@ -31,8 +31,7 @@ Page({
   getSpeciesOptions(selected) {
     return [
       { value: 'CAT', label: '猫咪', emoji: '🐱', className: selected === 'CAT' ? 'species-card active' : 'species-card' },
-      { value: 'DOG', label: '狗狗', emoji: '🐶', className: selected === 'DOG' ? 'species-card active' : 'species-card' },
-      { value: 'OTHER', label: '其他', emoji: '🐹', className: selected === 'OTHER' ? 'species-card active' : 'species-card' }
+      { value: 'DOG', label: '狗狗', emoji: '🐶', className: selected === 'DOG' ? 'species-card active' : 'species-card' }
     ]
   },
 
@@ -50,9 +49,6 @@ Page({
     } else if (species === 'CAT') {
       previewAvatarStyle = 'background: linear-gradient(135deg, #a78bfa, #7c3aed)'
       previewEmoji = '🐱'
-    } else if (species === 'OTHER') {
-      previewAvatarStyle = 'background: linear-gradient(135deg, #34d399, #059669)'
-      previewEmoji = '🐹'
     }
 
     this.setData({
@@ -120,8 +116,8 @@ Page({
       return
     }
 
-    // 种类：必须是合法枚举
-    const validSpecies = ['CAT', 'DOG', 'OTHER']
+    // 种类：必须是合法枚举（仅猫/狗）
+    const validSpecies = ['CAT', 'DOG']
     if (!validSpecies.includes(form.species)) {
       wx.showToast({ title: '请选择宠物种类', icon: 'none' })
       return
