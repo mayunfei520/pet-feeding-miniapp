@@ -9,6 +9,7 @@ Page({
     codeBtnText: '获取验证码',
     passwordHint: '',
     passwordValid: false,
+    pwdStrength: 0,
     registerNotice: '\u6ce8\u518c\u7684\u662f\u5e73\u53f0\u7edf\u4e00\u8d26\u53f7\uff0c\u9ed8\u8ba4\u8eab\u4efd\u4e3a\u5ba0\u7269\u4e3b\u4eba\u3002\u82e5\u4f60\u60f3\u63a5\u5355\uff0c\u8bf7\u767b\u5f55\u540e\u63d0\u4ea4\u5582\u517b\u5458\u8ba4\u8bc1\u7533\u8bf7\u3002',
     loginTabClass: 'tab active',
     registerTabClass: 'tab'
@@ -86,30 +87,28 @@ Page({
     return /^1\d{10}$/.test((phone || '').trim())
   },
   // 密码复杂度：8-20 位，必须同时包含大写字母、小写字母、数字
+  // 同时计算强度等级(1弱/2中/3强)，供强度进度条展示
   checkPassword(pwd) {
     pwd = pwd || ''
     if (pwd.length === 0) {
-      this.setData({ passwordHint: '', passwordValid: false })
+      this.setData({ passwordHint: '', passwordValid: false, pwdStrength: 0 })
       return false
     }
-    if (pwd.length < 8 || pwd.length > 20) {
-      this.setData({ passwordHint: '密码需 8-20 位', passwordValid: false })
-      return false
-    }
-    if (!/[A-Z]/.test(pwd)) {
-      this.setData({ passwordHint: '需包含大写字母', passwordValid: false })
-      return false
-    }
-    if (!/[a-z]/.test(pwd)) {
-      this.setData({ passwordHint: '需包含小写字母', passwordValid: false })
-      return false
-    }
-    if (!/\d/.test(pwd)) {
-      this.setData({ passwordHint: '需包含数字', passwordValid: false })
-      return false
-    }
-    this.setData({ passwordHint: '密码强度合格', passwordValid: true })
-    return true
+    const lenOK = pwd.length >= 8 && pwd.length <= 20
+    const hasUpper = /[A-Z]/.test(pwd)
+    const hasLower = /[a-z]/.test(pwd)
+    const hasDigit = /\d/.test(pwd)
+    const score = (lenOK ? 1 : 0) + (hasUpper ? 1 : 0) + (hasLower ? 1 : 0) + (hasDigit ? 1 : 0)
+    const strength = score <= 2 ? 1 : (score === 3 ? 2 : 3)
+    let hint = ''
+    if (!lenOK) hint = pwd.length < 8 ? '密码至少 8 位' : '密码最多 20 位'
+    else if (!hasUpper) hint = '需包含大写字母'
+    else if (!hasLower) hint = '需包含小写字母'
+    else if (!hasDigit) hint = '需包含数字'
+    const valid = lenOK && hasUpper && hasLower && hasDigit
+    if (valid) hint = '密码强度合格'
+    this.setData({ passwordHint: hint, passwordValid: valid, pwdStrength: strength })
+    return valid
   },
   doLogin() {
     const p = this.data
@@ -165,7 +164,8 @@ Page({
             password: '',
             code: '',
             passwordHint: '',
-            passwordValid: false
+            passwordValid: false,
+            pwdStrength: 0
           })
           this.syncTabClass()
           return

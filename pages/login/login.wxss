@@ -99,6 +99,24 @@
 .pwd-hint.bad { color: #DC2626; }
 .pwd-hint.ok { color: #16A34A; }
 
+/* 密码强度进度条 */
+.pwd-bar {
+  height: 12rpx;
+  border-radius: 12rpx;
+  background: #FDE7D3;
+  overflow: hidden;
+  margin: -6rpx 0 14rpx;
+}
+.pwd-bar-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 12rpx;
+  transition: width .25s ease, background-color .25s ease;
+}
+.pwd-bar-1 { width: 33%; background-color: #DC2626; }
+.pwd-bar-2 { width: 66%; background-color: #F97316; }
+.pwd-bar-3 { width: 100%; background-color: #16A34A; }
+
 /* 性别分段（选填，暖橙胶囊） */
 .gender-block { margin-bottom: 24rpx; }
 .gender-label {
