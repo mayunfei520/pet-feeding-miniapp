@@ -7,6 +7,8 @@ Page({
     gender: '',
     codeCountown: 0,
     codeBtnText: '获取验证码',
+    passwordHint: '',
+    passwordValid: false,
     registerNotice: '\u6ce8\u518c\u7684\u662f\u5e73\u53f0\u7edf\u4e00\u8d26\u53f7\uff0c\u9ed8\u8ba4\u8eab\u4efd\u4e3a\u5ba0\u7269\u4e3b\u4eba\u3002\u82e5\u4f60\u60f3\u63a5\u5355\uff0c\u8bf7\u767b\u5f55\u540e\u63d0\u4ea4\u5582\u517b\u5458\u8ba4\u8bc1\u7533\u8bf7\u3002',
     loginTabClass: 'tab active',
     registerTabClass: 'tab'
@@ -27,11 +29,15 @@ Page({
     })
   },
   switchTab() {
-    this.setData({ isRegister: !this.data.isRegister })
+    this.setData({ isRegister: !this.data.isRegister, passwordHint: '', passwordValid: false })
     this.syncTabClass()
   },
   onPhoneInput(e) { this.setData({ phone: e.detail.value }) },
-  onPasswordInput(e) { this.setData({ password: e.detail.value }) },
+  onPasswordInput(e) {
+    const password = e.detail.value
+    this.setData({ password })
+    this.checkPassword(password)
+  },
   onCodeInput(e) { this.setData({ code: e.detail.value }) },
   onGenderTap(e) { this.setData({ gender: e.currentTarget.dataset.g }) },
   sendCode() {
@@ -79,6 +85,32 @@ Page({
   isValidPhone(phone) {
     return /^1\d{10}$/.test((phone || '').trim())
   },
+  // 密码复杂度：8-20 位，必须同时包含大写字母、小写字母、数字
+  checkPassword(pwd) {
+    pwd = pwd || ''
+    if (pwd.length === 0) {
+      this.setData({ passwordHint: '', passwordValid: false })
+      return false
+    }
+    if (pwd.length < 8 || pwd.length > 20) {
+      this.setData({ passwordHint: '密码需 8-20 位', passwordValid: false })
+      return false
+    }
+    if (!/[A-Z]/.test(pwd)) {
+      this.setData({ passwordHint: '需包含大写字母', passwordValid: false })
+      return false
+    }
+    if (!/[a-z]/.test(pwd)) {
+      this.setData({ passwordHint: '需包含小写字母', passwordValid: false })
+      return false
+    }
+    if (!/\d/.test(pwd)) {
+      this.setData({ passwordHint: '需包含数字', passwordValid: false })
+      return false
+    }
+    this.setData({ passwordHint: '密码强度合格', passwordValid: true })
+    return true
+  },
   doLogin() {
     const p = this.data
     if (!p.phone || !p.password) return wx.showToast({ title: '\u8bf7\u586b\u5b8c\u6574\u4fe1\u606f', icon: 'none' })
@@ -107,7 +139,9 @@ Page({
     if (!p.phone || !p.password) return wx.showToast({ title: '\u8bf7\u586b\u5b8c\u6574\u4fe1\u606f', icon: 'none' })
     if (!this.isValidPhone(p.phone)) return wx.showToast({ title: '\u8bf7\u8f93\u5165\u6b63\u786e\u624b\u673a\u53f7', icon: 'none' })
     if (!p.code || p.code.length !== 6) return wx.showToast({ title: '\u8bf7\u586b\u5199\u9a8c\u8bc1\u7801', icon: 'none' })
-    if (p.password.length < 6) return wx.showToast({ title: '\u5bc6\u7801\u81f3\u5c116\u4f4d', icon: 'none' })
+    if (!this.checkPassword(p.password)) {
+      return wx.showToast({ title: this.data.passwordHint || '密码不符合要求', icon: 'none' })
+    }
     const registerPayload = {
       phone: p.phone,
       password: p.password,
@@ -129,7 +163,9 @@ Page({
           this.setData({
             isRegister: false,
             password: '',
-            code: ''
+            code: '',
+            passwordHint: '',
+            passwordValid: false
           })
           this.syncTabClass()
           return
