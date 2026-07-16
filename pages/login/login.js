@@ -128,7 +128,8 @@ Page({
           wx.showToast({ title: '\u6ce8\u518c\u6210\u529f\uff0c\u8bf7\u76f4\u63a5\u767b\u5f55', icon: 'success', duration: 1200 })
           this.setData({
             isRegister: false,
-            password: ''
+            password: '',
+            code: ''
           })
           this.syncTabClass()
           return
@@ -145,7 +146,13 @@ Page({
         const message = e.message || e.data?.message || '\u6ce8\u518c\u5931\u8d25'
         wx.hideLoading()
         console.log('[login] register failed', e)
-        wx.showToast({ title: message, icon: 'none' })
+        // 验证码为一次性消费，注册失败后已在后端失效，必须清空输入框并引导用户重新获取
+        this.setData({ code: '' })
+        if (message.indexOf('\u9a8c\u8bc1\u7801') >= 0) {
+          wx.showToast({ title: '\u9a8c\u8bc1\u7801\u5df2\u5931\u6548\uff0c\u8bf7\u91cd\u65b0\u83b7\u53d6', icon: 'none' })
+        } else {
+          wx.showToast({ title: message, icon: 'none' })
+        }
       })
   }
 })
