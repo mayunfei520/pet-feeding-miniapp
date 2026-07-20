@@ -88,7 +88,8 @@ Page({
       canOwnerReject: item.status === 'QUOTED' && this.data.role === 'OWNER',
       canFeederStart: item.status === 'ACCEPTED' && this.data.role === 'FEEDER',
       canCancel: (item.status === 'PENDING' || item.status === 'QUOTED') && this.data.role === 'OWNER',
-      canOwnerReview: item.status === 'COMPLETED' && this.data.role === 'OWNER'
+      canOwnerReview: item.status === 'COMPLETED' && this.data.role === 'OWNER',
+      canOwnerAwait: item.status === 'PENDING' && this.data.role === 'OWNER'
     }))
   },
 

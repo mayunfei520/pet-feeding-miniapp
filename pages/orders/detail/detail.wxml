@@ -9,6 +9,22 @@
     {{statusMap[order.status]}} — {{statusDescMap[order.status]}}
   </view>
 
+  <view class="flow" wx:if="{{statusLower !== 'cancelled'}}">
+    <view wx:for="{{flowSteps}}" wx:key="key" class="flow-step {{item.done ? 'done' : ''}} {{item.active ? 'active' : ''}}">
+      <view class="flow-dot">{{item.done ? '✓' : (index + 1)}}</view>
+      <view class="flow-label">{{item.label}}</view>
+      <view wx:if="{{index < flowSteps.length - 1}}" class="flow-line {{flowSteps[index + 1].done ? 'done' : ''}}"></view>
+    </view>
+  </view>
+
+  <view class="await-hint" wx:if="{{canOwnerAwait}}">
+    <text class="await-icon">⏳</text>
+    <view class="await-text">
+      <text class="await-title">正等待喂养员报价</text>
+      <text class="await-sub">报价后您可在此确认或拒绝，金额由喂养员填写。</text>
+    </view>
+  </view>
+
   <view class="card detail-card">
     <view class="detail-row">
       <text class="dl">订单编号</text>

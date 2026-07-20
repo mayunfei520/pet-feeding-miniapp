@@ -17,7 +17,9 @@ Page({
     canQuote: false,
     canConfirm: false,
     canReject: false,
-    statusLower: ''
+    statusLower: '',
+    flowSteps: [],
+    canOwnerAwait: false
   },
 
   onLoad(options) {
@@ -55,14 +57,40 @@ Page({
   },
 
   syncActions(order) {
+    const role = this.data.role
+    const isOwner = role === 'OWNER'
+    const isFeeder = role === 'FEEDER'
+    const status = order.status
+
+    // 角色感知的流程步骤条
+    const flowSteps = [
+      { key: 'submit',  label: '需求提交', done: true,  active: false },
+      { key: 'quote',   label: isOwner ? '等待报价' : '填报价', done: false, active: false },
+      { key: 'confirm', label: isOwner ? '确认报价' : '等待确认', done: false, active: false },
+      { key: 'service', label: '服务进行', done: false, active: false },
+      { key: 'done',    label: '完成',     done: false, active: false }
+    ]
+    const stepIndexByStatus = {
+      PENDING: 1, QUOTED: 2, ACCEPTED: 3, IN_PROGRESS: 3, COMPLETED: 4, CANCELLED: -1
+    }
+    const idx = stepIndexByStatus[status]
+    if (idx >= 0) {
+      for (let i = 0; i <= idx; i++) {
+        flowSteps[i].done = true
+        if (i === idx) flowSteps[i].active = true
+      }
+    }
+
     this.setData({
-      canCancel: (order.status === 'PENDING' || order.status === 'QUOTED') && this.data.role === 'OWNER',
-      canQuote: order.status === 'PENDING' && this.data.role === 'FEEDER',
-      canConfirm: order.status === 'QUOTED' && this.data.role === 'OWNER',
-      canReject: order.status === 'QUOTED' && this.data.role === 'OWNER',
-      canStart: order.status === 'ACCEPTED' && this.data.role === 'FEEDER',
-      canComplete: order.status === 'ACCEPTED' && this.data.role === 'OWNER',
-      canReview: order.status === 'COMPLETED' && this.data.role === 'OWNER'
+      canCancel: (status === 'PENDING' || status === 'QUOTED') && isOwner,
+      canQuote: status === 'PENDING' && isFeeder,
+      canConfirm: status === 'QUOTED' && isOwner,
+      canReject: status === 'QUOTED' && isOwner,
+      canStart: status === 'ACCEPTED' && isFeeder,
+      canComplete: status === 'ACCEPTED' && isOwner,
+      canReview: status === 'COMPLETED' && isOwner,
+      canOwnerAwait: isOwner && status === 'PENDING',
+      flowSteps
     })
   },
 

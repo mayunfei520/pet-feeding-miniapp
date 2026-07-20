@@ -100,3 +100,15 @@
   padding: 12rpx 24rpx;
   border-radius: 8rpx;
 }
+
+/* 主人等待报价提示 */
+.oc-await {
+  margin-top: 14rpx;
+  padding: 14rpx 20rpx;
+  background: #FFF7ED;
+  border: 1rpx solid #FFEDD5;
+  border-radius: 16rpx;
+  font-size: 24rpx;
+  color: #C2410C;
+  line-height: 1.5;
+}
