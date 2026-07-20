@@ -4,6 +4,7 @@ Page({
     phone: '',
     password: '',
     showPassword: false,
+    realName: '',
     code: '',
     gender: '',
     codeCountown: 0,
@@ -11,7 +12,7 @@ Page({
     passwordHint: '',
     passwordValid: false,
     pwdStrength: 0,
-    registerNotice: '\u6ce8\u518c\u7684\u662f\u5e73\u53f0\u7edf\u4e00\u8d26\u53f7\uff0c\u9ed8\u8ba4\u8eab\u4efd\u4e3a\u5ba0\u7269\u4e3b\u4eba\u3002\u82e5\u4f60\u60f3\u63a5\u5355\uff0c\u8bf7\u767b\u5f55\u540e\u63d0\u4ea4\u5582\u517b\u5458\u8ba4\u8bc1\u7533\u8bf7\u3002',
+    registerNotice: '\u6ce8\u518c\u7684\u662f\u5e73\u53f0\u7edf\u4e00\u8d26\u53f7\uff0c\u9700\u586b\u5199\u771f\u5b9e\u59d3\u540d\u3002\u82e5\u60f3\u63a5\u5355\uff0c\u8bf7\u767b\u5f55\u540e\u63d0\u4ea4\u5582\u517b\u5458\u8ba4\u8bc1\u7533\u8bf7\u3002',
     loginTabClass: 'tab active',
     registerTabClass: 'tab'
   },
@@ -35,6 +36,7 @@ Page({
     this.syncTabClass()
   },
   onPhoneInput(e) { this.setData({ phone: e.detail.value }) },
+  onRealNameInput(e) { this.setData({ realName: e.detail.value.trim() }) },
   onPasswordInput(e) {
     const password = e.detail.value
     this.setData({ password })
@@ -113,6 +115,13 @@ Page({
     this.setData({ passwordHint: hint, passwordValid: valid, pwdStrength: strength })
     return valid
   },
+  // 真实姓名校验：2-4个汉字
+  checkRealName(name) {
+    name = (name || '').trim()
+    if (name.length === 0) return { ok: false, hint: '请输入真实姓名' }
+    if (!/^[\u4e00-\u9fa5]{2,4}$/.test(name)) return { ok: false, hint: '姓名需为 2-4 个汉字' }
+    return { ok: true, hint: '' }
+  },
   doLogin() {
     const p = this.data
     if (!p.phone || !p.password) return wx.showToast({ title: '\u8bf7\u586b\u5b8c\u6574\u4fe1\u606f', icon: 'none' })
@@ -140,6 +149,8 @@ Page({
     const p = this.data
     if (!p.phone || !p.password) return wx.showToast({ title: '\u8bf7\u586b\u5b8c\u6574\u4fe1\u606f', icon: 'none' })
     if (!this.isValidPhone(p.phone)) return wx.showToast({ title: '\u8bf7\u8f93\u5165\u6b63\u786e\u624b\u673a\u53f7', icon: 'none' })
+    const rn = this.checkRealName(p.realName)
+    if (!rn.ok) return wx.showToast({ title: rn.hint, icon: 'none' })
     if (!p.code || p.code.length !== 6) return wx.showToast({ title: '\u8bf7\u586b\u5199\u9a8c\u8bc1\u7801', icon: 'none' })
     if (!this.checkPassword(p.password)) {
       return wx.showToast({ title: this.data.passwordHint || '密码不符合要求', icon: 'none' })
@@ -147,6 +158,7 @@ Page({
     const registerPayload = {
       phone: p.phone,
       password: p.password,
+      realName: p.realName.trim(),
       code: p.code,
       gender: p.gender || null
     }
