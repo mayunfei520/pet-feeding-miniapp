@@ -12,7 +12,9 @@ Page({
 
   onLoad() {
     if (wx.getStorageSync('feederApplied')) {
-      this.setData({ applyNotice: '你已提交申请，当前资料审核中。审核通过后，用本号登录将自动切换为喂养员模式。' })
+      this.setData({
+        applyNotice: '你已提交申请，当前资料审核中。审核通过后，用本号登录将自动切换为喂养员模式。（如后台确实无记录，可再次提交）'
+      })
     }
   },
 
@@ -37,8 +39,15 @@ Page({
       wx.setStorageSync('feederApplied', true)
       wx.showToast({ title: '已提交，用本号登录即自动成为喂养员', icon: 'none' })
       setTimeout(() => wx.navigateBack(), 1500)
-    }).catch(() => {
+    }).catch((err) => {
       this.setData({ submitting: false })
+      // request.js 已在业务错误时 toast 了 err.message，这里补充日志和本地降级提示
+      console.error('[apply] 提交失败', err)
+      // 如果后端返回的是"已提交"，同步本地标记保持一致性
+      if (err && (err.message || '').includes('已提交')) {
+        wx.setStorageSync('feederApplied', true)
+        this.setData({ applyNotice: '你已提交申请，当前资料审核中。如需修改资料请联系管理员，或等审核结果。' })
+      }
     })
   }
 })
