@@ -39,6 +39,23 @@
     </view>
   </view>
 
+  <view class="feeder-cta" wx:if="{{showFeederCta}}" bindtap="goTo" data-path="/pages/feeder/apply/apply">
+    <view class="cta-icon">🐾</view>
+    <view class="cta-body">
+      <view class="cta-title">想接单赚零花？成为喂养员</view>
+      <view class="cta-sub">填写资料，审核通过即可接单</view>
+    </view>
+    <view class="cta-arrow">去申请 ›</view>
+  </view>
+
+  <view class="feeder-reviewing" wx:elif="{{showFeederReviewing}}">
+    <view class="cta-icon">⏳</view>
+    <view class="cta-body">
+      <view class="cta-title">喂养员资料审核中</view>
+      <view class="cta-sub">通过后用本号登录将自动切换为喂养员模式</view>
+    </view>
+  </view>
+
   <view class="section" wx:if="{{role !== 'ADMIN'}}">
     <view class="section-title-row">
       <text class="section-title">🌟 推荐喂养员</text>

@@ -36,14 +36,18 @@ Page({
     roleHomeTitle: '快捷服务',
     roleHomeDesc: '为你的宠物安排一次安心喂养',
     quickActions: [],
-    showStats: true
+    showStats: true,
+    feederApplied: false,
+    showFeederCta: false,
+    showFeederReviewing: false
   },
 
   onShow() {
     const token = wx.getStorageSync('token') || ''
     const userInfo = wx.getStorageSync('userInfo') || {}
     const role = userInfo.role || 'OWNER'
-    this.setData({ token, role })
+    const feederApplied = wx.getStorageSync('feederApplied') || false
+    this.setData({ token, role, feederApplied })
     this.syncRoleView()
     if (token && role !== 'ADMIN') {
       this.loadAll()
@@ -67,7 +71,9 @@ Page({
           { id: 'apply', text: '认证申请', icon: '认', bg: '#f59e0b', path: '/pages/feeder/apply/apply' },
           { id: 'feeders', text: '喂养员广场', icon: '员', bg: '#22c55e', path: '/pages/feeders/list' },
           { id: 'mine', text: '个人中心', icon: '我', bg: '#ec4899', path: '/pages/mine/index' }
-        ]
+        ],
+        showFeederCta: false,
+        showFeederReviewing: false
       })
       return
     }
@@ -82,7 +88,9 @@ Page({
         showStats: false,
         quickActions: [
           { id: 'mine', text: '个人中心', icon: '管', bg: '#22c55e', path: '/pages/mine/index' }
-        ]
+        ],
+        showFeederCta: false,
+        showFeederReviewing: false
       })
       return
     }
@@ -98,8 +106,10 @@ Page({
         { id: 'pets', text: '我的宠物', icon: '宠', bg: '#3b82f6', path: '/pages/pets/list' },
         { id: 'feeders', text: '找喂养员', icon: '找', bg: '#f59e0b', path: '/pages/feeders/list' },
         { id: 'create', text: '预约喂养', icon: '约', bg: '#22c55e', path: '/pages/orders/create/create' },
-        { id: 'orders', text: '我的订单', icon: '单', bg: '#ec4899', path: '/pages/orders/list' }
-      ]
+          { id: 'orders', text: '我的订单', icon: '单', bg: '#ec4899', path: '/pages/orders/list' }
+      ],
+      showFeederCta: !this.data.feederApplied,
+      showFeederReviewing: this.data.feederApplied
     })
   },
 

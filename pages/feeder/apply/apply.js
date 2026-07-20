@@ -10,6 +10,12 @@ Page({
     submitting: false
   },
 
+  onLoad() {
+    if (wx.getStorageSync('feederApplied')) {
+      this.setData({ applyNotice: '你已提交申请，当前资料审核中。审核通过后，用本号登录将自动切换为喂养员模式。' })
+    }
+  },
+
   onInput(e) {
     this.setData({ ['form.' + e.currentTarget.dataset.field]: e.detail.value })
   },
@@ -28,8 +34,9 @@ Page({
     this.setData({ submitting: true })
     feederApi.apply(this.data.form).then(() => {
       this.setData({ submitting: false })
-      wx.showToast({ title: '已提交，审核通过后可接单', icon: 'none' })
-      setTimeout(() => wx.navigateBack(), 1200)
+      wx.setStorageSync('feederApplied', true)
+      wx.showToast({ title: '已提交，用本号登录即自动成为喂养员', icon: 'none' })
+      setTimeout(() => wx.navigateBack(), 1500)
     }).catch(() => {
       this.setData({ submitting: false })
     })
