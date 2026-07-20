@@ -41,12 +41,20 @@ Page({
       setTimeout(() => wx.navigateBack(), 1500)
     }).catch((err) => {
       this.setData({ submitting: false })
-      // request.js 已在业务错误时 toast 了 err.message，这里补充日志和本地降级提示
       console.error('[apply] 提交失败', err)
-      // 如果后端返回的是"已提交"，同步本地标记保持一致性
+      // 后端返回"已提交"：feeder 表中该用户已有记录，但管理后台可能查不到
+      // （脏数据 / status 异常 / userId 绑定错）。此时【不】自动标记成功，
+      // 否则首页会误显"审核中"而实际后台无记录，误导用户。
       if (err && (err.message || '').includes('已提交')) {
-        wx.setStorageSync('feederApplied', true)
-        this.setData({ applyNotice: '你已提交申请，当前资料审核中。如需修改资料请联系管理员，或等审核结果。' })
+        wx.showModal({
+          title: '提交异常',
+          content: '系统显示您已提交过申请，但后台暂无可见记录，可能是数据异常。请联系管理员处理后重试。',
+          showCancel: false,
+          confirmText: '我知道了'
+        })
+        this.setData({
+          applyNotice: '提交被后端拦截：系统显示您已提交过申请，但记录可能异常。请联系管理员处理。'
+        })
       }
     })
   }
