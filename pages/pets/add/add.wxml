@@ -76,8 +76,8 @@
     </view>
     <view class="field">
       <view class="field-label">
-        <text class="label-icon">疫</text>
-        <text>是否打疫苗</text>
+        <text class="label-icon">💉</text>
+        <text>疫苗状态</text>
       </view>
       <view class="switch-row">
         <text wx:if="{{!form.vaccinated}}" class="switch-text off">未打疫苗</text>

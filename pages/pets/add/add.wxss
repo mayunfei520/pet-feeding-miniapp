@@ -142,7 +142,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16rpx 0;
+  padding: 24rpx 28rpx;
+  background: linear-gradient(135deg, #FFF7ED, #FFFBF5);
+  border: 2rpx solid #FED7AA;
+  border-radius: 16rpx;
 }
-.switch-text { font-size: 28rpx; color: #666666; }
-.switch-text.on { color: #22C55E; }
+.switch-text { font-size: 28rpx; color: #9CA3AF; font-weight: 500; }
+.switch-text.on { color: #16A34A; }
+.switch-text.off { color: #9CA3AF; }
