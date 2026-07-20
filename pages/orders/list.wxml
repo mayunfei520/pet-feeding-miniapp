@@ -28,7 +28,6 @@
       <text wx:else>💰 待报价</text>
     </view>
     <view class="oc-actions">
-      <button class="btn-sm primary" wx:if="{{item.canFeederAccept}}" catchtap="doAccept" data-id="{{item.id}}">接单</button>
       <button class="btn-sm primary" wx:if="{{item.canFeederQuote}}" catchtap="doQuote" data-id="{{item.id}}">填报价</button>
       <button class="btn-sm primary" wx:if="{{item.canOwnerConfirm}}" catchtap="doConfirm" data-id="{{item.id}}">同意报价</button>
       <button class="btn-sm warn" wx:if="{{item.canOwnerReject}}" catchtap="doReject" data-id="{{item.id}}">拒绝</button>

@@ -83,7 +83,6 @@ Page({
             ? 'tag tag-cancelled'
             : 'tag tag-accepted',
       canOwnerComplete: item.status === 'ACCEPTED' && this.data.role === 'OWNER',
-      canFeederAccept: item.status === 'PENDING' && this.data.role === 'FEEDER',
       canFeederQuote: item.status === 'PENDING' && this.data.role === 'FEEDER',
       canOwnerConfirm: item.status === 'QUOTED' && this.data.role === 'OWNER',
       canOwnerReject: item.status === 'QUOTED' && this.data.role === 'OWNER',
@@ -147,15 +146,6 @@ Page({
 
   goReview(e) {
     wx.navigateTo({ url: '/pages/reviews/create/create?orderId=' + e.currentTarget.dataset.id })
-  },
-
-  doAccept(e) {
-    const id = e.currentTarget.dataset.id
-    const { orderApi } = require('../../utils/api')
-    orderApi.accept(id).then(() => {
-      wx.showToast({ title: '接单成功', icon: 'success' })
-      this.loadOrders()
-    }).catch(() => {})
   },
 
   doQuote(e) {

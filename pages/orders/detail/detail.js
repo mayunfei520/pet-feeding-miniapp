@@ -11,7 +11,6 @@ Page({
     statusMap: { PENDING: '待报价', QUOTED: '已报价待确认', ACCEPTED: '已确认待服务', IN_PROGRESS: '进行中', COMPLETED: '已完成', CANCELLED: '已取消' },
     statusDescMap: { PENDING: '需求已提交，等待喂养员报价', QUOTED: '喂养员已报价，请确认是否接受', ACCEPTED: '您已确认报价，等待喂养员服务', IN_PROGRESS: '服务进行中', COMPLETED: '服务已完成', CANCELLED: '订单已取消' },
     canCancel: false,
-    canAccept: false,
     canStart: false,
     canReview: false,
     canComplete: false,
@@ -58,7 +57,6 @@ Page({
   syncActions(order) {
     this.setData({
       canCancel: (order.status === 'PENDING' || order.status === 'QUOTED') && this.data.role === 'OWNER',
-      canAccept: order.status === 'PENDING' && this.data.role === 'FEEDER',
       canQuote: order.status === 'PENDING' && this.data.role === 'FEEDER',
       canConfirm: order.status === 'QUOTED' && this.data.role === 'OWNER',
       canReject: order.status === 'QUOTED' && this.data.role === 'OWNER',
@@ -79,16 +77,6 @@ Page({
         }
       }).catch(() => {})
     } catch (e) {}
-  },
-
-  doAccept() {
-    const { orderApi } = require('../../../utils/api')
-    orderApi.accept(this.data.order.id).then(() => {
-      const order = { ...this.data.order, status: 'ACCEPTED' }
-      this.setData({ order })
-      this.syncActions(order)
-      wx.showToast({ title: '接单成功', icon: 'success' })
-    }).catch(() => {})
   },
 
   doQuote() {

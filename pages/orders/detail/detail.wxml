@@ -41,9 +41,6 @@
     </view>
   </view>
 
-  <view class="actions" wx:if="{{canAccept}}">
-    <button class="btn btn-primary" bindtap="doAccept">接单</button>
-  </view>
   <view class="actions" wx:if="{{canQuote}}">
     <button class="btn btn-primary" bindtap="doQuote">填报价</button>
   </view>

@@ -105,7 +105,7 @@ Page({
     const { orderApi } = require('../../../utils/api')
     const data = {
       petId: this.data.pets[this.data.petIndex].id,
-      feederId: this.data.feeders[this.data.feederIndex].id,
+      feederId: this.data.feeders[this.data.feederIndex].userId,
       serviceDate: this.data.form.serviceDate,
       servicePeriod: this.data.form.servicePeriod,
       address: this.data.form.address.trim(),
