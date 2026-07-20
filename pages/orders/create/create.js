@@ -24,7 +24,7 @@ Page({
     pets: [], feeders: [],
     petIndex: -1, feederIndex: -1,
     petLabels: [], today: '',
-    form: { serviceDate: '', servicePeriod: 'AM', address: '', price: '', notes: '' },
+    form: { serviceDate: '', servicePeriod: 'AM', address: '', notes: '' },
     periodOptions: [
       { value: 'AM', label: '上午', icon: '🌅', className: 'period active' },
       { value: 'PM', label: '下午', icon: '☀️', className: 'period' },
@@ -106,9 +106,10 @@ Page({
     const data = {
       petId: this.data.pets[this.data.petIndex].id,
       feederId: this.data.feeders[this.data.feederIndex].id,
-      ...this.data.form,
-      price: parseFloat(this.data.form.price) || 0,
-      address: this.data.form.address.trim()
+      serviceDate: this.data.form.serviceDate,
+      servicePeriod: this.data.form.servicePeriod,
+      address: this.data.form.address.trim(),
+      notes: this.data.form.notes
     }
     orderApi.create(data).then(() => {
       wx.showToast({ title: '预约成功', icon: 'success' })

@@ -73,9 +73,9 @@
     <view class="field">
       <view class="field-label">
         <text class="label-icon">💰</text>
-        <text>金额（元）</text>
+        <text>服务费用</text>
       </view>
-      <input class="field-input" type="digit" placeholder="0.00" value="{{form.price}}" bindinput="onInput" data-field="price" />
+      <view class="field-hint">提交需求后由喂养员报价，您确认价格后再服务</view>
     </view>
 
     <view class="field">

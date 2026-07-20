@@ -24,10 +24,14 @@
     <view class="oc-info">
       <text>📅 {{item.serviceDate}} {{periodMap[item.servicePeriod]}}</text>
       <text>📍 {{item.address}}</text>
-      <text>💰 ¥{{item.price}}</text>
+      <text wx:if="{{item.price}}">💰 ¥{{item.price}}</text>
+      <text wx:else>💰 待报价</text>
     </view>
     <view class="oc-actions">
       <button class="btn-sm primary" wx:if="{{item.canFeederAccept}}" catchtap="doAccept" data-id="{{item.id}}">接单</button>
+      <button class="btn-sm primary" wx:if="{{item.canFeederQuote}}" catchtap="doQuote" data-id="{{item.id}}">填报价</button>
+      <button class="btn-sm primary" wx:if="{{item.canOwnerConfirm}}" catchtap="doConfirm" data-id="{{item.id}}">同意报价</button>
+      <button class="btn-sm warn" wx:if="{{item.canOwnerReject}}" catchtap="doReject" data-id="{{item.id}}">拒绝</button>
       <button class="btn-sm primary" wx:if="{{item.canFeederStart}}" catchtap="doStart" data-id="{{item.id}}">开始服务</button>
       <button class="btn-sm primary" wx:if="{{item.canOwnerComplete}}" catchtap="doComplete" data-id="{{item.id}}">确认完成</button>
       <button class="btn-sm danger" wx:if="{{item.canCancel}}" catchtap="doCancel" data-id="{{item.id}}">取消</button>

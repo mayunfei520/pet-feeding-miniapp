@@ -32,7 +32,8 @@
     </view>
     <view class="detail-row">
       <text class="dl">金额</text>
-      <text class="dv price">¥{{order.price}}</text>
+      <text class="dv price" wx:if="{{order.price}}">¥{{order.price}}</text>
+      <text class="dv" wx:else>待喂养员报价</text>
     </view>
     <view class="detail-row" wx:if="{{order.notes}}">
       <text class="dl">备注</text>
@@ -42,6 +43,15 @@
 
   <view class="actions" wx:if="{{canAccept}}">
     <button class="btn btn-primary" bindtap="doAccept">接单</button>
+  </view>
+  <view class="actions" wx:if="{{canQuote}}">
+    <button class="btn btn-primary" bindtap="doQuote">填报价</button>
+  </view>
+  <view class="actions" wx:if="{{canConfirm}}">
+    <button class="btn btn-primary" bindtap="doConfirm">同意报价</button>
+  </view>
+  <view class="actions" wx:if="{{canReject}}">
+    <button class="btn btn-outline" bindtap="doReject">拒绝报价</button>
   </view>
   <view class="actions" wx:if="{{canStart}}">
     <button class="btn btn-primary" bindtap="doStart">开始服务</button>

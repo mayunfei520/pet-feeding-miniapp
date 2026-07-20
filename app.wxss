@@ -137,6 +137,11 @@ page {
   border: 2rpx solid #F0E6DC;
   background: #fff;
 }
+.btn-sm.warn {
+  color: #EA580C;
+  border: 2rpx solid #FED7AA;
+  background: #fff;
+}
 
 .save-btn {
   width: 100%;
@@ -222,6 +227,7 @@ page {
   font-weight: 500;
 }
 .tag-pending    { background: #FEF3C7; color: #B45309; }
+.tag-quoted     { background: #FFEDD5; color: #C2410C; }
 .tag-accepted   { background: #E0F2FE; color: #0369A1; }
 .tag-inprogress { background: #E0F2FE; color: #0369A1; }
 .tag-completed  { background: #DCFCE7; color: #16A34A; }

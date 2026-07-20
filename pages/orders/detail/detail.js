@@ -8,13 +8,16 @@ Page({
     pageTitle: '服务进度',
     pageDesc: '查看当前订单状态与服务信息',
     periodMap: { AM: '上午', PM: '下午', EVENING: '晚上' },
-    statusMap: { PENDING: '待接单', ACCEPTED: '已接单', IN_PROGRESS: '进行中', COMPLETED: '已完成', CANCELLED: '已取消' },
-    statusDescMap: { PENDING: '等待喂养员响应', ACCEPTED: '喂养员已接单，等待服务', IN_PROGRESS: '服务进行中', COMPLETED: '服务已完成', CANCELLED: '订单已取消' },
+    statusMap: { PENDING: '待报价', QUOTED: '已报价待确认', ACCEPTED: '已确认待服务', IN_PROGRESS: '进行中', COMPLETED: '已完成', CANCELLED: '已取消' },
+    statusDescMap: { PENDING: '需求已提交，等待喂养员报价', QUOTED: '喂养员已报价，请确认是否接受', ACCEPTED: '您已确认报价，等待喂养员服务', IN_PROGRESS: '服务进行中', COMPLETED: '服务已完成', CANCELLED: '订单已取消' },
     canCancel: false,
     canAccept: false,
     canStart: false,
     canReview: false,
     canComplete: false,
+    canQuote: false,
+    canConfirm: false,
+    canReject: false,
     statusLower: ''
   },
 
@@ -54,8 +57,11 @@ Page({
 
   syncActions(order) {
     this.setData({
-      canCancel: order.status === 'PENDING' && this.data.role === 'OWNER',
+      canCancel: (order.status === 'PENDING' || order.status === 'QUOTED') && this.data.role === 'OWNER',
       canAccept: order.status === 'PENDING' && this.data.role === 'FEEDER',
+      canQuote: order.status === 'PENDING' && this.data.role === 'FEEDER',
+      canConfirm: order.status === 'QUOTED' && this.data.role === 'OWNER',
+      canReject: order.status === 'QUOTED' && this.data.role === 'OWNER',
       canStart: order.status === 'ACCEPTED' && this.data.role === 'FEEDER',
       canComplete: order.status === 'ACCEPTED' && this.data.role === 'OWNER',
       canReview: order.status === 'COMPLETED' && this.data.role === 'OWNER'
@@ -83,6 +89,69 @@ Page({
       this.syncActions(order)
       wx.showToast({ title: '接单成功', icon: 'success' })
     }).catch(() => {})
+  },
+
+  doQuote() {
+    wx.showModal({
+      title: '填报价金额',
+      editable: true,
+      placeholderText: '请输入服务费用（元）',
+      success: (res) => {
+        if (!res.confirm) return
+        const price = parseFloat(res.content)
+        if (!(price > 0)) {
+          wx.showToast({ title: '请输入大于0的金额', icon: 'none' })
+          return
+        }
+        const { orderApi } = require('../../../utils/api')
+        orderApi.quote(this.data.order.id, { price }).then(() => {
+          const order = { ...this.data.order, status: 'QUOTED', price }
+          this.setData({ order })
+          this.syncActions(order)
+          wx.showToast({ title: '报价已提交', icon: 'success' })
+        }).catch((e) => {
+          wx.showToast({ title: e.message || '报价失败', icon: 'none' })
+        })
+      }
+    })
+  },
+
+  doConfirm() {
+    wx.showModal({
+      title: '确认报价',
+      content: '确认接受该喂养员的报价并开始服务？',
+      success: (res) => {
+        if (!res.confirm) return
+        const { orderApi } = require('../../../utils/api')
+        orderApi.confirm(this.data.order.id).then(() => {
+          const order = { ...this.data.order, status: 'ACCEPTED' }
+          this.setData({ order })
+          this.syncActions(order)
+          wx.showToast({ title: '已确认，等待服务', icon: 'success' })
+        }).catch((e) => {
+          wx.showToast({ title: e.message || '操作失败', icon: 'none' })
+        })
+      }
+    })
+  },
+
+  doReject() {
+    wx.showModal({
+      title: '拒绝报价',
+      content: '拒绝后喂养员可重新报价，确定吗？',
+      success: (res) => {
+        if (!res.confirm) return
+        const { orderApi } = require('../../../utils/api')
+        orderApi.reject(this.data.order.id).then(() => {
+          const order = { ...this.data.order, status: 'PENDING' }
+          this.setData({ order })
+          this.syncActions(order)
+          wx.showToast({ title: '已拒绝，等待重报', icon: 'none' })
+        }).catch((e) => {
+          wx.showToast({ title: e.message || '操作失败', icon: 'none' })
+        })
+      }
+    })
   },
 
   doCancel() {

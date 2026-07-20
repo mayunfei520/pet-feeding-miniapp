@@ -29,6 +29,13 @@ const orderApi = {
   list: () => http.get('/api/miniapp/orders'),
   pending: () => http.get('/api/miniapp/orders/pending'),
   create: (data) => http.post('/api/miniapp/orders', data),
+  // 喂养员报价（PENDING -> QUOTED）
+  quote: (id, data) => http.put('/api/miniapp/orders/' + id + '/quote', data),
+  // 客户同意报价（QUOTED -> ACCEPTED）
+  confirm: (id) => http.put('/api/miniapp/orders/' + id + '/confirm'),
+  // 客户拒绝报价（QUOTED -> PENDING，喂养员可重报）
+  reject: (id) => http.put('/api/miniapp/orders/' + id + '/reject'),
+  // 旧接口：喂养员接单（向后兼容保留，新流程不再调用）
   accept: (id) => http.put('/api/miniapp/orders/' + id + '/accept'),
   start: (id) => http.put('/api/miniapp/orders/' + id + '/start'),
   complete: (id) => http.put('/api/miniapp/orders/' + id + '/complete'),
