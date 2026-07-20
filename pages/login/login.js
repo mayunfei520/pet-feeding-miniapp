@@ -3,6 +3,7 @@ Page({
     isRegister: false,
     phone: '',
     password: '',
+    showPassword: false,
     code: '',
     gender: '',
     codeCountown: 0,
@@ -41,6 +42,8 @@ Page({
   },
   onCodeInput(e) { this.setData({ code: e.detail.value }) },
   onGenderTap(e) { this.setData({ gender: e.currentTarget.dataset.g }) },
+  // 切换密码可见/隐藏（眼睛图标）
+  togglePassword() { this.setData({ showPassword: !this.data.showPassword }) },
   sendCode() {
     const phone = this.data.phone
     if (!this.isValidPhone(phone)) {

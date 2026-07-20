@@ -89,6 +89,34 @@
   border-color: #F97316;
 }
 
+/* 密码框 + 眼睛切换 */
+.pwd-wrap {
+  position: relative;
+  width: 100%;
+  margin-bottom: 24rpx;
+}
+.pwd-input {
+  margin-bottom: 0;
+  padding-right: 84rpx;
+}
+.pwd-wrap .login-input:focus {
+  border-color: #F97316;
+}
+.eye {
+  position: absolute;
+  right: 8rpx;
+  top: 0;
+  width: 72rpx;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+}
+.eye:active {
+  opacity: 0.6;
+}
+
 /* 密码强度提示 */
 .pwd-hint {
   font-size: 24rpx;

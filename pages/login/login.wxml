@@ -14,7 +14,10 @@
 
     <view class="form" wx:if="{{!isRegister}}">
       <input class="login-input" placeholder="手机号" type="number" maxlength="11" bindinput="onPhoneInput" />
-      <input class="login-input" placeholder="密码" type="password" bindinput="onPasswordInput" />
+      <view class="pwd-wrap">
+        <input class="login-input pwd-input" placeholder="密码" type="{{showPassword ? 'text' : 'password'}}" bindinput="onPasswordInput" />
+        <view class="eye" bindtap="togglePassword">{{showPassword ? '👁' : '🙈'}}</view>
+      </view>
       <button class="login-btn" bindtap="doLogin">登录</button>
       <view class="switch-link" bindtap="switchTab">没有账号？去注册</view>
     </view>
@@ -22,7 +25,10 @@
     <view class="form" wx:else>
       <view class="register-notice">{{registerNotice}}</view>
       <input class="login-input" placeholder="手机号" type="number" maxlength="11" bindinput="onPhoneInput" />
-      <input class="login-input" placeholder="密码（8-20位，含大小写字母+数字）" type="password" bindinput="onPasswordInput" />
+      <view class="pwd-wrap">
+        <input class="login-input pwd-input" placeholder="密码（8-20位，含大小写字母+数字）" type="{{showPassword ? 'text' : 'password'}}" bindinput="onPasswordInput" />
+        <view class="eye" bindtap="togglePassword">{{showPassword ? '👁' : '🙈'}}</view>
+      </view>
       <view class="pwd-bar" wx:if="{{passwordHint}}">
         <view class="pwd-bar-fill pwd-bar-{{pwdStrength}}"></view>
       </view>
