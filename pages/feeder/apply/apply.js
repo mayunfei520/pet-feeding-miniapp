@@ -42,10 +42,11 @@ Page({
     }).catch((err) => {
       this.setData({ submitting: false })
       console.error('[apply] 提交失败', err)
-      // 后端返回"已提交"：feeder 表中该用户已有记录，但管理后台可能查不到
+      const msg = (err && err.message) || ''
+      // 场景1：后端返回"已提交"——feeder 表中该用户已有记录，但管理后台可能查不到
       // （脏数据 / status 异常 / userId 绑定错）。此时【不】自动标记成功，
       // 否则首页会误显"审核中"而实际后台无记录，误导用户。
-      if (err && (err.message || '').includes('已提交')) {
+      if (msg.includes('已提交')) {
         wx.showModal({
           title: '提交异常',
           content: '系统显示您已提交过申请，但后台暂无可见记录，可能是数据异常。请联系管理员处理后重试。',
@@ -54,6 +55,19 @@ Page({
         })
         this.setData({
           applyNotice: '提交被后端拦截：系统显示您已提交过申请，但记录可能异常。请联系管理员处理。'
+        })
+      // 场景2：后端返回"已是认证喂养员"——说明之前的脏记录已被处理，
+      // 账号已具备喂养员资质。前端角色在【登录时】写入缓存，需重登才能切换。
+      } else if (msg.includes('认证喂养员')) {
+        wx.showModal({
+          title: '您已是认证喂养员',
+          content: '您的喂养员资质已认证通过。请退出登录后重新登录，即可进入喂养员工作台。',
+          showCancel: false,
+          confirmText: '去重新登录',
+          success: () => {
+            wx.clearStorageSync()
+            wx.reLaunch({ url: '/pages/login/login' })
+          }
         })
       }
     })
