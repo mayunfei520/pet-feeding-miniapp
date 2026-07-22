@@ -21,6 +21,7 @@
     <view class="cert-body">
       <view class="cert-title">喂养员认证：已通过</view>
       <view class="cert-sub">您已具备接单资质，资料维护请联系管理员。</view>
+      <view class="cert-real" wx:if="{{userInfo.realName}}">实名：{{userInfo.realName}}</view>
     </view>
   </view>
 

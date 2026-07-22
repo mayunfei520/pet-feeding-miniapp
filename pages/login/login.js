@@ -5,6 +5,7 @@ Page({
     password: '',
     showPassword: false,
     realName: '',
+    nickname: '',
     code: '',
     gender: '',
     codeCountown: 0,
@@ -37,6 +38,7 @@ Page({
   },
   onPhoneInput(e) { this.setData({ phone: e.detail.value }) },
   onRealNameInput(e) { this.setData({ realName: e.detail.value.trim() }) },
+  onNicknameInput(e) { this.setData({ nickname: e.detail.value.trim() }) },
   onPasswordInput(e) {
     const password = e.detail.value
     this.setData({ password })
@@ -122,6 +124,14 @@ Page({
     if (!/^[\u4e00-\u9fa5]{2,4}$/.test(name)) return { ok: false, hint: '姓名需为 2-4 个汉字' }
     return { ok: true, hint: '' }
   },
+  // 昵称校验：选填。填写时需 2-12 字，不能纯空白
+  checkNickname(name) {
+    name = (name || '').trim()
+    if (name.length === 0) return { ok: true, hint: '' } // 选填，空通过
+    if (name.length < 2) return { ok: false, hint: '昵称至少 2 个字' }
+    if (name.length > 12) return { ok: false, hint: '昵称最多 12 个字' }
+    return { ok: true, hint: '' }
+  },
   doLogin() {
     const p = this.data
     if (!p.phone || !p.password) return wx.showToast({ title: '\u8bf7\u586b\u5b8c\u6574\u4fe1\u606f', icon: 'none' })
@@ -151,6 +161,8 @@ Page({
     if (!this.isValidPhone(p.phone)) return wx.showToast({ title: '\u8bf7\u8f93\u5165\u6b63\u786e\u624b\u673a\u53f7', icon: 'none' })
     const rn = this.checkRealName(p.realName)
     if (!rn.ok) return wx.showToast({ title: rn.hint, icon: 'none' })
+    const nn = this.checkNickname(p.nickname)
+    if (!nn.ok) return wx.showToast({ title: nn.hint, icon: 'none' })
     if (!p.code || p.code.length !== 6) return wx.showToast({ title: '\u8bf7\u586b\u5199\u9a8c\u8bc1\u7801', icon: 'none' })
     if (!this.checkPassword(p.password)) {
       return wx.showToast({ title: this.data.passwordHint || '密码不符合要求', icon: 'none' })
@@ -159,6 +171,7 @@ Page({
       phone: p.phone,
       password: p.password,
       realName: p.realName.trim(),
+      nickname: (p.nickname || '').trim(),
       code: p.code,
       gender: p.gender || null
     }
