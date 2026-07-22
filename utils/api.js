@@ -48,4 +48,13 @@ const reviewApi = {
   byFeeder: (id) => http.get('/api/miniapp/reviews/feeder/' + id)
 }
 
-module.exports = { authApi, petApi, feederApi, orderApi, reviewApi }
+// 聊天 IM
+const chatApi = {
+  conversations: () => http.get('/api/miniapp/conversations'),
+  byOrder: (orderId) => http.get('/api/miniapp/conversations/by-order/' + orderId),
+  messages: (id, cursor) => http.get('/api/miniapp/conversations/' + id + '/messages' + (cursor ? '?cursor=' + cursor : '')),
+  send: (data) => http.post('/api/miniapp/messages', data),
+  read: (id) => http.put('/api/miniapp/conversations/' + id + '/read')
+}
+
+module.exports = { authApi, petApi, feederApi, orderApi, reviewApi, chatApi }

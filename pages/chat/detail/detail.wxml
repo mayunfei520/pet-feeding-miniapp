@@ -1,0 +1,39 @@
+<view class="chat-detail-page">
+  <!-- 骨架屏 -->
+  <view wx:if="{{loading}}" class="skeleton-chat">
+    <view class="skeleton skeleton-bubble left"></view>
+    <view class="skeleton skeleton-bubble right"></view>
+    <view class="skeleton skeleton-bubble left"></view>
+  </view>
+
+  <!-- 消息列表 -->
+  <view wx:else class="msg-list">
+    <view
+      wx:for="{{messages}}"
+      wx:key="id"
+      class="msg-row {{item.isMine ? 'mine' : 'peer'}}"
+    >
+      <view class="msg-bubble {{item.type === 'IMAGE' ? 'img' : ''}}">
+        <text wx:if="{{item.type !== 'IMAGE'}}" class="msg-text">{{item.content}}</text>
+        <image wx:else class="msg-img" src="{{item.content}}" mode="aspectFill" />
+      </view>
+      <view wx:if="{{item.isMine && item.status === 'failed'}}" class="msg-retry" data-id="{{item.id}}" bindtap="retry">重发</view>
+      <view wx:elif="{{item.isMine && item.status === 'sending'}}" class="msg-sending">发送中</view>
+    </view>
+    <view class="msg-end"></view>
+  </view>
+
+  <!-- 输入栏 -->
+  <view class="chat-input-bar safe-bottom">
+    <input
+      class="chat-input"
+      value="{{inputText}}"
+      bindinput="onInput"
+      confirm-type="send"
+      bindconfirm="send"
+      placeholder="输入消息…"
+      placeholder-class="chat-input-ph"
+    />
+    <view class="chat-send-btn {{inputText ? 'active' : ''}}" bindtap="send">发送</view>
+  </view>
+</view>

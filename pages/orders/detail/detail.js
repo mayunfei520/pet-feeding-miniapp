@@ -209,5 +209,13 @@ Page({
 
   goReview() {
     wx.navigateTo({ url: '/pages/reviews/create/create?orderId=' + this.data.order.id })
+  },
+
+  goChat() {
+    if (!this.data.order || !this.data.order.feederId) {
+      wx.showToast({ title: '暂无喂养员', icon: 'none' })
+      return
+    }
+    wx.navigateTo({ url: '/pages/chat/detail/detail?orderId=' + this.data.order.id })
   }
 })

@@ -11,7 +11,9 @@
     "pages/orders/create/create",
     "pages/orders/detail/detail",
     "pages/reviews/create/create",
-    "pages/feeder/apply/apply"
+    "pages/feeder/apply/apply",
+    "pages/chat/list",
+    "pages/chat/detail"
   ],
   "window": {
     "navigationBarBackgroundColor": "#FFFFFF",

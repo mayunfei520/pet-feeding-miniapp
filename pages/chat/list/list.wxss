@@ -1,0 +1,114 @@
+.chat-list-page {
+  min-height: 100vh;
+  background: var(--wf-cream);
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+/* ===== 骨架屏 ===== */
+.skeleton-wrap { padding-top: 12rpx; }
+.skeleton-card {
+  height: 140rpx;
+  border-radius: var(--r-lg);
+  margin-bottom: 16rpx;
+}
+
+/* ===== 会话项 ===== */
+.conv-list {}
+.conv-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  background: var(--wf-surface);
+  border-radius: var(--r-lg);
+  margin-bottom: 16rpx;
+  border: 1rpx solid #FFF3E8;
+  box-shadow: 0 8rpx 24rpx rgba(249,115,22,0.06);
+  box-sizing: border-box;
+}
+.conv-item:active { background: #FFF3E8; transform: scale(0.99); }
+
+.conv-avatar,
+.conv-avatar-img {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  background: var(--wf-orange-tint);
+  color: var(--wf-orange-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  font-weight: 500;
+  flex-shrink: 0;
+  margin-right: 20rpx;
+  overflow: hidden;
+}
+.conv-avatar-img { padding: 0; }
+
+.conv-main {
+  flex: 1;
+  min-width: 0;
+}
+.conv-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+.conv-name-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  min-width: 0;
+}
+.conv-name {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: var(--wf-ink);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.conv-cert {
+  font-size: 20rpx;
+  color: var(--wf-green);
+  background: #DCFCE7;
+  padding: 2rpx 10rpx;
+  border-radius: 9999rpx;
+  flex-shrink: 0;
+}
+.conv-time {
+  font-size: 22rpx;
+  color: var(--wf-ink-faint);
+  flex-shrink: 0;
+  margin-left: 12rpx;
+}
+
+.conv-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.conv-last {
+  font-size: 26rpx;
+  color: var(--wf-ink-muted);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.conv-unread {
+  min-width: 32rpx;
+  height: 32rpx;
+  padding: 0 8rpx;
+  border-radius: 9999rpx;
+  background: var(--wf-orange);
+  color: #fff;
+  font-size: 22rpx;
+  line-height: 32rpx;
+  text-align: center;
+  margin-left: 12rpx;
+  flex-shrink: 0;
+}

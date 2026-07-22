@@ -25,6 +25,10 @@
     </view>
   </view>
 
+  <view class="actions" wx:if="{{order.feederId && statusLower !== 'cancelled'}}">
+    <button class="btn btn-out-line" bindtap="goChat">联系喂养员</button>
+  </view>
+
   <view class="card detail-card">
     <view class="detail-row">
       <text class="dl">订单编号</text>

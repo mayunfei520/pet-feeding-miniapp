@@ -1,0 +1,42 @@
+<view class="chat-list-page">
+  <!-- 骨架屏 -->
+  <view wx:if="{{loading}}" class="skeleton-wrap">
+    <view wx:for="{{[1,2,3]}}" wx:key="*this" class="skeleton skeleton-card"></view>
+  </view>
+
+  <!-- 空态 -->
+  <view wx:elif="{{conversations.length === 0}}" class="empty">
+    <view class="empty-icon">💬</view>
+    <view class="empty-title">还没有会话</view>
+    <view class="empty-desc">下单或接单后，可在这里和对方沟通价格与服务</view>
+  </view>
+
+  <!-- 会话列表 -->
+  <view wx:else class="conv-list">
+    <view
+      wx:for="{{conversations}}"
+      wx:key="id"
+      class="conv-item card-click-able"
+      data-id="{{item.id}}"
+      data-order="{{item.orderId}}"
+      bindtap="goChat"
+    >
+      <view wx:if="{{!item.peerAvatar}}" class="conv-avatar">{{item.peerInitial}}</view>
+      <image wx:else class="conv-avatar-img" src="{{item.peerAvatar}}" mode="aspectFill" />
+
+      <view class="conv-main">
+        <view class="conv-top">
+          <view class="conv-name-wrap">
+            <text class="conv-name">{{item.peerName}}</text>
+            <text wx:if="{{item.peerCertified}}" class="conv-cert">认证</text>
+          </view>
+          <text class="conv-time">{{item.lastTime}}</text>
+        </view>
+        <view class="conv-bottom">
+          <text class="conv-last">{{item.lastMessage || '暂无消息'}}</text>
+          <view wx:if="{{item.unread > 0}}" class="conv-unread">{{item.unread > 99 ? '99+' : item.unread}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

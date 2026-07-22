@@ -70,8 +70,9 @@ Page({
           { id: 'orders', text: '接单列表', icon: '单', bg: '#3b82f6', path: '/pages/orders/list' },
           { id: 'certified', text: '已认证', icon: '✓', bg: '#16a34a' },
           { id: 'feeders', text: '喂养员广场', icon: '员', bg: '#22c55e', path: '/pages/feeders/list' },
-          { id: 'mine', text: '个人中心', icon: '我', bg: '#ec4899', path: '/pages/mine/index' }
-        ],
+          { id: 'mine', text: '个人中心', icon: '我', bg: '#ec4899', path: '/pages/mine/index' },
+          { id: 'chat', text: '消息', icon: '💬', bg: '#f97316', path: '/pages/chat/list' }
+      ],
         showFeederCta: false,
         showFeederReviewing: false
       })
@@ -106,7 +107,8 @@ Page({
         { id: 'pets', text: '我的宠物', icon: '宠', bg: '#3b82f6', path: '/pages/pets/list' },
         { id: 'feeders', text: '找喂养员', icon: '找', bg: '#f59e0b', path: '/pages/feeders/list' },
         { id: 'create', text: '预约喂养', icon: '约', bg: '#22c55e', path: '/pages/orders/create/create' },
-          { id: 'orders', text: '我的订单', icon: '单', bg: '#ec4899', path: '/pages/orders/list' }
+          { id: 'orders', text: '我的订单', icon: '单', bg: '#ec4899', path: '/pages/orders/list' },
+        { id: 'chat', text: '消息', icon: '💬', bg: '#f97316', path: '/pages/chat/list' }
       ],
       showFeederCta: !this.data.feederApplied,
       showFeederReviewing: this.data.feederApplied
