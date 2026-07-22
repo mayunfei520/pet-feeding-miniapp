@@ -16,6 +16,14 @@
     <view class="upgrade-desc">提交实名和服务资料，通过审核后即可进入接单模式。</view>
   </view>
 
+  <view class="cert-status-card" wx:if="{{certified}}">
+    <view class="cert-icon">✅</view>
+    <view class="cert-body">
+      <view class="cert-title">喂养员认证：已通过</view>
+      <view class="cert-sub">您已具备接单资质，资料维护请联系管理员。</view>
+    </view>
+  </view>
+
   <view class="menu-group" wx:for="{{menuGroups}}" wx:key="id">
     <view class="group-title">{{item.title}}</view>
     <view class="menu-list">

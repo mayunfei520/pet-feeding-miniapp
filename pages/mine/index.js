@@ -7,7 +7,8 @@ Page({
     canSwitchRole: false,
     pageTheme: 'mine-owner',
     profileAccent: 'accent-owner',
-    roleBadge: '宠物主人'
+    roleBadge: '宠物主人',
+    certified: false
   },
 
   onShow() {
@@ -30,11 +31,11 @@ Page({
             id: 'feeder-main',
             title: '喂养员功能',
             items: [
-              { id: 'orders', text: '📦 接单列表', path: '/pages/orders/list' },
-              { id: 'apply', text: '✏️ 喂养员认证', path: '/pages/feeder/apply/apply' }
+              { id: 'orders', text: '📦 接单列表', path: '/pages/orders/list' }
             ]
           }
-        ]
+        ],
+        certified: true
       })
       return
     }
@@ -55,7 +56,8 @@ Page({
               { id: 'console', text: '🛠 请前往管理后台处理业务', action: 'adminNotice' }
             ]
           }
-        ]
+        ],
+        certified: false
       })
       return
     }
@@ -78,7 +80,8 @@ Page({
             { id: 'orders', text: '📋 我的订单', path: '/pages/orders/list' }
           ]
         }
-      ]
+      ],
+      certified: false
     })
   },
 

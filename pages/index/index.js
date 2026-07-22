@@ -68,7 +68,7 @@ Page({
         showStats: false,
         quickActions: [
           { id: 'orders', text: '接单列表', icon: '单', bg: '#3b82f6', path: '/pages/orders/list' },
-          { id: 'apply', text: '认证申请', icon: '认', bg: '#f59e0b', path: '/pages/feeder/apply/apply' },
+          { id: 'certified', text: '已认证', icon: '✓', bg: '#16a34a' },
           { id: 'feeders', text: '喂养员广场', icon: '员', bg: '#22c55e', path: '/pages/feeders/list' },
           { id: 'mine', text: '个人中心', icon: '我', bg: '#ec4899', path: '/pages/mine/index' }
         ],
@@ -157,6 +157,7 @@ Page({
 
   goTo(e) {
     const path = e.currentTarget.dataset.path
+    if (!path) return  // 状态类瓷砖（如「已认证」）不跳转
     wx.navigateTo({
       url: path,
       fail: () => wx.switchTab({ url: path })

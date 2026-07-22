@@ -142,3 +142,39 @@
 .logout-btn {
   margin-top: 40rpx;
 }
+
+.cert-status-card {
+  display: flex;
+  align-items: center;
+  margin-top: 22rpx;
+  padding: 30rpx 28rpx;
+  border-radius: 12rpx;
+  background: linear-gradient(135deg, #ECFDF5, #D1FAE5);
+  box-shadow: 0 4rpx 16rpx rgba(22,163,74,0.1);
+}
+
+.cert-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: #16A34A;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  margin-right: 22rpx;
+}
+
+.cert-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #14532D;
+  margin-bottom: 8rpx;
+}
+
+.cert-sub {
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: #15803D;
+}
