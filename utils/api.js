@@ -39,7 +39,13 @@ const orderApi = {
   accept: (id) => http.put('/api/miniapp/orders/' + id + '/accept'),
   start: (id) => http.put('/api/miniapp/orders/' + id + '/start'),
   complete: (id) => http.put('/api/miniapp/orders/' + id + '/complete'),
-  cancel: (id) => http.put('/api/miniapp/orders/' + id + '/cancel')
+  cancel: (id) => http.put('/api/miniapp/orders/' + id + '/cancel'),
+  // 平台托管支付：确认报价后统一下单，返回 wx.requestPayment 参数
+  pay: (id) => http.post('/api/miniapp/orders/' + id + '/pay'),
+  // 查询支付状态（确认后轮询直到 PAID）
+  queryPayment: (orderId) => http.get('/api/miniapp/payments/order/' + orderId),
+  // 已支付订单取消 -> 原路退款
+  refund: (id) => http.post('/api/miniapp/orders/' + id + '/refund')
 }
 
 // 评价
