@@ -32,7 +32,6 @@
 | `/feeders/:id/reviews` | 喂养员评价 | 按喂养员查看评价 |
 | `/orders` | 订单管理 | 订单筛选、取消、分配 |
 | `/reviews` | 评价管理 | 平台评价管理 |
-| `/payments` | 支付记录 | 支付记录查看 |
 
 ## 2. 接口清单
 
@@ -113,9 +112,6 @@
 - `GET /api/review/feeder/{feederId}`
 - `DELETE /api/review/{id}`
 
-#### 支付管理
-- `GET /api/payment/all`
-
 ## 3. 状态流转图
 
 ### 3.1 用户身份流转
@@ -165,7 +161,6 @@ flowchart LR
 | `feeders` | `Feeder` | 喂养员认证与展示资料 |
 | `orders` | `Order` | 喂养服务订单 |
 | `reviews` | `Review` | 服务评价 |
-| `payments` | `Payment` | 支付记录 |
 | `sms_logs` | `SmsLog` | 短信通知日志 |
 
 ### 4.2 表关系
@@ -176,11 +171,9 @@ erDiagram
   USERS ||--o{ FEEDERS : applies
   USERS ||--o{ ORDERS : owner_places
   USERS ||--o{ REVIEWS : owner_writes
-  USERS ||--o{ PAYMENTS : pays
   PETS ||--o{ ORDERS : belongs_to
   FEEDERS ||--o{ SMS_LOGS : notified
   ORDERS ||--o{ REVIEWS : generates
-  ORDERS ||--o{ PAYMENTS : paid_by
   ORDERS ||--o{ SMS_LOGS : triggers
 ```
 
@@ -194,8 +187,6 @@ erDiagram
 - `reviews.order_id -> orders.id`
 - `reviews.owner_id -> users.id`
 - `reviews.feeder_id -> feeders.id`
-- `payments.order_id -> orders.id`
-- `payments.user_id -> users.id`
 - `sms_logs.order_id -> orders.id`
 - `sms_logs.feeder_id -> feeders.id`
 
