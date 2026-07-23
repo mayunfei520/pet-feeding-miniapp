@@ -7,8 +7,9 @@
   <!-- 空态 -->
   <view wx:elif="{{conversations.length === 0}}" class="empty">
     <view class="empty-icon">💬</view>
-    <view class="empty-title">还没有会话</view>
-    <view class="empty-desc">下单或接单后，可在这里和对方沟通价格与服务</view>
+    <view class="empty-title">还没有沟通记录</view>
+    <view class="empty-desc">看中哪位喂养员，可以直接聊聊价格和服务～</view>
+    <view class="empty-btn" bindtap="goFeeders">去找喂养员聊聊 ›</view>
   </view>
 
   <!-- 会话列表 -->
@@ -19,6 +20,7 @@
       class="conv-item card-click-able"
       data-id="{{item.id}}"
       data-order="{{item.orderId}}"
+      data-name="{{item.peerName}}"
       bindtap="goChat"
     >
       <view wx:if="{{!item.peerAvatar}}" class="conv-avatar">{{item.peerInitial}}</view>

@@ -17,9 +17,23 @@ Page({
     chatApi.conversations().then(res => {
       const list = (res.data || []).map(c => this.normalize(c))
       this.setData({ conversations: list, loading: false })
+      this.updateTabBadge(list)
     }).catch(() => {
       this.setData({ loading: false })
     })
+  },
+
+  // 同步「消息」TabBar 红点：汇总所有会话未读数
+  updateTabBadge(list) {
+    const arr = list || this.data.conversations
+    const total = (arr || []).reduce((s, c) => s + (c.unread || 0), 0)
+    try {
+      if (total > 0) {
+        wx.setTabBarBadge({ index: 1, text: total > 99 ? '99+' : String(total) })
+      } else {
+        wx.removeTabBarBadge({ index: 1 })
+      }
+    } catch (e) { /* 非 tabBar 上下文忽略 */ }
   },
 
   normalize(c) {
@@ -58,7 +72,12 @@ Page({
   goChat(e) {
     const id = e.currentTarget.dataset.id
     const orderId = e.currentTarget.dataset.order
-    wx.navigateTo({ url: '/pages/chat/detail/detail?conversationId=' + id + '&orderId=' + orderId })
+    const name = e.currentTarget.dataset.name || ''
+    wx.navigateTo({ url: '/pages/chat/detail/detail?conversationId=' + id + '&orderId=' + orderId + '&peerName=' + encodeURIComponent(name) })
+  },
+
+  goFeeders() {
+    wx.navigateTo({ url: '/pages/feeders/list' })
   },
 
   onPullDownRefresh() {

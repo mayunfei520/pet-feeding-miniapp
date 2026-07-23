@@ -112,3 +112,19 @@
   margin-left: 12rpx;
   flex-shrink: 0;
 }
+
+/* ===== 空态引导按钮 ===== */
+.empty-btn {
+  margin-top: 28rpx;
+  padding: 18rpx 40rpx;
+  background: linear-gradient(135deg, #FB923C, #F97316);
+  color: #fff;
+  font-size: 26rpx;
+  font-weight: 500;
+  border-radius: 9999rpx;
+  box-shadow: 0 8rpx 24rpx rgba(249,115,22,0.25);
+}
+.empty-btn:active {
+  background: #EA580C;
+  transform: scale(0.97);
+}

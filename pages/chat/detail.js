@@ -20,7 +20,9 @@ Page({
     const conversationId = options.conversationId || ''
     const orderId = options.orderId || ''
     const feederId = options.feederId || ''
-    this.setData({ myRole, conversationId, orderId, feederId })
+    const peerName = decodeURIComponent(options.peerName || '')
+    this.setData({ myRole, conversationId, orderId, feederId, peerName })
+    if (peerName) wx.setNavigationBarTitle({ title: peerName })
     if (!orderId && !conversationId && !feederId) {
       wx.showToast({ title: '缺少会话参数', icon: 'none' })
       return

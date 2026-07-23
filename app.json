@@ -19,7 +19,7 @@
     "navigationBarBackgroundColor": "#FFFFFF",
     "navigationBarTitleText": "宠物喂养",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#F5F5F5"
+    "backgroundColor": "#FFF8F1"
   },
   "tabBar": {
     "color": "#999999",
