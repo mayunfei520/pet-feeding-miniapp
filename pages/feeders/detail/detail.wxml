@@ -42,7 +42,4 @@
     <text>暂无评价</text>
   </view>
 
-  <view class="save-bar" wx:if="{{showBottomAction}}">
-    <button class="save-btn" bindtap="goOrder">{{bottomActionText}}</button>
-  </view>
 </view>

@@ -30,9 +30,7 @@ Page({
     actionText: '📋 选择该喂养员去预约',
     actionHint: '适合宠物主人直接发起预约',
     showPrimaryAction: true,
-    showBottomAction: true,
-    showChat: false,
-    bottomActionText: '📋 选择该喂养员去预约'
+    showChat: false
   },
 
   onLoad(options) {
@@ -70,8 +68,7 @@ Page({
         actionText: '👀 查看预约入口样式',
         actionHint: '当前用于浏览同行资料和服务展示',
         showPrimaryAction: false,
-        showBottomAction: false,
-        bottomActionText: '📋 选择该喂养员去预约'
+        showChat: false
       })
       return
     }
@@ -84,8 +81,7 @@ Page({
         actionText: '🛠 后台审核请前往管理端',
         actionHint: '小程序端仅展示公开资料',
         showPrimaryAction: false,
-        showBottomAction: false,
-        bottomActionText: '🛠 后台审核请前往管理端'
+        showChat: false
       })
       return
     }
@@ -97,9 +93,7 @@ Page({
       actionText: '📋 选择该喂养员去预约',
       actionHint: '适合宠物主人直接发起预约',
       showPrimaryAction: true,
-      showBottomAction: true,
-      showChat: true,
-      bottomActionText: '📋 选择该喂养员去预约'
+      showChat: true
     })
   },
 
@@ -113,7 +107,11 @@ Page({
       wx.showToast({ title: '管理员请前往后台处理', icon: 'none' })
       return
     }
-    wx.navigateTo({ url: '/pages/orders/create/create' })
+    const feeder = this.data.feeder || {}
+    const id = feeder.id
+    let url = '/pages/orders/create/create'
+    if (id) url += '?feederId=' + id
+    wx.navigateTo({ url })
   },
 
   goChat() {

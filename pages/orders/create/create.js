@@ -23,13 +23,19 @@ Page({
   data: {
     pets: [], feeders: [],
     petIndex: -1, feederIndex: -1,
-    petLabels: [], today: '',
+    petLabels: [],     today: '',
+    preselectFeederId: '',
     form: { serviceDate: '', servicePeriod: 'AM', address: '', notes: '' },
     periodOptions: [
       { value: 'AM', label: '上午', icon: '🌅', className: 'period active' },
       { value: 'PM', label: '下午', icon: '☀️', className: 'period' },
       { value: 'EVENING', label: '晚上', icon: '🌙', className: 'period' }
     ]
+  },
+
+  onLoad(options) {
+    const preselectFeederId = (options && options.feederId) || ''
+    this.setData({ preselectFeederId })
   },
 
   onShow() {
@@ -49,8 +55,15 @@ Page({
     }).catch(() => {})
 
     feederApi.list().then(res => {
-      const feeders = (res.data || []).map((item, index) => normalizeFeeder(item, this.data.feederIndex === index))
-      this.setData({ feeders })
+      const feeders = (res.data || []).map(item => normalizeFeeder(item, false))
+      let feederIndex = this.data.feederIndex
+      const preId = this.data.preselectFeederId
+      if (preId && feederIndex < 0) {
+        const idx = feeders.findIndex(f => String(f.id) === String(preId))
+        if (idx >= 0) feederIndex = idx
+      }
+      this.setData({ feeders, feederIndex, preselectFeederId: '' })
+      this.syncFeederCards()
     }).catch(() => {})
   },
 
