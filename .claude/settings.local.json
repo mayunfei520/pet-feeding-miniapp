@@ -29,7 +29,9 @@
       "Bash(echo \"  frontend :5173 -> $\\(curl -s -o /dev/null -w '%{http_code}' http://localhost:5173\\)\")",
       "Bash(awk '{print $6, $7, $8, $NF}')",
       "Bash(echo \"后端: $\\(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/api/miniapp/pets\\)\")",
-      "Bash(echo \"前端: $\\(curl -s -o /dev/null -w '%{http_code}' http://localhost:5173\\)\")"
+      "Bash(echo \"前端: $\\(curl -s -o /dev/null -w '%{http_code}' http://localhost:5173\\)\")",
+      "Read(//d/Workspace/pet-feeding-admin-new/**)",
+      "Bash(dir /b \"D:\\\\Workspace\\\\pet-feeding-admin-new\")"
     ]
   }
 }
