@@ -119,7 +119,8 @@ Page({
   goChat() {
     const feeder = this.data.feeder || {}
     const id = feeder.id
+    const name = feeder.realName || ''
     if (!id) return
-    wx.navigateTo({ url: '/pages/chat/detail?feederId=' + id })
+    wx.navigateTo({ url: '/pages/chat/detail?feederId=' + id + '&peerName=' + encodeURIComponent(name) })
   }
 })

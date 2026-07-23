@@ -94,7 +94,8 @@ Page({
   },
   goChat(e) {
     const id = e.currentTarget.dataset.id
+    const name = e.currentTarget.dataset.name || ''
     if (!id) return
-    wx.navigateTo({ url: '/pages/chat/detail?feederId=' + id })
+    wx.navigateTo({ url: '/pages/chat/detail?feederId=' + id + '&peerName=' + encodeURIComponent(name) })
   }
 })

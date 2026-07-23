@@ -19,7 +19,7 @@
       <view class="desc" wx:if="{{item.description}}">{{item.description}}</view>
     </view>
     <view class="card-right">
-      <view class="chat-btn" catchtap="goChat" data-id="{{item.id}}">💬</view>
+      <view class="chat-btn" catchtap="goChat" data-id="{{item.id}}" data-name="{{item.realName}}">💬</view>
       <text class="arrow">›</text>
     </view>
   </view>

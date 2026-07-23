@@ -23,7 +23,10 @@ Page({
     const orderId = options.orderId || ''
     const feederId = options.feederId || ''
     const peerName = decodeURIComponent(options.peerName || '')
-    this.setData({ myRole, conversationId, orderId, feederId, peerName })
+    const convKey = conversationId ? ('conv_' + conversationId)
+      : orderId ? ('order_' + orderId)
+      : feederId ? ('feeder_' + feederId) : ''
+    this.setData({ myRole, conversationId, orderId, feederId, peerName, convKey })
     if (peerName) wx.setNavigationBarTitle({ title: peerName })
     if (!orderId && !conversationId && !feederId) {
       wx.showToast({ title: '缺少会话参数', icon: 'none' })
@@ -73,19 +76,49 @@ Page({
       this.setData({ peerName })
       wx.setNavigationBarTitle({ title: peerName })
     }
-    const t = this.fmtTime(new Date())
-    this.setData({
-      demoMode: true,
-      loading: false,
-      convError: '',
-      messages: [
-        { id: 'demo_1', isMine: false, type: 'TEXT', content: '您好，我是您的专属喂养员～有什么可以帮您？', time: t, status: 'sent', demo: true },
-        { id: 'demo_2', isMine: true, type: 'TEXT', content: '请问这次上门喂养80元能优惠一点吗？', time: t, status: 'sent', demo: true },
-        { id: 'demo_3', isMine: false, type: 'TEXT', content: '70元含猫砂清理哦～确认报价后就能约时间啦', time: t, status: 'sent', demo: true }
-      ]
-    })
+    // 读本地已有 demo 会话（按会话 key 分桶），使「选择不同喂养员」各自保留历史
+    const local = this.readLocalConv()
+    const messages = (local && local.messages && local.messages.length)
+      ? local.messages
+      : this.seedDemoMessages()
+    this.setData({ demoMode: true, loading: false, convError: '', messages })
+    this.saveLocalConv(messages)
     this.stopPoll()
     this.scrollBottom()
+  },
+
+  seedDemoMessages() {
+    const t = this.fmtTime(new Date())
+    return [
+      { id: 'demo_1', isMine: false, type: 'TEXT', content: '您好，我是您的专属喂养员～有什么可以帮您？', time: t, status: 'sent', demo: true },
+      { id: 'demo_2', isMine: true, type: 'TEXT', content: '请问这次上门喂养80元能优惠一点吗？', time: t, status: 'sent', demo: true },
+      { id: 'demo_3', isMine: false, type: 'TEXT', content: '70元含猫砂清理哦～确认报价后就能约时间啦', time: t, status: 'sent', demo: true }
+    ]
+  },
+
+  readLocalConv() {
+    const key = this.data.convKey
+    if (!key) return null
+    try {
+      const all = wx.getStorageSync('wf_demo_conversations') || {}
+      return all[key] || null
+    } catch (e) { return null }
+  },
+
+  saveLocalConv(messages) {
+    const key = this.data.convKey
+    if (!key) return
+    try {
+      const all = wx.getStorageSync('wf_demo_conversations') || {}
+      all[key] = {
+        key: key,
+        peerId: this.data.feederId || this.data.orderId || '',
+        peerName: this.data.peerName || '',
+        messages: messages || [],
+        updatedAt: Date.now()
+      }
+      wx.setStorageSync('wf_demo_conversations', all)
+    } catch (e) {}
   },
 
   applyPeer(c) {
@@ -178,7 +211,9 @@ Page({
         status: 'sent',
         demo: true
       }
-      this.setData({ messages: this.data.messages.concat([msg]), inputText: '' })
+      const messages = this.data.messages.concat([msg])
+      this.setData({ messages, inputText: '' })
+      this.saveLocalConv(messages)
       this.scrollBottom()
       return
     }

@@ -19,7 +19,8 @@ Page({
       this.setData({ conversations: list, loading: false })
       this.updateTabBadge(list)
     }).catch(() => {
-      this.setData({ loading: false })
+      // 后端 IM 未接入（#9 未合）时降级读本地 demo 会话，让「消息」tab 也能回显
+      this.setData({ conversations: this.readLocalConvs(), loading: false })
     })
   },
 
@@ -73,11 +74,39 @@ Page({
     const id = e.currentTarget.dataset.id
     const orderId = e.currentTarget.dataset.order
     const name = e.currentTarget.dataset.name || ''
-    wx.navigateTo({ url: '/pages/chat/detail?conversationId=' + id + '&orderId=' + orderId + '&peerName=' + encodeURIComponent(name) })
+    // demo_ 前缀项为本地降级会话，改传 feederId 让详情页回到对应本地会话
+    const url = (id && String(id).indexOf('demo_') === 0)
+      ? '/pages/chat/detail?feederId=' + (orderId || '') + '&peerName=' + encodeURIComponent(name)
+      : '/pages/chat/detail?conversationId=' + id + '&orderId=' + orderId + '&peerName=' + encodeURIComponent(name)
+    wx.navigateTo({ url })
   },
 
   goFeeders() {
     wx.navigateTo({ url: '/pages/feeders/list' })
+  },
+
+  // 后端 IM 未接入（#9 未合）时，从本地读取 demo 会话，让「消息」tab 也能回显
+  readLocalConvs() {
+    try {
+      const all = wx.getStorageSync('wf_demo_conversations') || {}
+      return Object.keys(all).map(k => {
+        const c = all[k]
+        const msgs = c.messages || []
+        const last = msgs[msgs.length - 1]
+        return {
+          id: 'demo_' + k,
+          orderId: c.peerId || '',
+          peerName: c.peerName || '喂养员',
+          peerInitial: (c.peerName || '喂').charAt(0),
+          peerAvatar: '',
+          peerCertified: false,
+          lastMessage: last ? last.content : '',
+          lastTime: last ? last.time : '',
+          unread: 0,
+          demo: true
+        }
+      })
+    } catch (e) { return [] }
   },
 
   onPullDownRefresh() {
