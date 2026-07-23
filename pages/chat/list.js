@@ -73,7 +73,7 @@ Page({
     const id = e.currentTarget.dataset.id
     const orderId = e.currentTarget.dataset.order
     const name = e.currentTarget.dataset.name || ''
-    wx.navigateTo({ url: '/pages/chat/detail/detail?conversationId=' + id + '&orderId=' + orderId + '&peerName=' + encodeURIComponent(name) })
+    wx.navigateTo({ url: '/pages/chat/detail?conversationId=' + id + '&orderId=' + orderId + '&peerName=' + encodeURIComponent(name) })
   },
 
   goFeeders() {

@@ -216,6 +216,6 @@ Page({
       wx.showToast({ title: '暂无喂养员', icon: 'none' })
       return
     }
-    wx.navigateTo({ url: '/pages/chat/detail/detail?orderId=' + this.data.order.id })
+    wx.navigateTo({ url: '/pages/chat/detail?orderId=' + this.data.order.id })
   }
 })

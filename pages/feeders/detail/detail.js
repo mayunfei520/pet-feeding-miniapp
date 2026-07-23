@@ -120,6 +120,6 @@ Page({
     const feeder = this.data.feeder || {}
     const id = feeder.id
     if (!id) return
-    wx.navigateTo({ url: '/pages/chat/detail/detail?feederId=' + id })
+    wx.navigateTo({ url: '/pages/chat/detail?feederId=' + id })
   }
 })
