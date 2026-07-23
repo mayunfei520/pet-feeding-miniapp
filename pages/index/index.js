@@ -39,8 +39,7 @@ Page({
     showStats: true,
     feederApplied: false,
     showFeederCta: false,
-    showFeederReviewing: false,
-    chatEntry: null
+    showFeederReviewing: false
   },
 
   onShow() {
@@ -74,8 +73,7 @@ Page({
           { id: 'mine', text: '个人中心', icon: '我', bg: '#ec4899', path: '/pages/mine/index' },
       ],
         showFeederCta: false,
-        showFeederReviewing: false,
-        chatEntry: { text: '联系客户', path: '/pages/chat/list' }
+        showFeederReviewing: false
       })
       return
     }
@@ -111,8 +109,7 @@ Page({
           { id: 'orders', text: '我的订单', icon: '单', bg: '#ec4899', path: '/pages/orders/list' },
       ],
       showFeederCta: !this.data.feederApplied,
-      showFeederReviewing: this.data.feederApplied,
-      chatEntry: { text: '联系喂养员', path: '/pages/chat/list' }
+      showFeederReviewing: this.data.feederApplied
     })
   },
 

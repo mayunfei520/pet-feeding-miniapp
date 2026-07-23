@@ -34,6 +34,12 @@
         "selectedIconPath": "images/icons/tab-home-active.png"
       },
       {
+        "pagePath": "pages/chat/list",
+        "text": "消息",
+        "iconPath": "images/icons/tab-chat.png",
+        "selectedIconPath": "images/icons/tab-chat-active.png"
+      },
+      {
         "pagePath": "pages/orders/list",
         "text": "订单",
         "iconPath": "images/icons/tab-order.png",

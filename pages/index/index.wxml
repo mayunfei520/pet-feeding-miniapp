@@ -77,15 +77,6 @@
     <view wx:elif="{{!loading}}" class="empty-inline">暂无喂养员，快去申请吧</view>
   </view>
 
-  <view class="chat-entry" wx:if="{{chatEntry}}" bindtap="goTo" data-path="{{chatEntry.path}}">
-    <view class="chat-entry-icon">💬</view>
-    <view class="chat-entry-body">
-      <view class="chat-entry-title">{{chatEntry.text}}</view>
-      <view class="chat-entry-sub">查看沟通记录与历史消息</view>
-    </view>
-    <view class="chat-entry-arrow">›</view>
-  </view>
-
   <view wx:if="{{loading}}" class="empty">
     <text class="empty-icon">⏳</text>
     <text>加载中...</text>
