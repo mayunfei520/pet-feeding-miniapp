@@ -133,8 +133,9 @@ Page({
 
   applyPeer(c) {
     const isOwner = this.data.myRole === 'OWNER'
-    const peer = isOwner ? (c.feeder || c.feederInfo || {}) : (c.owner || c.ownerInfo || {})
-    const name = peer.nickname || peer.realName || peer.name || (isOwner ? '喂养员' : '宠物主人')
+    // 后端 ConversationVO.peer（PeerInfo）；兼容历史命名 feeder/feederInfo/owner/ownerInfo
+    const peer = c.peer || c.feeder || c.feederInfo || c.owner || c.ownerInfo || {}
+    const name = peer.name || peer.realName || peer.nickname || (isOwner ? '喂养员' : '宠物主人')
     this.setData({
       peerName: name,
       peerCertified: !!(peer.certified || peer.certificated)
@@ -149,7 +150,7 @@ Page({
     }
     this.setData({ loading: true })
     chatApi.messages(this.data.conversationId, '').then(res => {
-      const list = (res.data && res.data.messages) || []
+      const list = (res.data && (res.data.list || res.data.messages)) || []
       this.setData({
         messages: list.map(m => this.normalize(m)),
         loading: false
@@ -165,7 +166,7 @@ Page({
     const msgs = this.data.messages
     const last = msgs.length ? msgs[msgs.length - 1] : null
     chatApi.messages(this.data.conversationId, '').then(res => {
-      const list = (res.data && res.data.messages) || []
+      const list = (res.data && (res.data.list || res.data.messages)) || []
       const incoming = last ? list.filter(m => this.msgTime(m) > this.msgTime(last)) : []
       if (incoming.length) {
         this.setData({ messages: list.map(m => this.normalize(m)) })
