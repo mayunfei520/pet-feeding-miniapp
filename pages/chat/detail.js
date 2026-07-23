@@ -59,7 +59,17 @@ Page({
       : Promise.resolve({ data: { id: this.data.conversationId } })
     step.then(res => {
       const c = res.data || {}
-      if (!this.data.conversationId && c.id) this.setData({ conversationId: c.id })
+      const convId = c.id || (Array.isArray(c) && c.length ? (c[0].id || '') : '')
+      if (!this.data.conversationId && convId) {
+        this.setData({ conversationId: convId })
+      }
+      // 防御：后端 by-feeder/by-order 返回非单对象或无 id（见 Issue #9 契约未对齐）时，
+      // 真实会话无法建立，send() 会因 conversationId 空而静默 return。主动降级到本地演示，
+      // 让用户在后端就绪前仍可完整体验聊天 UI；后端修好返回正确单对象后自动走真实发送。
+      if (!this.data.conversationId) {
+        this.enterDemo()
+        return
+      }
       this.applyPeer(c)
       this.loadMessages()
       this.markRead()
@@ -200,7 +210,12 @@ Page({
 
   send() {
     const text = this.data.inputText.trim()
-    if (!text || this.data.sending || !this.data.conversationId) return
+    if (!text) return
+    if (this.data.sending) return
+    if (!this.data.conversationId && !this.data.demoMode) {
+      wx.showToast({ title: '会话未建立，请稍后重试', icon: 'none' })
+      return
+    }
     if (this.data.demoMode) {
       const msg = {
         id: 'demo_' + Date.now(),
