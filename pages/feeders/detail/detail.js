@@ -31,6 +31,7 @@ Page({
     actionHint: '适合宠物主人直接发起预约',
     showPrimaryAction: true,
     showBottomAction: true,
+    showChat: false,
     bottomActionText: '📋 选择该喂养员去预约'
   },
 
@@ -97,6 +98,7 @@ Page({
       actionHint: '适合宠物主人直接发起预约',
       showPrimaryAction: true,
       showBottomAction: true,
+      showChat: true,
       bottomActionText: '📋 选择该喂养员去预约'
     })
   },
@@ -112,5 +114,12 @@ Page({
       return
     }
     wx.navigateTo({ url: '/pages/orders/create/create' })
+  },
+
+  goChat() {
+    const feeder = this.data.feeder || {}
+    const id = feeder.id
+    if (!id) return
+    wx.navigateTo({ url: '/pages/chat/detail/detail?feederId=' + id })
   }
 })

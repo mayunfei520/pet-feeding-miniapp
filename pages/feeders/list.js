@@ -91,5 +91,10 @@ Page({
   },
   goDetail(e) {
     wx.navigateTo({ url: '/pages/feeders/detail/detail?id=' + e.currentTarget.dataset.id })
+  },
+  goChat(e) {
+    const id = e.currentTarget.dataset.id
+    if (!id) return
+    wx.navigateTo({ url: '/pages/chat/detail/detail?feederId=' + id })
   }
 })

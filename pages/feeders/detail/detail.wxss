@@ -54,8 +54,9 @@
   margin-bottom: 12rpx;
   text-align: center;
 }
+.action-row { display: flex; gap: 16rpx; }
+.action-btn { flex: 1; }
 .action-btn.primary {
-  width: 100%;
   padding: 24rpx;
   background: #F97316;
   color: #fff;
@@ -64,6 +65,15 @@
   font-weight: 500;
   border: none;
   box-shadow: 0 4rpx 12rpx rgba(249,115,22,0.25);
+}
+.action-btn.ghost {
+  padding: 24rpx;
+  background: #FFFFFF;
+  color: #F97316;
+  border-radius: 8rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  border: 1rpx solid #F97316;
 }
 
 .section-title {

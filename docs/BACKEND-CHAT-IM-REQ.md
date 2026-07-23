@@ -2,7 +2,7 @@
 
 状态：待后端实现（前端已出具接口契约；前端聊天页骨架开发中）
 仓库：mayunfei520/pet-feeding-admin（后端实现） + 小程序 pet-feeding-miniapp（前端实现）
-前置：依赖订单报价流程（Issue #4）落地，会话与订单绑定。
+前置：依赖订单报价流程（Issue #4）落地（可选）；会话以 owner+feeder 唯一，**支持无订单直接沟通**（按 feederId 建会话）。
 
 ---
 
@@ -10,17 +10,17 @@
 
 当前客户与喂养员的价格/服务沟通仅靠「报价 → 确认/拒绝」的结构化流程，双方无法自由对话（如客户问「80 能优惠吗」、喂养员回「70 含猫砂」）。为把价格协商从死板的接受/拒绝变成真对话，需新增 IM 模块。
 
-目标：客户与喂养员可就某一笔订单发起会话，发送文字/图片，实时（或准实时）收到对方消息。
+目标：客户与喂养员可就某一笔订单发起会话，也可在无订单时直接就「选哪个喂养员 / 周末能否接」等先沟通，发送文字/图片，实时（或准实时）收到对方消息。
 
 ---
 
 ## 2. 数据模型（建议）
 
-### Conversation（会话，一对一，按订单唯一）
+### Conversation（会话，一对一，owner+feeder 唯一，订单可空）
 | 字段 | 类型 | 说明 |
 |---|---|---|
 | id | BIGINT PK | 会话 ID |
-| orderId | BIGINT | 关联订单；同一订单 owner+feeder 唯一 |
+| orderId | BIGINT | 关联订单（**可空**）；无订单沟通场景下为 null |
 | ownerId | BIGINT | 宠物主人用户 ID |
 | feederId | BIGINT | 喂养员用户 ID |
 | lastMessage | VARCHAR | 最后一条消息摘要（列表展示用） |
@@ -29,7 +29,7 @@
 | feederUnread | INT | 喂养员未读数 |
 | createTime | DATETIME | 创建时间 |
 
-> 唯一约束：`UNIQUE(orderId, ownerId, feederId)`，避免重复会话。
+> 唯一约束：`UNIQUE(ownerId, feederId)`，避免重复会话（同一对 owner/feeder 仅一个会话，无论是否绑定订单）。
 
 ### Message（消息）
 | 字段 | 类型 | 说明 |
@@ -54,6 +54,12 @@
 - 若该 orderId 的会话不存在，自动创建（owner+feeder，确保双方唯一）。
 - 返回 Conversation（含对方信息：昵称/真实姓名、头像、角色、是否认证）。
 - 鉴权：仅订单 owner 或 feeder 可访问；否则 403。
+
+### 3.1b 获取/创建会话（按喂养员，无订单）
+`GET /api/miniapp/conversations/by-feeder/{feederId}`
+- 若该 `owner + feeder` 的会话不存在，自动创建（`orderId` 为 null）。
+- 返回 Conversation（含对方信息：昵称/真实姓名、头像、角色、是否认证）。
+- 鉴权：仅登录用户；`feederId == 当前用户` → 400（不能与自己建会话）；否则 403。
 
 ### 3.2 会话列表
 `GET /api/miniapp/conversations`
@@ -114,6 +120,7 @@
 5. 越权（非会话方发消息/读消息）被拒。✅
 6. 轮询 `updatedAfter` 能拿到增量会话/未读。✅
 7. curl 直测上述校验同样生效（后端唯一兜底）。✅
+8. 无订单按 `by-feeder` 进入会话（`orderId` 为空），同一对 owner/feeder 不重复创建。✅
 
 ---
 
@@ -121,7 +128,7 @@
 
 - 页面：`pages/chat/list`（会话列表）、`pages/chat/detail`（会话详情）。
 - 组件：`msg-bubble`（气泡）、`chat-input`（输入栏）、`conversation-item`（列表项）。
-- api：`chatApi.conversations()` / `byOrder(orderId)` / `messages(id, cursor)` / `send(data)` / `read(id)`。
-- 入口：① 订单详情页「联系喂养员」按钮（带 `orderId`）；② 首页「消息」入口（带未读红点）。
+- api：`chatApi.conversations()` / `byOrder(orderId)` / `byFeeder(feederId)` / `messages(id, cursor)` / `send(data)` / `read(id)`。
+- 入口：① 订单详情页「联系喂养员」按钮（带 `orderId`）；② 首页「消息」入口（带未读红点）；③ 喂养员列表卡片「💬 沟通」按钮（带 `feederId`，无订单）；④ 喂养员详情页「沟通」按钮（带 `feederId`，无订单）。
 - 视觉：复用全局暖色体系（奶油底 `#FFF8F1`、暖橙 `#F97316`、圆角 token），气泡左=对方白底、右=自己暖橙底。
 - 当前为骨架阶段，待后端按本契约实现并部署后联调。

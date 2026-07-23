@@ -19,8 +19,9 @@ Page({
     const myRole = user.role || 'OWNER'
     const conversationId = options.conversationId || ''
     const orderId = options.orderId || ''
-    this.setData({ myRole, conversationId, orderId })
-    if (!orderId && !conversationId) {
+    const feederId = options.feederId || ''
+    this.setData({ myRole, conversationId, orderId, feederId })
+    if (!orderId && !conversationId && !feederId) {
       wx.showToast({ title: '缺少会话参数', icon: 'none' })
       return
     }
@@ -43,9 +44,11 @@ Page({
   },
 
   loadPeerThenMessages() {
-    const needConv = !this.data.conversationId && this.data.orderId
+    const needConv = !this.data.conversationId && (this.data.orderId || this.data.feederId)
     const step = needConv
-      ? chatApi.byOrder(this.data.orderId)
+      ? (this.data.orderId
+          ? chatApi.byOrder(this.data.orderId)
+          : chatApi.byFeeder(this.data.feederId))
       : Promise.resolve({ data: { id: this.data.conversationId } })
     step.then(res => {
       const c = res.data || {}

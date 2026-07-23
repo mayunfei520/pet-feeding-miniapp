@@ -23,7 +23,10 @@
 
   <view class="action-bar" wx:if="{{showPrimaryAction}}">
     <view class="action-hint">{{actionHint}}</view>
-    <button class="action-btn primary" bindtap="goOrder">{{actionText}}</button>
+    <view class="action-row">
+      <button wx:if="{{showChat}}" class="action-btn ghost" bindtap="goChat">💬 沟通</button>
+      <button class="action-btn primary" bindtap="goOrder">{{actionText}}</button>
+    </view>
   </view>
 
   <view class="section-title">🌟 用户评价 ({{reviews.length}})</view>
