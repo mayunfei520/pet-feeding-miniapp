@@ -12,7 +12,8 @@ Page({
     inputText: '',
     sending: false,
     myRole: 'OWNER',
-    pollTimer: null
+    pollTimer: null,
+    demoMode: false
   },
 
   onLoad(options) {
@@ -60,13 +61,31 @@ Page({
       this.loadMessages()
       this.markRead()
     }).catch(() => {
-      // 后端 IM 未接入时 by-feeder/by-order 返回 404，给出友好提示而非白屏
-      this.setData({
-        loading: false,
-        convError: '沟通功能待后端接入，暂不可用'
-      })
-      this.stopPoll()
+      // 后端 IM 未接入（#9 未合）时 by-feeder/by-order 返回 404：进入本地演示模式，
+      // 让用户在后端就绪前即可完整体验聊天 UI（消息仅本地预览，不会真正发送）
+      this.enterDemo()
     })
+  },
+
+  enterDemo() {
+    const peerName = this.data.peerName || (this.data.myRole === 'OWNER' ? '喂养员' : '宠物主人')
+    if (!this.data.peerName) {
+      this.setData({ peerName })
+      wx.setNavigationBarTitle({ title: peerName })
+    }
+    const t = this.fmtTime(new Date())
+    this.setData({
+      demoMode: true,
+      loading: false,
+      convError: '',
+      messages: [
+        { id: 'demo_1', isMine: false, type: 'TEXT', content: '您好，我是您的专属喂养员～有什么可以帮您？', time: t, status: 'sent', demo: true },
+        { id: 'demo_2', isMine: true, type: 'TEXT', content: '请问这次上门喂养80元能优惠一点吗？', time: t, status: 'sent', demo: true },
+        { id: 'demo_3', isMine: false, type: 'TEXT', content: '70元含猫砂清理哦～确认报价后就能约时间啦', time: t, status: 'sent', demo: true }
+      ]
+    })
+    this.stopPoll()
+    this.scrollBottom()
   },
 
   applyPeer(c) {
@@ -149,6 +168,20 @@ Page({
   send() {
     const text = this.data.inputText.trim()
     if (!text || this.data.sending || !this.data.conversationId) return
+    if (this.data.demoMode) {
+      const msg = {
+        id: 'demo_' + Date.now(),
+        isMine: true,
+        type: 'TEXT',
+        content: text,
+        time: this.fmtTime(new Date()),
+        status: 'sent',
+        demo: true
+      }
+      this.setData({ messages: this.data.messages.concat([msg]), inputText: '' })
+      this.scrollBottom()
+      return
+    }
     const temp = {
       id: 'temp_' + Date.now(),
       isMine: true,

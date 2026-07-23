@@ -50,6 +50,40 @@
   max-width: 480rpx;
 }
 
+/* ===== 演示模式横幅 ===== */
+.demo-banner {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  margin: 16rpx 0 20rpx;
+  padding: 16rpx 20rpx;
+  border-radius: 16rpx;
+  background: #FFF3E8;
+  border: 1rpx solid #FED7AA;
+  font-size: 22rpx;
+  color: #9A3412;
+  line-height: 1.5;
+}
+.demo-banner-icon {
+  flex-shrink: 0;
+  font-size: 26rpx;
+}
+.demo-banner-text {
+  flex: 1;
+}
+
+.msg-demo-tag {
+  font-size: 20rpx;
+  color: #F97316;
+  background: #FFF3E8;
+  border: 1rpx solid #FED7AA;
+  border-radius: 8rpx;
+  padding: 2rpx 10rpx;
+  margin: 0 12rpx;
+  flex-shrink: 0;
+  align-self: center;
+}
+
 /* ===== 消息列表 ===== */
 .msg-list {
   padding-bottom: 150rpx;

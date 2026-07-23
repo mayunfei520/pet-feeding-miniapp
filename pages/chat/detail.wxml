@@ -6,11 +6,32 @@
     <view class="skeleton skeleton-bubble left"></view>
   </view>
 
-  <!-- 消息列表 -->
-  <!-- 后端 IM 未接入时的友好提示（404/功能待上线） -->
+  <!-- 后端 IM 未接入：本地演示模式（消息仅本地预览，不会真正发送） -->
+  <block wx:elif="{{demoMode}}">
+    <view class="demo-banner">
+      <text class="demo-banner-icon">⚠️</text>
+      <text class="demo-banner-text">演示模式 · 后端 IM 尚未接入，以下消息仅本地预览，不会真正发送给对方</text>
+    </view>
+    <view class="msg-list">
+      <view
+        wx:for="{{messages}}"
+        wx:key="id"
+        class="msg-row {{item.isMine ? 'mine' : 'peer'}}"
+      >
+        <view class="msg-bubble {{item.type === 'IMAGE' ? 'img' : ''}}">
+          <text wx:if="{{item.type !== 'IMAGE'}}" class="msg-text">{{item.content}}</text>
+          <image wx:else class="msg-img" src="{{item.content}}" mode="aspectFill" />
+        </view>
+        <view wx:if="{{item.demo}}" class="msg-demo-tag">演示</view>
+      </view>
+      <view class="msg-end"></view>
+    </view>
+  </block>
+
+  <!-- 其他接入错误兜底 -->
   <view wx:elif="{{convError}}" class="chat-unready">
     <view class="unready-icon">💬</view>
-    <view class="unready-title">沟通功能正在接入中</view>
+    <view class="unready-title">沟通功能暂时不可用</view>
     <view class="unready-desc">{{convError}}</view>
   </view>
 
@@ -38,7 +59,7 @@
       bindinput="onInput"
       confirm-type="send"
       bindconfirm="send"
-      placeholder="输入消息…"
+      placeholder="{{demoMode ? '演示模式 · 输入内容不会真正发送' : '输入消息…'}}"
       placeholder-class="chat-input-ph"
     />
     <view class="chat-send-btn {{inputText ? 'active' : ''}}" bindtap="send">发送</view>
