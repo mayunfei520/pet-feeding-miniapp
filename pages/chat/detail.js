@@ -1,4 +1,4 @@
-const { chatApi } = require('../../../utils/api')
+const { chatApi } = require('../../utils/api')
 
 Page({
   data: {

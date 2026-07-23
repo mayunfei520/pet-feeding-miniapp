@@ -13,7 +13,7 @@ Page({
 
   loadList() {
     this.setData({ loading: true })
-    const { chatApi } = require('../../../utils/api')
+    const { chatApi } = require('../../utils/api')
     chatApi.conversations().then(res => {
       const list = (res.data || []).map(c => this.normalize(c))
       this.setData({ conversations: list, loading: false })
