@@ -7,6 +7,13 @@
   </view>
 
   <!-- 消息列表 -->
+  <!-- 后端 IM 未接入时的友好提示（404/功能待上线） -->
+  <view wx:elif="{{convError}}" class="chat-unready">
+    <view class="unready-icon">💬</view>
+    <view class="unready-title">沟通功能正在接入中</view>
+    <view class="unready-desc">{{convError}}</view>
+  </view>
+
   <view wx:else class="msg-list">
     <view
       wx:for="{{messages}}"
@@ -24,7 +31,7 @@
   </view>
 
   <!-- 输入栏 -->
-  <view class="chat-input-bar safe-bottom">
+  <view wx:if="{{!convError}}" class="chat-input-bar safe-bottom">
     <input
       class="chat-input"
       value="{{inputText}}"

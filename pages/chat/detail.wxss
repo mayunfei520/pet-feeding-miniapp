@@ -16,6 +16,40 @@
 .skeleton-bubble.left { margin-right: auto; }
 .skeleton-bubble.right { margin-left: auto; width: 45%; }
 
+/* ===== 后端未接入友好态 ===== */
+.chat-unready {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 48rpx;
+  text-align: center;
+}
+.unready-icon {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: #FFF3E8;
+  color: var(--wf-orange);
+  font-size: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28rpx;
+}
+.unready-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-bottom: 12rpx;
+}
+.unready-desc {
+  font-size: 26rpx;
+  color: #999999;
+  line-height: 1.6;
+  max-width: 480rpx;
+}
+
 /* ===== 消息列表 ===== */
 .msg-list {
   padding-bottom: 150rpx;

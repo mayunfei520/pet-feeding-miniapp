@@ -6,6 +6,7 @@ Page({
     orderId: '',
     peerName: '',
     peerCertified: false,
+    convError: '',
     loading: true,
     messages: [],
     inputText: '',
@@ -59,7 +60,12 @@ Page({
       this.loadMessages()
       this.markRead()
     }).catch(() => {
-      this.loadMessages()
+      // 后端 IM 未接入时 by-feeder/by-order 返回 404，给出友好提示而非白屏
+      this.setData({
+        loading: false,
+        convError: '沟通功能待后端接入，暂不可用'
+      })
+      this.stopPoll()
     })
   },
 
